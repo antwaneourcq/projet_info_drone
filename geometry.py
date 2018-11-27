@@ -1,9 +1,10 @@
 #Module permettant de créer les classes Points, Segments
+import math
 
 class Point:
     def __init__(self,x,y):
         self.x = x  #coordonnée x en mètres 
-        self.y = y  #coordonée y en mètre
+        self.y = y  #coordonée y en mètres
         
     def __repr__(self):
         return str(self.x) + ',' + str(self.y)
@@ -16,18 +17,23 @@ class Point:
         
     #def __rmul__(self, k):
         #return Point(k * self.x, k * self.y)
-    
-    def __abs__(self):
-        abs=((self.x ** 2) + (self.y ** 2)) ** 0.5
-        return abs 
-       
-    def distance(self, other):
-        return abs(self - other)
         
 
-
-class Vecteur: #segment avec un sens 
-    pass 
+class Line: #ligne reliant 2 points
+    def __init__(self,Coords):
+        self.Coords = Coords #liste contenant les coordonnées des 2 points A,B de la ligne
+        
+    def lenght(self):
+        a = self.Coords[0][0] - self.Coords[1][0]
+        b = self.Coords[0][1] - self.Coords[1][1]
+        return math.sqrt(a**2 + b**2) #calcul de la longueur de la ligne entre A et B
+        
+    
+        
+    
+    
+            
+        
     
     
     
