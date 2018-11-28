@@ -1,0 +1,58 @@
+[
+   {
+      "id":"document",
+      "name":"CZML Model",
+      "version":"1.0",
+      "clock":{
+         "interval":"2018-12-06T14:40:00.001Z/2018-12-06T14:45:00.00Z",
+         "currentTime":"2018-12-06T14:40:00.001Z",
+         "multiplier":2
+      }
+   },
+   {
+      "id":"aircraft model",
+      "description":"<h2>Mon A380</h2>",
+      "_availability":"2018-12-06T14:40:00Z/2018-12-06T14:45:00Z",
+      "name":"Cesium Air",
+      "position":{
+         "epoch":"2018-12-06T14:40:00Z",
+         "cartographicDegrees":[
+            0,-70,20,150000,
+            100,-50,30,150000,
+            200,-30,20,150000,
+            300,-10,30,150000
+         ]
+      },
+      "orientation":{
+         "velocityReference":"#position"
+      },
+      "path":{
+         "material":{
+            "polylineOutline":{
+               "color":{
+                  "rgba":[45,245,33,150]
+               },
+               "outlineColor":{
+                  "rgba":[45,245,33,150]
+               },
+               "outlineWidth":3
+            }
+         },
+         "width":3,
+         "leadTime":0,
+         "trailTime":100000,
+         "resolution":5
+      },
+      "point":{
+        "color": {
+          "rgba":[45,245,33,150]
+        },
+        "outlineColor": {
+          "rgba":[0,255,255,255]
+        },
+        "outlineWidth": 2,
+        "pixelSize": 12,
+        "heightReference": "NONE"
+      }
+   }
+]
