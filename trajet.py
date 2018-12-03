@@ -3,10 +3,11 @@ import drones as d
 
 ALTI_CROIS = 200 #en mètres
 
+
 def ordre_priorite_drones(dico, drones): 
 	#prend en argument une liste de drones à trier selon leur vitesse maximale
-	drone.sort(key=d.get_h_speeds(dico, drone)[0] reverse=True) #on trie les drones de l'entrepot le plus proche par ordre décroissant de vitesse maximale en route (tri en place)
-	return drone
+	drones.sort(key = lambda drone : get_h_speeds(dico, drone)[0], reverse = True) #on trie les drones de l'entrepot le plus proche par ordre décroissant de vitesse maximale en route (tri en place)
+	return drones
 
 
 def attribuer_mission(carte):
@@ -50,7 +51,8 @@ def decoupe_trajet(carte):
 		p5=p3
 		p6=p2
 		p7=p1
-		s[i]=(p1,p2,p3,p4,p5,p6,p7,calcul_durée_mission(l[i][2],p1,p4))
+		s[i]=(p1,p2,p3,p4,p5,p6,p7,calcul_duree_mission(l[i][2],p1,p4))
+	return s
 	
 
 
