@@ -18,7 +18,7 @@ class Point:
         
     #def __rmul__(self, k):
         #return Point(k * self.x, k * self.y)
-        
+    
 
 class Line: #ligne reliant 2 points
     def __init__(self,Coords):
