@@ -6,8 +6,8 @@ ALTI_CROIS = 200 #en mètres
 
 def ordre_priorite_drones(dico, drones): 
 	#prend en argument une liste de drones à trier selon leur vitesse maximale
-	drone.sort(key=d.get_h_speeds(dico, drone)[0] reverse=True) #on trie les drones de l'entrepot le plus proche par ordre décroissant de vitesse maximale en route (tri en place)
-	return drone
+	drones.sort(key = lambda drone : get_h_speeds(dico, drone)[0], reverse = True) #on trie les drones de l'entrepot le plus proche par ordre décroissant de vitesse maximale en route (tri en place)
+	return drones
 
 
 def attribuer_mission(carte):
