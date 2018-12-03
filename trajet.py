@@ -28,7 +28,7 @@ def attribuer_mission(dico, carte):
 				e=entrepots[i] 
 				ind=i
 		drone_ord=ordre_priorite_drones(drones[ind][1]) 
-		l.append([cli.x,cli.y],[e.x,e.y],d[0],drone_ord)
+		l.append(cli,e,drone_ord[0],drone_ord)
 	return l 
 	
 def calcul_duree_mission(drone,p1,p4): 
@@ -40,27 +40,28 @@ def calcul_duree_mission(drone,p1,p4):
 	return 2*(ALTI_CROIS/vit_vert)+2*(distance/vit_hori)
 
 
-def decoupe_trajet(carte):
-	#renvoie une liste de tuples de 7 points et une durée dont chaque tuple correspond au trajet découpé de chaque mission de la liste renvoyée par attribuer_mission
-	l=attribuer_mission(carte)
-	nb_missions=len(l)
-	s=[0]*nb_missions
-	for i in range(nb_missions):
-		p1=geometry.Point(l[i][1][0],l[i][1][1],0)  #0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
-		p2=geometry.Point(l[i][1][0],l[i][1][1],ALTI_CROIS)
-		p3=geometry.Point(l[i][0][0],l[i][1][1],ALTI_CROIS)
-		p4=geometry.Point(l[i][0][0],l[i][1][1],0)
-		p5=p3
-		p6=p2
-		p7=p1
-		s[i]=(p1,p2,p3,p4,p5,p6,p7,calcul_duree_mission(l[i][2],p1,p4))
-	return s
+def decoupe_trajet(l):
+	#renvoie un tuple de 7 points et une durée 
+	p1=geometry.Point(l[1].x,l[1].y,0)  #0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
+	p2=geometry.Point(l[1].x,l[1].y,ALTI_CROIS)
+	p3=geometry.Point(l[0].x,l[1].y,ALTI_CROIS)
+	p4=geometry.Point(l[0].x,l[1].y,0)
+	p5=p3
+	p6=p2
+	p7=p1
+	return p1,p2,p3,p4,p5,p6,p7,calcul_duree_mission(l[i][2],p1,p4)
+
 	
 
 
-def liste_mission(mission):
+def liste_mission(dico, carte):
 	#cumulation de attribuer mission et decoupe trajet
-	pass
+	l=attribuer_mission(dico, carte)
+	nb_missions=len(l)
+	s=[0]*nb_missions
+	for i in range(nb_mission):
+		s[i]=decoupe_trajet(l[i])
+	return s
 	
 	
 
