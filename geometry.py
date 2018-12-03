@@ -10,12 +10,7 @@ class Point:
     def __repr__(self):
         return '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) + ')'  # affichage du point à changer si jamais inutile
         
-    def __sub__(self, other):
-        return Point(self.x - other.x , self.y - other.y , self.z - other.z) #soustraction 
-        
-    def __add__(self , other):
-        return Point(self.x + other.x , self.y + other.y , self.z - other.z)
-        
+    
     #def __rmul__(self, k):
         #return Point(k * self.x, k * self.y)
     
@@ -28,7 +23,12 @@ class Real_Point():
     def __repr__(self):
         return '(' + str(self.lat) + ',' + str(self.long) + ',' + str(self.z) + ')'
         
+    def __sub__(self, other):
+        return Real_Point(self.lat - other.lat , self.long - other.long , self.z - other.z) #soustraction 
         
+    def __add__(self , other):
+        return Real_Point(self.lat + other.lat , self.long + other.long , self.z - other.z)
+            
 
 class Line: #ligne reliant 2 points
     def __init__(self,Coords):
