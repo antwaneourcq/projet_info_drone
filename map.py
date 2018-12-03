@@ -13,16 +13,16 @@ def carre_int(carte):
 #je creer l'environnement,
 # environnement = liste de deux intervalles représenté par des tuples et correspond à l'intervalle des abcsisses et des ordonnées
     p = 5/100
-    a,b,c,d = carte[0][0], carte[0][1] , carte[1][0] , carte[1][1]
+    l_x,l_y = C.x-A.x, C.y-A.y
     #je defint les limites de l'espace intérieur pour les clients
-    return a+p*l_x , c-p*l_x , d+p*l_y , b-p*l_y
+    return geo.Point(A.x+p*l_x , A.y+p*l_y ,1500) , geo.Point(C.x-p*l_x , C.y-p*l_ , 1500)
 
 
 
 #coordonées en DD (trouvées sur internet)
 A = geo.Point(43.53 , 1.35 , 1500)
 B = geo.Point(43.67 , 1.35 , 1500)
-C = geo.Point(43.7 , 1.52 , 1500)
+C = geo.Point(43.67 , 1.52 , 1500)
 D = geo.Point(43.53 , 1.52 , 1500)
 
 int_lat = A.x -B.x  #intervalles

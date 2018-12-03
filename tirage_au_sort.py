@@ -30,21 +30,21 @@ def points_utiles(carte):
 
     l_entrepots = []
     l_clients =[]
-    x0,x1,y0,y1 = map.carre_int(carte)
-    a, b, c, d = carte[0][0], carte[0][1], carte[1][0], carte[1][1]
+    A,C = map.carre_int(carte)
+    a, b, c, d = carte[0].x, carte[0].y, carte[1].x, carte[1].y
+    x0,y0,x1,y1 = A.x,A.y,C.x,C.y
 
     carre_ext = [[(x0, c), (y1, b)], [(x1, c), (d, y1)], [(a, x1), (c, y0)], [(a, x0), (y0, b)]]
     for _ in range(nbr_entrepots) :
 
         p = randint(1, 4)
         x,y,z = uniform(carre_ext[p][0]),uniform(carre_ext[p][1]),0
-        Point = geometry.Point()
-        l_entrepots.append(Point)
+        l_entrepots.append(geometry.Point(x,y,z))
 
     for _ in range(nbr_clients):
         x,y,z = uniform(x0,x1) , uniform(y0,y1) , 0
-        Point
-        l_client.append(Point)
+
+        l_client.append(geometry.Point(x,y,z))
 
     return l_entrepots,l_clients
 
