@@ -1,12 +1,11 @@
 import tirage_au_sort
-import drones
+import drones as d
 
 ALTI_CROIS = 200 #en mètres
 
-def ordre_priorité_drones(drone): 
+def ordre_priorite_drones(dico, drones): 
 	#prend en argument une liste de drones à trier selon leur vitesse maximale
-	dico=drones.drones_list(drones.read("aircraft.json"))
-	drone.sort(key=dico[str(dro)]["v_max"],reverse=True) #on trie les drones de l'entrepot le plus proche par ordre décroissant de vitesse maximale en route (tri en place)
+	drone.sort(key=d.get_h_speeds(dico, drone)[0] reverse=True) #on trie les drones de l'entrepot le plus proche par ordre décroissant de vitesse maximale en route (tri en place)
 	return drone
 
 
@@ -25,15 +24,15 @@ def attribuer_mission(carte):
 				distance=sqrt((cli[0]-ent[0])**2+(cli[1]-ent[1])**2)
 				e=entrepots[i] 
 				ind=i
-		d=ordre_priorité_drones(drones[i]) 
+		d=ordre_priorite_drones(drones[ind]) 
 		l.append([cli[0],cli[1]],[e[0],e[1]],d[0],d)
 	return l 
 	
-def calcul_durée_mission(drone,p1,p4): 
+def calcul_duree_mission(drone,p1,p4): 
 	#calcul le temps que met le drone pour faire un aller-retour de p1 à p4
 	dico=drones.drones_list(drones.read("aircraft.json"))
-	vit_vert=dico[str(drone)]["va_max"]
-	vit_hori=dico[str(drone)]["v_max"]
+	vit_vert=d.get_v_speeds(dico, drone)[0]
+	vit_hori=d.get_h_speeds(dico, drone)[0]
 	distance=sqrt((p1[0]-p4[0])**2+(p1[1]-p4[1])**2)
 	return 2*(ALTI_CROIS/vit_vert)+2*(distance/vit_hori)
 

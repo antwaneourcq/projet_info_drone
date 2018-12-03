@@ -1,9 +1,14 @@
 import geometry
+
 import drones
 import map
 
 from random import uniform, randint, choice
 
+
+NMAX_CL = 50 #nombre maximal de clients autorisés
+NMAX_EN = 50 #nombre maximal d'entrepôts autorisés
+#carte est une liste de 2 tuples, donnant le coin supérieur gauche et le coin inférieur droit
 
 
 
@@ -11,10 +16,14 @@ from random import uniform, randint, choice
 
 def points_utiles(carte):
     #renvoie la liste des entrepots et des clients
+
     #uniform genere un nombre réel aléatoire dans l'intervalle donné
     # 50 correspond au nombre maximum de clients ou d'entrepots , choisi arbitrairement
-    nbr_entrepots = randint((5,50))
-    nbr_clients = randint((0,50))
+
+    #uniform génère un nombre réel aléatoire dans l'intervalle donné
+    nbr_entrepots = uniform((5, NMAX_EN))
+    nbr_clients = uniform((0, NMAX_CL))
+
     l_entrepots = []
     l_clients =[]
     x0,x1,y0,y1 = map.carre_int(carte)
