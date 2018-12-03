@@ -19,6 +19,16 @@ class Point:
     #def __rmul__(self, k):
         #return Point(k * self.x, k * self.y)
     
+class Real_Point():
+    def __init__(self, lat,long,z):
+        self.lat = lat
+        self.long = long
+        self.z = z
+        
+    def __repr__(self):
+        return '(' + str(self.lat) + ',' + str(self.long) + ',' + str(self.z) + ')'
+        
+        
 
 class Line: #ligne reliant 2 points
     def __init__(self,Coords):
