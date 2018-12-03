@@ -11,7 +11,7 @@ C = geo.Point(43.7 , 1.52 , 1500)
 D = geo.Point(43.53 , 1.52 , 1500)
 
 int_lat = A.x -B.x  #intervalles
-int_long = A.y - C.y
+int_long = A.y - C.x
 
 
 def conversion_m_deg(P):  #convertir des coordonées x,y en DD
