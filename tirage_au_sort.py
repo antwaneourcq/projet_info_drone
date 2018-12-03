@@ -22,7 +22,7 @@ def points_utiles(carte):
 
     je decoupe le contour en quatre espace , 1=espace superieur , 2= espace droit , 3= espace inferieur , 4= espace gauche
 
-    carre_ext renvoie la list de l'intervalle des abcisse et de l'intervalle des ordonnées pour chaque espace 1,2,3,4
+    carre_ext est la list de l'intervalle des abcisses et de l'intervalle des ordonnées pour chaque espace 1,2,3,4
 
     p est assimilé à l'un de ces espaces alétoirement'''
     nbr_entrepots = uniform((5, NMAX_EN))
@@ -32,18 +32,14 @@ def points_utiles(carte):
     l_clients =[]
     A,C = map.carre_int(carte)
     a, b, c, d = carte[0].x, carte[0].y, carte[1].x, carte[1].y
-    x0,y0,x1,y1 = A.x,A.y,C.x,C.y
-
-    carre_ext = [[(x0, c), (y1, b)], [(x1, c), (d, y1)], [(a, x1), (c, y0)], [(a, x0), (y0, b)]]
+    carre_ext = [[(A.x , c),(C.y , d)] , [(C.x , c),(b , C.y)] , [(a , C.x),(b , A.y)] , [(a , A.x),(A.y, d)]]
     for _ in range(nbr_entrepots) :
-
         p = randint(1, 4)
         x,y,z = uniform(carre_ext[p][0]),uniform(carre_ext[p][1]),0
         l_entrepots.append(geometry.Point(x,y,z))
 
     for _ in range(nbr_clients):
-        x,y,z = uniform(x0,x1) , uniform(y0,y1) , 0
-
+        x,y,z = uniform(A.x,C.y) , uniform(A.y,C.y) , 0
         l_client.append(geometry.Point(x,y,z))
 
     return l_entrepots,l_clients
@@ -52,15 +48,16 @@ def points_utiles(carte):
 def drones_utiles(dictionnary0,carte):
     '''renvoie un dictionnaire assimilaant entre 1 et 10 drones à un entrepot'''
     l_entrepots = points_utiles(carte)[0]
+    l_drones_entrepots = []
 
-    for entrepots in points_utiles(carte)[0]:
+    for entrepots in l_entrepots:
         drones=[]
         p=randint(1,10)
         for i in range (p) :
             drones.append(random.choice(drones.drones_list(dictionnary0)))
-        dico[entrepots] = drones
+        l_drones_entrepots.append(entrepots,drones)
 
-    return dico
+    return l_drones_entrepots
 
 
 
