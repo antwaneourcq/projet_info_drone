@@ -3,28 +3,41 @@ import json
 def read(file):
     '''reading the file by using json method'''
     with open(file) as f:
-        dictionary0 = json.load(f)
-    return dictionary0
+        dico = json.load(f)
+    del dico["__comment"] ##1er dictionnaire __comment explicatif inutile pour la suite
+    return dico
     
-def drones_list(dictionary0):
-    '''create the list of key in the dictionary0 to access to drone caracteristics'''
-    drones = []
-    for i, key in enumerate(dictionary0):
-        if i: drones.append(key) #or key != '__comment'
-    return drones
-
-def get_h_speeds(dico, drone):
-    '''return the maximum and the minimal horizontal speed of the drone'''
-    return dico[str(drone)]['envelop']['v_max'], dico[str(drone)]['envelop']['v_min']
-
-def get_v_speeds(dico, drone):
-    '''return the maximum and the minimal vertical speed of the drone'''
-    return dico[str(drone)]['envelop']['vs_max'], dico[str(drone)]['envelop']['vs_min'] 
-
-
-### test
-dico = read("aircraft.json")
-drones = drones_list(dico)
-
-for drone in drones:
-    print(drone, ':', get_h_speeds(dico, drone), get_v_speeds(dico, drone))
+class Drone():
+    
+    def __init__(self, key, coord, serial_number):
+        '''"key" of the main dictionary, "coord" : Point from geometry, "available" if in a warehouse, "serial number" defined as str ex "_00"'''
+        self.model =  key
+        self.h_speed_max = dico[key]['envelop']['v_max']
+        self.h_speed_min = dico[key]['envelop']['v_min']
+        self.v_speed_max = dico[key]['envelop']['vs_max']
+        self.v_speed_min = dico[key]['envelop']['vs_min']
+        self.h_max = dico[key]['envelop']['h_max']
+        self.range = dico[key]['envelop']['d_range_max']
+        self.current_position = coord
+        self.available = True 
+        self.name = key + serial_number
+        
+    def __repr__(self):
+        return str(self.name) + ' ; ' + str(self.current_position) + ' ; ' + str(self.available)
+    
+        
+def test():
+    dico = read("aircraft.json")
+    drones_model = dico.keys()
+    print(drones_model) #probleme avec dict_keys([...])
+    drones_model0 = []
+    for key in dico.keys():
+        drones_model0.append(key)
+    print(drones_model0)
+    first_drone = Drone(drones_model0[0], (5, 2, 0, 0), '_01')
+    print(first_drone)
+    #for i in range(len(drones_model)):
+        
+    
+#test()
+    
