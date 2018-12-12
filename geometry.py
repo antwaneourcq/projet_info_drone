@@ -1,7 +1,7 @@
 #Module permettant de créer les classes Points, Segments
 import math
 
-class Point:
+class Point():
     def __init__(self,x,y,z):
         self.x = x  #coordonnée x en mètres 
         self.y = y  #coordonée y en mètres
@@ -14,6 +14,16 @@ class Point:
     #def __rmul__(self, k):
         #return Point(k * self.x, k * self.y)
     
+class Timed_Point(Point):
+    def __init__(self, Point, t):
+        super(__init__(self, x, y, z))
+        self.t = t
+        
+    def __repr__(self):
+        return '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) + ',' + str(self.t) + ')'
+    
+#print(Timed_Point(0,2,3,78))
+
 class Real_Point():
     def __init__(self, lat,long,z):
         self.lat = lat
