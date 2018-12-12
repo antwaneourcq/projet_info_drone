@@ -1,21 +1,21 @@
+
 import geometry
+import mappy
 
 import drones
 import numpy as np
 dico = drones.read("aircraft.json")
+
 import random
 from random import uniform, randint, choice
+import matplotlib.pyplot as plt
+
 
 
 NMAX_CL = 50 #nombre maximal de clients autorisés
 NMAX_EN = 50 #nombre maximal d'entrepôts autorisés
 #carte est une liste de 2 points, donnant le coin inférieur gauche et le coin supérieur droit
 
-
-def bordure (p,carte):
-    '''renvoie true si le point appartient à la bordure'''
-    l_x , l_y = carte[1].x -  carte[0].x , carte[1].y -  carte[0].y
-    return 0 < p.x < 0.1*l_x or 0.9*l_x < p.x < l_x or 0 < p.y < 0.1*l_y or 0.9*l_y < p.y < l_y
 
 
 
@@ -25,32 +25,47 @@ def points_utiles(carte):
     uniform genere un nombre réel aléatoire dans l'intervalle donné
     je decoupe le contour en quatre espace , 1=espace superieur , 2= espace droit , 3= espace inferieur , 4= espace gauche
 
+
     p est assimilé à l'un de ces espaces alétoirement'''
+
     nbr_entrepots , nbr_clients = random.randint(5, NMAX_EN) , random.randint(0, NMAX_CL)
-    l_x, l_y = carte[1].x - carte[0].x, carte[1].y - carte[0].y
+    A_ext, C_ext = mappy.conversion_deg_m(carte[0]) , mappy.conversion_deg_m(carte[1])
     l_entrepots, l_clients = [] , []
-    while len(l_entrepots)!= nbr_entrepots :
-        p = geometry.Point(random.uniform(0,l_x), random.uniform(0,l_y),0)
-        if bordure(p,carte) :
-            l_entrepots.append(p)
-        elif len(l_clients) < nbr_clients :
-            l_clients.append(p)
-    while len(l_clients) != nbr_clients :
-        p = geometry.Point(random.uniform(0,l_x), random.uniform(0,l_y), 0)
-        if not bordure(p, carte) :
-            l_clients.append(p)
-    return [l_entrepots , l_clients]
+    A_int, C_int = mappy.carre_int(carte)
+    print('int', A_int, C_int, '\n')
+    print('ext', A_ext, C_ext, '\n')
 
+    carre_ext = [[(A_ext.x , A_int.x),(A_ext.y , C_int.y)] , [(A_ext.x , C_int.x),( C_int.y, C_ext.y)] , [( C_int.x, C_ext.x),(A_int.y , C_ext.y)] , [(A_int.x , C_ext.x),(A_ext.x, A_int.x)]]
+    for _ in range(nbr_entrepots) :
+        p = randint(0, 3)
+        x,y,z = random.uniform(carre_ext[p][0][0],carre_ext[p][0][1]),random.uniform(carre_ext[p][1][0],carre_ext[p][1][1]),0
+        l_entrepots.append(geometry.Point(x,y,z))
+    for _ in range(nbr_clients):
+        l_clients.append(geometry.Point(random.uniform(A_int.x,C_int.x) ,random.uniform(A_int.y,C_int.y) , 0))
+    return l_entrepots,l_clients , carre_ext
 
+ 
+    
 
-
-
-
-
+carte = (mappy.A, mappy.C)
+l_entrepots, l_clients, carre_ext =points_utiles(carte)
+print(l_entrepots)
+print(l_clients)
+print(carre_ext)
+x_entrepots,y_entrepots , x_clients, y_clients =[],[] , [],[]
+for i in range(len(l_entrepots)):
+    x_entrepots.append(l_entrepots[i].x)
+    y_entrepots.append(l_entrepots[i].y)
+for i in range(len(l_clients)):
+    x_clients.append(l_clients[i].x)
+    y_clients.append(l_clients[i].y)
+plt.plot(x_entrepots,y_entrepots, 'x')
+plt.plot(x_clients,y_clients , 'x')
+plt.show()
 
 
 '''def drones_utiles(dictionnary0,carte):
-    renvoie un dictionnaire assimilaant entre 1 et 10 drones à un entrepot
+    renvoie un dictionnaire assimilant entre 1 et 10 drones à un entrepot
     l_entrepots = points_utiles(carte)[0]
     l_drones_entrepots = {}
 
@@ -66,18 +81,11 @@ def points_utiles(carte):
     return l_drones_entrepots'''
 
 
-import matplotlib.pyplot as plt
-carte = (geometry.Point(0,0,0),geometry.Point(10,10,0))
-print(points_utiles(carte)[0])
-entrepots_x , entrepots_y = np.array([Point.x for Point in points_utiles(carte)[0]]) , np.array([Point.y for Point in points_utiles(carte)[0]])
-clients_x , clients_y = np.array([Point.x for Point in points_utiles(carte)[1]]) , np.array([Point.y for Point in points_utiles(carte)[1]])
 
-plt.plot(entrepots_x,entrepots_y)
-l=plt.plot(clients_x , clients_y)
-plt.setp(l,markersize = 10)
-plt.setp(l,markerfacecolor='C0')
 
-plt.show()
+
+
+
 
 
 
