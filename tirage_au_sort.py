@@ -2,9 +2,9 @@
 import geometry
 import mappy
 
-import drones
+
 import numpy as np
-dico = drones.read("aircraft.json")
+
 
 import random
 from random import uniform, randint, choice
