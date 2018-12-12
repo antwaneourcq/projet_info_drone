@@ -1,29 +1,8 @@
-<<<<<<< HEAD
-
-import geometry
-import mappy
-
-
-import numpy as np
-
-
-=======
 import geometry as geo, lecture_drones as lect_dr, mappy
->>>>>>> 3c03f6edb151d3f661f396b38314d0d13d26268d
 import random
 from random import uniform, randint, choice
 import matplotlib.pyplot as plt
 
-<<<<<<< HEAD
-
-
-NMAX_CL = 50 #nombre maximal de clients autorisés
-NMAX_EN = 50 #nombre maximal d'entrepôts autorisés
-#carte est une liste de 2 points, donnant le coin inférieur gauche et le coin supérieur droit
-
-
-
-=======
 dico = lect_dr.read("aircraft.json")
 
 NMAX_CL = 50 #nombre maximal de clients autorisés
@@ -39,17 +18,11 @@ class Entrepot(geo.Point):
 def points_utiles(carte):
     '''renvoie la liste des entrepôts et des clients
     uniform génère un nombre réel aléatoire dans l'intervalle donné
->>>>>>> 3c03f6edb151d3f661f396b38314d0d13d26268d
 
-
-def points_utiles(carte):
-    '''renvoie la liste des entrepots et des clients
-    uniform genere un nombre réel aléatoire dans l'intervalle donné
     je decoupe le contour en quatre espace , 1=espace superieur , 2= espace droit , 3= espace inferieur , 4= espace gauche
 
 
     p est assimilé à l'un de ces espaces alétoirement'''
-<<<<<<< HEAD
 
     nbr_entrepots , nbr_clients = random.randint(5, NMAX_EN) , random.randint(0, NMAX_CL)
     A_ext, C_ext = mappy.conversion_deg_m(carte[0]) , mappy.conversion_deg_m(carte[1])
@@ -67,27 +40,7 @@ def points_utiles(carte):
         l_clients.append(geometry.Point(random.uniform(A_int.x,C_int.x) ,random.uniform(A_int.y,C_int.y) , 0))
     return l_entrepots,l_clients , carre_ext
 
- 
-    
-
-carte = (mappy.A, mappy.C)
-l_entrepots, l_clients, carre_ext =points_utiles(carte)
-print(l_entrepots)
-print(l_clients)
-print(carre_ext)
-x_entrepots,y_entrepots , x_clients, y_clients =[],[] , [],[]
-for i in range(len(l_entrepots)):
-    x_entrepots.append(l_entrepots[i].x)
-    y_entrepots.append(l_entrepots[i].y)
-for i in range(len(l_clients)):
-    x_clients.append(l_clients[i].x)
-    y_clients.append(l_clients[i].y)
-plt.plot(x_entrepots,y_entrepots, 'x')
-plt.plot(x_clients,y_clients , 'x')
-plt.show()
-
-=======
-    
+    '''
     nbr_entrepots = uniform(5, NMAX_EN)
     nbr_clients = uniform(0, NMAX_CL)
 
@@ -125,7 +78,23 @@ plt.show()
         print('ext', A_ext, C_ext, '\n')
         carre_ext = [[]]
         return A_int, C_int, [[(A_int.x , C_ext.x),(C_int.y , C_ext.y)] , [(C_int.x , C_ext.x),(A_ext.y , C_int.y)] , [(A_ext.x , C_int.x),(A_ext.y , A_int.y)] , [(A_ext.x , A_int.x),(A_int.y, C_ext.y)]]
- 
+    '''
+
+carte = (mappy.A, mappy.C)
+l_entrepots, l_clients, carre_ext =points_utiles(carte)
+print(l_entrepots)
+print(l_clients)
+print(carre_ext)
+x_entrepots,y_entrepots , x_clients, y_clients =[],[] , [],[]
+for i in range(len(l_entrepots)):
+    x_entrepots.append(l_entrepots[i].x)
+    y_entrepots.append(l_entrepots[i].y)
+for i in range(len(l_clients)):
+    x_clients.append(l_clients[i].x)
+    y_clients.append(l_clients[i].y)
+plt.plot(x_entrepots,y_entrepots, 'x')
+plt.plot(x_clients,y_clients , 'x')
+plt.show()
     
 '''a revoir
 carte = (geo.Point(0,0,1500), geo.Point(10,10,1500))
@@ -138,7 +107,7 @@ for i in range(len(carre_ext)):
 #plt.plot(x,y,'x')
 plt.plot([A.x,C.x,C.x,A.x],[A.y,A.y,C.y,C.y],'x')
 '''
->>>>>>> 3c03f6edb151d3f661f396b38314d0d13d26268d
+
 
 '''def drones_utiles(dictionnary0,carte):
     renvoie un dictionnaire assimilant entre 1 et 10 drones à un entrepot
