@@ -25,7 +25,12 @@ class Drone():
     def __repr__(self):
         return str(self.name) + ' ; ' + str(self.current_position) + ' ; ' + str(self.available)
     
-        
+def listmodels(dico):
+    models = []
+    for key in dico.keys():
+        models.append(key)
+    return models
+
 def test():
     dico = read("aircraft.json")
     drones_model = dico.keys()
@@ -38,6 +43,4 @@ def test():
     print(first_drone)
     #for i in range(len(drones_model)):
         
-    
-#test()
     
