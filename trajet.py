@@ -1,5 +1,5 @@
 import tirage_au_sort
-import drones as d
+import lecture_drones as d
 import geometry
 
 ALTI_CROIS = 200 #en mètres
@@ -62,6 +62,8 @@ def liste_mission(dico, carte):
 	for i in range(nb_mission):
 		s[i]=decoupe_trajet(l[i])
 	return s
+
+
 	
 	
 
