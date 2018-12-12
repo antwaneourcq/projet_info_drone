@@ -19,12 +19,14 @@ def get_h_speeds(dico, drone):
 
 def get_v_speeds(dico, drone):
     '''return the maximum and the minimal vertical speed of the drone'''
-    return dico[str(drone)]['envelop']['vs_max'], dico[str(drone)]['envelop']['vs_min'] 
+    return dico[str(drone)]['envelop']['vs_max'], dico[str(drone)]['envelop']['vs_min']
+def drones_fonctionnels( dico, carte) :
+    d ={}
 
 
 ### test
-dico = read("aircraft.json")
+'''dico = read("aircraft.json")
 drones = drones_list(dico)
 
 for drone in drones:
-    print(drone, ':', get_h_speeds(dico, drone), get_v_speeds(dico, drone))
+print(drone, ':', get_h_speeds(dico, drone), get_v_speeds(dico, drone))'''

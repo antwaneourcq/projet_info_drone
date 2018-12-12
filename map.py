@@ -3,7 +3,7 @@
 
 import geometry as geo
 import math
-
+BORD = 0.05
 
 #coordonées en DD (trouvées sur internet)
 A = geo.Real_Point(43.53 , 1.35 , 1500)
@@ -29,13 +29,13 @@ def verif_map(P):
 
 #carte est une liste de 2 tuples, donnant le coin supérieur gauche et le coin inférieur droit
 
-def carre_int(carte):
+def carre(carte):
 #je creer l'environnement,
 # environnement = liste de deux intervalles représenté par des tuples et correspond à l'intervalle des abcsisses et des ordonnées
     p = 5/100
     C_map = conversion_deg_m(C)
     A_origin = geo.Point(0,0,Z_alt)
-    l_x,l_y = C.x-A.x, C.y-A.y
+    l_x,l_y = C.x-AZ_alt).x, C.y-A.y
     #je definis les limites de l'espace intérieur pour les clients
     return geo.Point(A.x+p*l_x , A.y+p*l_y ,Z_alt) , geo.Point(C.x-p*l_x , C.y-p*l_ , Z_alt)
 
@@ -58,4 +58,4 @@ def conversion_deg_m(P):
     x_long = abs(P.long - A.long)
     y_m = y_lat *1852 *60
     x_m = x_long *1852 *60 *math.cos(A.lat)
-    return geo.Point(x_m, y_m, z)
+    return geo.Point(x_m, y_m, P.z)
