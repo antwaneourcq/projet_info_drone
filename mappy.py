@@ -15,15 +15,14 @@ Z_ALT = 1500
 
 
 def verif_map(P):
-    #pas d'influence du A puisuq ec'est le point nul
+    #pas d'influence du A puisque c'est le point nul
     C_map = conversion_deg_m(C)
     return P.x <= C_map.x and P.y <= C_map.y  and P.x >= 0 and P.y >= 0
 
 
 
 def carre_int(A_map,C_map):
-#je crée l'environnement,
-#environnement = liste de deux intervalles représenté par des tuples et correspond à l'intervalle des abcsisses et des ordonnées
+    #environnement = liste de deux intervalles représenté par des tuples et correspond à l'intervalle des abcsisses et des ordonnées
     p = 5/100
     '''je definis les limites de l'espace intérieur pour les clients'''
     dx, dy = p * (C_map.x), p * (C_map.y)
