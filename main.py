@@ -1,6 +1,7 @@
 import geometry as geo
 import lecture_drones as lect_dr
 import mappy
+import tirage_au_sort as tas
 import matplotlib.pyplot as plt
 import trajet 
 
@@ -10,9 +11,9 @@ FILE = "aircraft.json"
 
 def main():
     dico = lect_dr.read(FILE)
-    list_models = lect_dr.listmodels(dico)
+    models = lect_dr.listmodels(dico)
     carte = (mappy.A, mappy.C)
-    l_entrepots, l_clients, carre_ext = points_utiles(carte)
+    l_entrepots, l_clients, carre_ext = tas.points_utiles(carte)
     x_entrepots,y_entrepots , x_clients, y_clients =[],[] , [],[]
     for i in range(len(l_entrepots)):
         x_entrepots.append(l_entrepots[i].x)
@@ -23,5 +24,6 @@ def main():
     plt.plot(x_entrepots,y_entrepots, '.')
     plt.plot(x_clients,y_clients, '.')
     plt.show()
-    print(drones_utiles(dico, l_entrepots))
+    print(tas.drones_utiles(dico, l_entrepots))
 
+main()

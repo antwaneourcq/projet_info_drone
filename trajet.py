@@ -77,4 +77,4 @@ def test():
     print(models)
     model_prio = ordre_priorite_drones(models)
     print(model_prio)
-test()
+#test()
