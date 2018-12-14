@@ -4,15 +4,18 @@ from random import uniform, randint, choice
 import matplotlib.pyplot as plt
 
 dico = lect_dr.read("aircraft.json")
+model = lect_dr.listmodels(dico)
 
 NMAX_CL = 50 #nombre maximal de clients autorisés
-NMAX_EN = 50 #nombre maximal d'entrepôts autorisés
+NMAX_EN = 10 #nombre maximal d'entrepôts autorisés
 #carte est une liste de 2 tuples, donnant le coin supérieur gauche et le coin inférieur droit
 class Entrepot(geo.Point):
     
-    def __init__(self, x, y, z=0):
+    def __init__(self, x, y, z, models):
         super().__init__(x, y, z)
-        self.drones = []
+        self.drones = {}
+        for model in models:
+            self.drones[str(model)] = 0
     
     def __repr__(self):
         return '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) +')\n' + 'drones : ' +str(self.drones)
@@ -27,70 +30,42 @@ def points_utiles(carte):
     A_ext, C_ext = mappy.conversion_deg_m(carte[0]) , mappy.conversion_deg_m(carte[1])
     l_entrepots, l_clients = [] , []
     A_int, C_int = mappy.carre_int(A_ext, C_ext)
-    print('int', A_int, C_int, '\n')
-    print('ext', A_ext, C_ext, '\n')
-
     carre_ext = [[(A_ext.x , A_int.x),(A_ext.y , C_int.y)] , [(A_ext.x , C_int.x),( C_int.y, C_ext.y)] , [( C_int.x, C_ext.x),(A_int.y , C_ext.y)] , [(A_int.x , C_ext.x),(A_ext.x, A_int.x)]]
     for _ in range(nbr_entrepots) :
         p = randint(0, 3)
         x,y = random.uniform(carre_ext[p][0][0],carre_ext[p][0][1]),random.uniform(carre_ext[p][1][0],carre_ext[p][1][1])
-        l_entrepots.append(Entrepot(x,y))
+        l_entrepots.append(Entrepot(x, y, 0, model))
     for _ in range(nbr_clients):
-        l_clients.append(geometry.Point(random.uniform(A_int.x,C_int.x) ,random.uniform(A_int.y,C_int.y) , 0))
+        l_clients.append(geo.Point(random.uniform(A_int.x,C_int.x) ,random.uniform(A_int.y,C_int.y) , 0))
     return l_entrepots,l_clients , carre_ext
 
+def drones_utiles(dico, entrepots):
+    '''renvoie un dictionnaire assimilant entre 1 et 10 drones à un entrepot'''
+    models = lect_dr.listmodels(dico)
 
-
-#
-#carte = (mappy.A, mappy.C)
-#l_entrepots, l_clients, carre_ext = points_utiles(carte)
-#print(l_entrepots)
-#print(l_clients)
-#print(carre_ext)
-#x_entrepots,y_entrepots , x_clients, y_clients =[],[] , [],[]
-#for i in range(len(l_entrepots)):
-#    x_entrepots.append(l_entrepots[i].x)
-#    y_entrepots.append(l_entrepots[i].y)
-#for i in range(len(l_clients)):
-#    x_clients.append(l_clients[i].x)
-#    y_clients.append(l_clients[i].y)
-#plt.plot(x_entrepots,y_entrepots, 'x')
-#plt.plot(x_clients,y_clients , 'x')
-#plt.show()
-    
-'''a revoir
-carte = (geo.Point(0,0,1500), geo.Point(10,10,1500))
-A, C, carre_ext =points_utiles(carte)
-print(carre_ext)
-x,y =[],[]
-for i in range(len(carre_ext)):
-    x.append(carre_ext[i][0])
-    y.append(carre_ext[i][1])
-#plt.plot(x,y,'x')
-plt.plot([A.x,C.x,C.x,A.x],[A.y,A.y,C.y,C.y],'x')
-'''
-
-
-'''def drones_utiles(dictionnary0,carte):
-    renvoie un dictionnaire assimilant entre 1 et 10 drones à un entrepot
-    l_entrepots = points_utiles(carte)[0]
-    l_drones_entrepots = {}
-
-    for entrepots in l_entrepots:
+    for entrepot in l_entrepots:
         p=randint(1,10)
-        for i in range (p) :
-            drone = random.choice(drones.drones_list(dictionnary0))
-            if not_in_L(drone,drones):
-                drones.append((drone,1))
-            else: 
-                l_drones_entrepots.append(entrepots,drones)
-
-    return l_drones_entrepots'''
+        p = 50
+        for _ in range (p) :
+            drone = random.choice(models)
+            entrepot.drones[str(drone)] += 1
+    return entrepots
 
 
-
-
-
+def test():
+    carte = (mappy.A, mappy.C)
+    l_entrepots, l_clients, carre_ext = points_utiles(carte)
+    x_entrepots,y_entrepots , x_clients, y_clients =[],[] , [],[]
+    for i in range(len(l_entrepots)):
+        x_entrepots.append(l_entrepots[i].x)
+        y_entrepots.append(l_entrepots[i].y)
+    for i in range(len(l_clients)):
+        x_clients.append(l_clients[i].x)
+        y_clients.append(l_clients[i].y)
+    plt.plot(x_entrepots,y_entrepots, '.')
+    plt.plot(x_clients,y_clients, '.')
+    plt.show()
+    print(drones_utiles(dico, l_entrepots))
 
 
 
