@@ -1,4 +1,7 @@
 import json
+import geometry as geo
+
+
 
 def read(file):
     '''reading the file by using json method'''
@@ -6,10 +9,11 @@ def read(file):
         dico = json.load(f)
     del dico["__comment"] ##1er dictionnaire __comment explicatif inutile pour la suite
     return dico
-    
+dico=read('aircraft.json')
+
 class Drone():
     
-    def __init__(self, key, coord, serial_number):
+    def __init__(self, key, coord, serial_number='serial_number'):
         '''"key" of the main dictionary, "coord" : Point from geometry, "available" if in a warehouse, "serial number" defined as str ex "_00"'''
         self.model =  key
         self.h_speed_max = dico[key]['envelop']['v_max']
@@ -17,18 +21,19 @@ class Drone():
         self.v_speed_max = dico[key]['envelop']['vs_max']
         self.v_speed_min = dico[key]['envelop']['vs_min']
         self.h_max = dico[key]['envelop']['h_max']
-        self.range = dico[key]['envelop']['d_range_max']
+        self.range = dico[key]['envelop']['d_range_max'] *1000 # km-> m
         self.current_position = coord
         self.available = True 
-        self.name = key + serial_number
+        #self.name = key + serial_number
         
     def __repr__(self):
-        return str(self.name) + ' ; ' + str(self.current_position) + ' ; ' + str(self.available)
+        return str(self.model) #+ ' ; ' + str(self.current_position) + ' ; ' + str(self.available)
     
 def listmodels(dico):
     models = []
     for key in dico.keys():
-        models.append(key)
+        models.append(Drone(key, geo.Point(float('inf'),float('inf'),0)))
+        
     return models
 
 def test():
