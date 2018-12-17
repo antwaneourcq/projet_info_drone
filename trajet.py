@@ -34,7 +34,7 @@ def capacite_drone(entrepot, client):
 
 
 def attribuer_mission(entrepots, clients):
-    # renvoie une liste de tuple de la forme (client, entrepot le plus proche, drone choisi pour effectuer la mission)
+    # renvoie une liste de tuple de la forme (client, entrepot de départ, entrepot d'arrivée,  drone choisi pour effectuer la mission)
     # entrepots,clients=tas.points_utiles(carte)    pas besoin de demander la carte travail du main
     nb_entrepots = len(entrepots)
     missions = []
@@ -43,8 +43,7 @@ def attribuer_mission(entrepots, clients):
         e = entrepots[0]
         ind = 0
         for i in range(nb_entrepots):
-            if math.sqrt((cli.x - entrepots[i].x) ** 2 + (
-                    cli.y - entrepots[i].y) ** 2) < distance:  # calcule l'entrepot le plus proche du client cli
+            if math.sqrt((cli.x - entrepots[i].x) ** 2 + (cli.y - entrepots[i].y) ** 2) < distance:  # calcule l'entrepot le plus proche du client cli
                 distance = math.sqrt((cli.x - entrepots[i].x) ** 2 + (cli.y - entrepots[i].y) ** 2)
                 e = entrepots[i]
                 ind = i
@@ -66,8 +65,7 @@ def calcul_duree_mission(drone, p1, p4):
 def decoupe_trajet(mission):
     # renvoie un tuple de 4 points et une durée
     arr, dep, drone = mission[0], mission[1], mission[2]
-    p1 = geo.Point(dep.x, dep.y,
-                   0)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
+    p1 = geo.Point(dep.x, dep.y,0)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
     p2 = geo.Point(dep.x, dep.y, ALTI_CROIS)
     p3 = geo.Point(arr.x, arr.y, ALTI_CROIS)
     p4 = geo.Point(arr.x, arr.y, 0)

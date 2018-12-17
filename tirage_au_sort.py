@@ -1,10 +1,11 @@
 
-
+import trajet
 import geometry as geo, lecture_drones as lect_dr, mappy
 import numpy as np
 import random
 from random import uniform, randint, choice
 import matplotlib.pyplot as plt
+
 
 
 dico = lect_dr.read("aircraft.json")
@@ -38,7 +39,7 @@ class Entrepot(geo.Point):
     #    '''met à jour le dictionnaire de "drones_effectifs" par rapport aux données du dictionnaire "drones"'''
     #    for model in self.models:
     #        pass
-        
+
         
 def points_utiles(carte):
     '''renvoie la liste des entrepôts et des clients
@@ -49,7 +50,7 @@ def points_utiles(carte):
 
     nbr_entrepots , nbr_clients = random.randint(5, NMAX_EN) , random.randint(0, NMAX_CL)
     A_ext, C_ext = mappy.conversion_deg_m(carte[0]) , mappy.conversion_deg_m(carte[1])
-    l_entrepots, l_clients = [] , []
+    l_entrepots, l_missions = [] , []
     A_int, C_int = mappy.carre_int(A_ext, C_ext)
     carre_ext = [[(A_ext.x , A_int.x),(A_ext.y , C_int.y)] , [(A_ext.x , C_int.x),( C_int.y, C_ext.y)] , [( C_int.x, C_ext.x),(A_int.y , C_ext.y)] , [(A_int.x , C_ext.x),(A_ext.x, A_int.x)]]
     for _ in range(nbr_entrepots) :
@@ -59,7 +60,10 @@ def points_utiles(carte):
         x,y = random.uniform(carre_ext[p][0][0],carre_ext[p][0][1]),random.uniform(carre_ext[p][1][0],carre_ext[p][1][1])
         l_entrepots.append(Entrepot(x, y, 0, MODELS))
     for _ in range(nbr_clients):
-        l_clients.append(geo.Point(random.uniform(A_int.x,C_int.x) ,random.uniform(A_int.y,C_int.y) , 0))
+        client = geo.Point(random.uniform(A_int.x,C_int.x) ,random.uniform(A_int.y,C_int.y) , 0)
+        mission= trajet.mission(client, carte)
+        mission.heure_livr = random.randint(0,24)
+        l_missions.append(trajet.mission.client(random.uniform(A_int.x,C_int.x) ,random.uniform(A_int.y,C_int.y) , 0))
     return l_entrepots,l_clients , carre_ext
 
 
