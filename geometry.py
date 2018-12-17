@@ -23,9 +23,9 @@ class Timed_Point(Point):
 #print(Timed_Point(0,2,3,78))
 
 class Real_Point():
-    def __init__(self, lat,long,z):
-        self.lat = lat
+    def __init__(self, long,lat,z):
         self.long = long
+        self.lat = lat
         self.z = z
         
     def __repr__(self):
