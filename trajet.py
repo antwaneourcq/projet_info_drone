@@ -85,7 +85,7 @@ def liste_mission(dico, carte):
 
 class Mission:
 	
-	def --init--(self,client,carte):
+	def __init__(self,client,carte):
 		self.client = client
 		self.entrepot = attribuer_mission(tas.points_utiles(carte))
 		self.heure_livr = None
