@@ -1,5 +1,3 @@
-
-import tirage_au_sort
 import tirage_au_sort as tas
 from math import sqrt
 import lecture_drones as d
