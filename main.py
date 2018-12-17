@@ -24,10 +24,7 @@ def main():
     plt.plot(x_entrepots,y_entrepots, '.')
     plt.plot(x_clients,y_clients, '.')
     plt.show()
-    print(entrepots)
-    print('avant')
     tas.drones_utiles(dico, entrepots)
-    print(entrepots)
     model_prio = trajet.ordre_priorite_drones(models)
     #(model_prio)
     #for model in model_prio:
@@ -41,17 +38,29 @@ def main():
         print(drone, entrepot0.drones, type(drone))
     print('capacité drone : ',capacite_drone(entrepot0, geo.Point(20,20,20)))
     '''
-    print('\n\nya', entrepots[0], entrepots[0].models)
+    
     missions = trajet.attribuer_mission(entrepots, clients)
-    print('missions : ')
-    mission = missions[0]
+    print('mission : ')
+    mission = missions[0]      #on a choisi une mission
     client = mission[0]
     entrepot = mission[1]
-    print(client, '||||', entrepot)
+    print('coordonnées client :')
+    print(client)
+    print('coordonnées entrepôt :')
+    print(entrepot.x,entrepot.y)
+    print('modèles présents dans entrepôt :')
+    print(entrepot.models)
     p1, p2, p3, p4, dt = trajet.decoupe_trajet(mission)
-    print(p1,p2,p3,p4,dt)
+    print('découpage spatial du trajet :')
+    print(p1,p2,p3,p4)
+    print('durée de la mission :')
+    print(str(dt)+' secondes')
+    print('Toulouse :')
     print(mappy.A, mappy.B, mappy.C, mappy.D)
     dep = mappy.conversion_m_deg(p2)
     arr = mappy.conversion_m_deg(p3)
-    print(dep, arr)
+    print('départ :')
+    print(dep)
+    print('arrivée :')
+    print(arr)
 main()
