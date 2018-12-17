@@ -64,47 +64,6 @@ def points_utiles(carte):
 
 
 
-carte = (mappy.A, mappy.C)
-l_entrepots, l_clients, carre_ext =points_utiles(carte)
-print(l_entrepots)
-print(l_clients)
-print(carre_ext)
-x_entrepots,y_entrepots , x_clients, y_clients =[],[] , [],[]
-for i in range(len(l_entrepots)):
-    x_entrepots.append(l_entrepots[i].x)
-    y_entrepots.append(l_entrepots[i].y)
-for i in range(len(l_clients)):
-    x_clients.append(l_clients[i].x)
-    y_clients.append(l_clients[i].y)
-plt.plot(x_entrepots,y_entrepots, 'x')
-plt.plot(x_clients,y_clients , 'x')
-plt.show()
-
-
-
-
-
-'''def drones_utiles(dictionnary0,carte):
-    renvoie un dictionnaire assimilant entre 1 et 10 drones à un entrepot
-    l_entrepots = points_utiles(carte)[0]
-    l_drones_entrepots = {}
-
-    for entrepots in l_entrepots:
-        p=randint(1,10)
-        for i in range (p) :
-            drone = random.choice(drones.drones_list(dictionnary0))
-            if not_in_L(drone,drones):
-                drones.append((drone,1))
-            else: 
-                l_drones_entrepots.append(entrepots,drones)
-
-    return l_drones_entrepots'''
-
-
-
-
-
-
 def drones_utiles(dico, entrepots):
     '''renvoie un dictionnaire assimilant entre 1 et 10 drones à un entrepot'''
     models = lect_dr.listmodels(dico)
@@ -117,23 +76,6 @@ def drones_utiles(dico, entrepots):
     #return entrepots
 
 
-def test():
-    dico = lect_dr.read("aircraft.json")
-    models = lect_dr.listmodels(dico)
-    carte = (mappy.A, mappy.C)
-    l_entrepots, l_clients, carre_ext = points_utiles(carte)
-    x_entrepots,y_entrepots , x_clients, y_clients =[],[] , [],[]
-    for i in range(len(l_entrepots)):
-        x_entrepots.append(l_entrepots[i].x)
-        y_entrepots.append(l_entrepots[i].y)
-    for i in range(len(l_clients)):
-        x_clients.append(l_clients[i].x)
-        y_clients.append(l_clients[i].y)
-    plt.plot(x_entrepots,y_entrepots, '.')
-    plt.plot(x_clients,y_clients, '.')
-    plt.show()
-    print(drones_utiles(dico, l_entrepots))
-#test()
 
 
 
