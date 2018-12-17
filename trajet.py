@@ -27,7 +27,7 @@ def capacite_drone(entrepot, client):
 
 def attribuer_mission(carte):
 	#renvoie une liste de tuple de la forme (client, entrepot le plus proche, drone choisi pour effectuer la mission)
-	entrepots,clients=tas.points_utiles(carte)
+	entrepots,clients=tas.points_utiles(carte)[0:1]
 	nb_entrepots=len(entrepots)
 	l = []
 	for cli in clients: 
