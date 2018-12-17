@@ -82,3 +82,11 @@ def liste_mission(dico, carte):
 		s[i]=decoupe_trajet(l[i])
 	return s
 
+
+class Mission:
+	
+	def --init--(self,client,carte):
+		self.client = client
+		self.entrepot = attribuer_mission(tas.points_utiles(carte))
+		self.heure_livr = None
+	
