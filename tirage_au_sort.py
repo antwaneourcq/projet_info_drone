@@ -1,18 +1,10 @@
 
-import geometry
-import mappy
-
-
-import numpy as np
-
-
 
 import geometry as geo, lecture_drones as lect_dr, mappy
-
+import numpy as np
 import random
 from random import uniform, randint, choice
 import matplotlib.pyplot as plt
-
 
 
 dico = lect_dr.read("aircraft.json")
@@ -29,6 +21,9 @@ class Entrepot(geo.Point):
     
 def points_utiles(carte):
     '''renvoie la liste des entrepôts et des clients
+
+    uniform génère un nombre réel aléatoire dans l'intervalle donné
+
 
     je decoupe le contour en quatre espace , 1=espace superieur , 2= espace droit , 3= espace inferieur , 4= espace gauche
 
@@ -47,13 +42,12 @@ def points_utiles(carte):
     for _ in range(nbr_entrepots) :
         p = randint(0, 3)
         x,y,z = random.uniform(carre_ext[p][0][0],carre_ext[p][0][1]),random.uniform(carre_ext[p][1][0],carre_ext[p][1][1]),0
-        l_entrepots.append(geometry.Point(x,y,z))
+        l_entrepots.append(geo.Point(x,y,z))
     for _ in range(nbr_clients):
-        l_clients.append(geometry.Point(random.uniform(A_int.x,C_int.x) ,random.uniform(A_int.y,C_int.y) , 0))
+        l_clients.append(geo.Point(random.uniform(A_int.x,C_int.x) ,random.uniform(A_int.y,C_int.y) , 0))
     return l_entrepots,l_clients , carre_ext
 
- 
-    
+
 
 carte = (mappy.A, mappy.C)
 l_entrepots, l_clients, carre_ext =points_utiles(carte)
@@ -70,6 +64,7 @@ for i in range(len(l_clients)):
 plt.plot(x_entrepots,y_entrepots, 'x')
 plt.plot(x_clients,y_clients , 'x')
 plt.show()
+
 
 
 
