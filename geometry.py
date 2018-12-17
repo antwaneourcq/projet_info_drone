@@ -11,8 +11,6 @@ class Point():
         return '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) + ')'  # affichage du point à changer si jamais inutile
         
     
-    #def __rmul__(self, k):
-        #return Point(k * self.x, k * self.y)
     
 class Timed_Point(Point):
     def __init__(self, Point, t):
@@ -31,7 +29,7 @@ class Real_Point():
         self.z = z
         
     def __repr__(self):
-        return '(' + str(self.lat) + ',' + str(self.long) + ',' + str(self.z) + ')'
+        return '(' + str(self.long) + ',' + str(self.lat) + ',' + str(self.z) + ')'
         
     def __sub__(self, other):
         return Real_Point(self.lat - other.lat , self.long - other.long , self.z - other.z) #soustraction 

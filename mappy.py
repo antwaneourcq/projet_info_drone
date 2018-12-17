@@ -6,12 +6,12 @@ import math
 
 
 #coordonées en DD (trouvées sur internet)
-A = geo.Real_Point(43.53 , 1.35 , 1500)
-B = geo.Real_Point(43.67 , 1.35 , 1500)
-C = geo.Real_Point(43.67 , 1.52 , 1500)
-D = geo.Real_Point(43.53 , 1.52 , 1500)
+A = geo.Real_Point(1.35, 43.53, Z_ALT)
+B = geo.Real_Point(1.53, 43.67 ,Z_ALT)
+C = geo.Real_Point(1.52, 43.67, Z_ALT)
+D = geo.Real_Point(1.52, 43.53, Z_ALT)
 
-Z_ALT = 0
+Z_ALT = 1500
 
 
 def verif_map(P):
