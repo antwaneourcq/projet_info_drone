@@ -17,13 +17,11 @@ def calcule_distance(cli,entrepot):
 
 def capacite_drone(entrepot, client):
     # calcule le drone le plus rapide de l'entrepot capable d'aller livrer jusqu'à chez le client
-    distance = math.sqrt((client.x - entrepot.x) ** 2 + (client.y - entrepot.y) ** 2)
-    print(distance)
+    distance = calcule_distance(client,entrepot)
     # drones = entrepot.drones
     vit = 1
     for drone in entrepot.drones:
         dro = lect_dr.Drone(drone, geo.Point(0, 0, 0))
-        print(dro.range)
         if dro.range >= distance:
             if dro.v_speed_max > vit:
                 drone_correct = dro
@@ -59,7 +57,7 @@ def calcul_duree_mission(drone, p1, p4):
     # calcul le temps que met le drone pour faire un aller-retour de p1 à p4
     vit_vert = drone.h_speed_max
     vit_hori = drone.v_speed_max
-    distance = math.sqrt((p1.x - p4.x) ** 2 + (p1.y - p4.y) ** 2)
+    distance = calcule_distance(p1,p4)
     return 2 * (ALTI_CROIS / vit_vert) + 2 * (distance / vit_hori)
 
 

@@ -26,21 +26,11 @@ def main():
     plt.show()
     tas.drones_utiles(dico, entrepots)
     model_prio = trajet.ordre_priorite_drones(models)
-    #(model_prio)
-    #for model in model_prio:
-    #    print(model, model.v_speed_max)
-    '''
-    entrepot0 = tas.Entrepot(0,0,0, models)
-    print(entrepot0)
-    entrepot0.addDrone(lect_dr.Drone('Amzn', geo.Point(entrepot0.x, entrepot0.y, entrepot0.z)))
-    print(entrepot0, '\n Les drones', entrepot0.drones, '\n Amazon Drone', entrepot0.models['Amzn'])
-    for drone in entrepot0.drones:
-        print(drone, entrepot0.drones, type(drone))
-    print('capacité drone : ',capacite_drone(entrepot0, geo.Point(20,20,20)))
-    '''
-    
+
+
+'''AFFICHAGE'''
     missions = trajet.attribuer_mission(entrepots, clients)
-    print('mission : ')
+    print('MISSION')
     mission = missions[0]      #on a choisi une mission
     client = mission[0]
     entrepot = mission[1]
