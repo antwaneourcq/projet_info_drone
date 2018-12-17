@@ -25,29 +25,10 @@ def capacite_drone(entrepot, client):
                 drone_correct = dro
                 vit = dro.v_speed_max 
     try : 
-        #print('CORRECT ', drone_correct)
         return drone_correct       #drone est un objet de la classe Drone du module lecture_drone
     except UnboundLocalError:
         print('AUCUN drone trouvé')
         return None
-
-
-def attribuer_mission(carte):
-	#renvoie une liste de tuple de la forme (client, entrepot le plus proche, drone choisi pour effectuer la mission)
-	entrepots,clients=tas.points_utiles(carte)[0:1]
-	nb_entrepots=len(entrepots)
-	l = []
-	for cli in clients: 
-		distance = sqrt((cli.x-entrepots[0].x)**2+(cli.y-entrepots[0].y)**2)
-		e = entrepots[0]
-		ind = 0
-		for i in range(nb_entrepots):
-			if sqrt((cli.x-entrepots[i].x)**2+(cli.y-entrepots[i].y)**2)<distance: #calcule l'entrepot le plus proche du client cli
-				distance = sqrt((cli.x-entrepots[i].x)**2+(cli.y-entrepots[i].y)**2)
-				e = entrepots[i] 
-				ind = i
-		l.append(cli,e,capacite_drone(e,cli))
-	return l 
 
 
 def attribuer_mission(entrepots, clients):
@@ -67,7 +48,6 @@ def attribuer_mission(entrepots, clients):
         drone_correct = capacite_drone(e, cli)
         if drone_correct != None:
            missions.append((cli, e, drone_correct))
-        #missions.append((cli, e, capacite_drone(e, cli)))
     return missions 
 
 	
