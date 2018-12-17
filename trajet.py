@@ -6,11 +6,13 @@ import math
 ALTI_CROIS = 200  # en mètres
 
 
-def ordre_priorite_drones(drones):
-    # prend en argument une liste de drones à trier selon leur vitesse maximale
-    drones.sort(key=lambda drone: drone.v_speed_max,
-                reverse=True)  # on trie les drones de l'entrepot le plus proche par ordre décroissant de vitesse maximale en route (tri en place)
-    return drones
+def ordre_priorite_drones(drones): 
+	#prend en argument une liste de drones à trier selon leur vitesse maximale
+	drones.sort(key = lambda drone : drone.v_speed_max, reverse = True) #on trie les drones de l'entrepot le plus proche par ordre décroissant de vitesse maximale en route (tri en place)
+	return drones
+	
+def calcule_distance(cli,entrepot):
+	return math.sqrt((cli.x-entrepots.x)**2+(cli.y-entrepots.y)**2)
 
 
 def capacite_drone(entrepot, client):
@@ -29,8 +31,9 @@ def capacite_drone(entrepot, client):
     try:
         return drone_correct  # drone est un objet de la classe Drone du module lecture_drone
     except UnboundLocalError:
-        print('AUCUN drone trouvé')
         return None
+
+
 
 
 def attribuer_mission(entrepots, clients):
@@ -39,15 +42,12 @@ def attribuer_mission(entrepots, clients):
     nb_entrepots = len(entrepots)
     missions = []
     for cli in clients:
-        distance = math.sqrt((cli.x - entrepots[0].x) ** 2 + (cli.y - entrepots[0].y) ** 2)
         e = entrepots[0]
-        ind = 0
+        distance = calcule_distance(cli,e)
         for i in range(nb_entrepots):
-            if math.sqrt((cli.x - entrepots[i].x) ** 2 + (
-                    cli.y - entrepots[i].y) ** 2) < distance:  # calcule l'entrepot le plus proche du client cli
-                distance = math.sqrt((cli.x - entrepots[i].x) ** 2 + (cli.y - entrepots[i].y) ** 2)
-                e = entrepots[i]
-                ind = i
+            if calcule_distance(cli,entrepot[i]) < distance: #calcule l'entrepot le plus proche du client cli
+                distance = calcule_distance(cli,entrepot[i]
+                e = entrepots[i] 
         drone_correct = capacite_drone(e, cli)
         if drone_correct != None:
             missions.append((cli, e, drone_correct))
@@ -75,30 +75,12 @@ def decoupe_trajet(mission):
 
 
 def liste_mission(dico, carte):
-    # cumulation de attribuer mission et decoupe trajet
-    l = attribuer_mission(dico, carte)
-    nb_missions = len(l)
-    s = [0] * nb_missions
-    for i in range(nb_missions):
-        s[i] = decoupe_trajet(l[i])
-    return s
 
+	#cumulation de attribuer mission et decoupe trajet
+	l=attribuer_mission(dico, carte)
+	nb_missions=len(l)
+	s=[0]*nb_missions
+	for i in range(nb_mission):
+		s[i]=decoupe_trajet(l[i])
+	return s
 
-def test():
-    dico = lect_dr.read("aircraft.json")
-    models = lect_dr.listmodels(dico)
-    print(models)
-    print(type(models[0]))
-    model_prio = ordre_priorite_drones(models)
-    print(model_prio)
-    for model in model_prio:
-        print(model, model.v_speed_max)
-    entrepot0 = tas.Entrepot(0, 0, 0, models)
-    print(entrepot0)
-    entrepot0.addDrone(lect_dr.Drone('Amzn', geo.Point(entrepot0.x, entrepot0.y, entrepot0.z)))
-    print(entrepot0, '\n Les drones', entrepot0.drones, '\n Amazon Drone', entrepot0.models['Amzn'])
-    for drone in entrepot0.drones:
-        print(drone, entrepot0.drones, type(drone))
-    print('capacité drone : ', capacite_drone(entrepot0, geo.Point(20, 20, 20)))
-
-# test()
