@@ -1,5 +1,10 @@
 #Module permettant de créer les classes Points, Segments
 import math
+import mappy
+
+
+Z_ALT = 1500
+
 
 class Point():
     def __init__(self,x,y,z):
@@ -19,6 +24,9 @@ class Timed_Point(Point):
         
     def __repr__(self):
         return '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) + ',' + str(self.t) + ')'
+        
+    def distance(self,other):
+        return math.sqrt((other.x - self.x)**2 + (other.y - self.y)**2)
     
 #print(Timed_Point(0,2,3,78))
 
@@ -51,7 +59,16 @@ class Line: #ligne reliant 2 points
     
         
     
-    
+import matplotlib.pyplot as plt 
+P= Point(456,8964,Z_ALT)
+T=Point(986,4268,Z_ALT)
+PT=Line([[P.x,P.y],[T.x,T.y]])
+plt.plot(P.x,P.y, '.')
+plt.plot(T.x,T.y,'.')
+#############"plt.plot(PT[0],PT[1])
+
+
+plt.show()
             
         
     
