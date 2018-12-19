@@ -3,6 +3,8 @@ import tirage_au_sort as tas
 import lecture_drones as lect_dr
 import geometry as geo
 import math
+import mappy 
+
 
 ALTI_CROIS = 200  # en mètres
 
@@ -65,6 +67,7 @@ def attribuer_missions(carte):
         missions.append(m)
     return missions
 
+print(attribuer_missions((mappy.A,mappy.C)))
 
 
 def calcul_duree_mission(drone, p1, p4):
@@ -97,6 +100,5 @@ def liste_mission(carte):
 
 
 
-def drone_optimal(mission,drone): 
-    #prend en parametre un objet mission de la classe Mission et un objet drone de la classe Drone
-    #
+def drone_optimal(mission,drone): #prend en parametre un objet mission de la classe Mission et un objet drone de la classe Drone
+    pass
