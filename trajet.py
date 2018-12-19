@@ -40,8 +40,7 @@ def capacite_drone(entrepot, client):
     except UnboundLocalError:
         return None
 
-def drone_optimal (mission,dico) :
-    mission.drone =
+
 
 def attribuer_missions(carte):
     '''renvoie une liste de missions , determinées en fonction des clients et entrepots tirés au sort'''
@@ -54,13 +53,14 @@ def attribuer_missions(carte):
         distance = calcule_distance(cli,e)
         for i in range(nb_entrepots):
             if calcule_distance(cli,l_entrepots[i]) < distance: #calcule l'entrepot le plus proche du client cli
-                distance = calcule_distance(cli,l_entrepots[i]
+                distance = calcule_distance(cli,l_entrepots[i])
                 e = l_entrepots[i]
             drone_correct = capacite_drone(e, cli)
         if drone_correct != None:
             m.entrepot = e
             m.heure_livr =random.randint(0,24)
-            m.drone = drone_optimal(m)
+            m.drone = drone_correct(m)
+            e.models[str(drone_correct.model)]-=1
         missions.append(m)
     return missions
 
@@ -96,4 +96,6 @@ def liste_mission(carte):
 
 
 
-	
+def drone_optimal(mission,drone): 
+    #prend en parametre un objet mission de la classe Mission et un objet drone de la classe Drone
+    #
