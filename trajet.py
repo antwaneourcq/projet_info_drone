@@ -54,7 +54,7 @@ def attribuer_missions(carte):
         distance = calcule_distance(cli,e)
         for i in range(nb_entrepots):
             if calcule_distance(cli,l_entrepots[i]) < distance: #calcule l'entrepot le plus proche du client cli
-                distance = calcule_distance(cli,l_entrepots[i]
+                distance = calcule_distance(cli,l_entrepots[i])
                 e = l_entrepots[i]
             drone_correct = capacite_drone(e, cli)
         if drone_correct != None:
