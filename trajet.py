@@ -3,6 +3,8 @@ import tirage_au_sort as tas
 import lecture_drones as lect_dr
 import geometry as geo
 import math
+import mappy 
+
 
 ALTI_CROIS = 200  # en mètres
 
@@ -40,9 +42,6 @@ def capacite_drone(entrepot, client):
     except UnboundLocalError:
         return None
 
-def drone_optimal (mission,dico) :
-    distance = calcule_distance(mission.entrepot , mission.client)
-    mission.drone =
 
 def attribuer_missions(carte):
     '''renvoie une liste de missions , determinées en fonction des clients et entrepots tirés au sort'''
@@ -60,11 +59,14 @@ def attribuer_missions(carte):
             drone_correct = capacite_drone(e, cli)
         if drone_correct != None:
             m.entrepot = e
-            m.heure_livr = random.randint(0,24)
-            m.drone = drone_optimal(m)
+
+            m.heure_livr =random.randint(0,24)
+            m.drone = drone_correct(m)
+            e.models[str(drone_correct.model)]-=1
         missions.append(m)
     return missions
 
+print(attribuer_missions((mappy.A,mappy.C)))
 
 
 def calcul_duree_mission(drone, p1, p4):
@@ -97,4 +99,5 @@ def liste_mission(carte):
 
 
 
-	
+def drone_optimal(mission,drone): #prend en parametre un objet mission de la classe Mission et un objet drone de la classe Drone
+    pass
