@@ -1,4 +1,4 @@
-from random import randint
+import random
 import tirage_au_sort as tas
 import lecture_drones as lect_dr
 import geometry as geo
@@ -59,7 +59,7 @@ def attribuer_missions(carte):
             drone_correct = capacite_drone(e, cli)
         if drone_correct != None:
             m.entrepot = e
-            m.heure_livr =random.randint(0,24)
+            m.heure_livr = random.randint(0,24)
             m.drone = drone_optimal(m)
         missions.append(m)
     return missions
