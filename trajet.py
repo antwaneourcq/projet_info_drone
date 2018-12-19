@@ -41,6 +41,7 @@ def capacite_drone(entrepot, client):
         return None
 
 def drone_optimal (mission,dico) :
+    distance = calcule_distance(mission.entrepot , mission.client)
     mission.drone =
 
 def attribuer_missions(carte):
