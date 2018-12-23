@@ -5,7 +5,7 @@ Z_ALT = 1500
 
 def detection1(A,B,C,D): # a l'instant t
     
-    
+    pass
 
 
 

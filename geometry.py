@@ -1,6 +1,6 @@
 #Module permettant de créer les classes Points, Segments
 import math
-import mappy
+
 
 
 Z_ALT = 1500

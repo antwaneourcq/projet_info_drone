@@ -1,4 +1,4 @@
-import geometry as geo
+
 import lecture_drones as lect_dr
 import mappy
 import tirage_au_sort as tas
@@ -14,7 +14,7 @@ def main():
     models = lect_dr.listmodels(dico)
     carte = (mappy.A, mappy.C)
     entrepots, clients, carre_ext = tas.points_utiles(carte)
-    x_entrepots,y_entrepots , x_clients, y_clients =[],[] , [],[]
+    x_entrepots, y_entrepots , x_clients, y_clients = [], [], [], []
     for i in range(len(entrepots)):
         x_entrepots.append(entrepots[i].x)
         y_entrepots.append(entrepots[i].y)
@@ -25,19 +25,18 @@ def main():
     plt.plot(x_clients,y_clients, '.')
     plt.show()
     tas.drones_utiles(dico, entrepots)
-    model_prio = trajet.ordre_priorite_drones(models)
 
 
-'''AFFICHAGE'''
-    missions = trajet.attribuer_mission(entrepots, clients)
+    '''AFFICHAGE'''
+    missions = trajet.attribuer_missions(entrepots, clients)
     print('MISSION')
-    mission = missions[0]      #on a choisi une mission
-    client = mission[0]
-    entrepot = mission[1]
+    mission = missions[0]      #on a choisi la première mission de la liste missions juste pour l'affichage
+    client = mission.client
+    entrepot = mission.entrepot
     print('coordonnées client :')
     print(client)
     print('coordonnées entrepôt :')
-    print(entrepot.x,entrepot.y)
+    print(entrepot)
     print('modèles présents dans entrepôt :')
     print(entrepot.models)
     p1, p2, p3, p4, dt = trajet.decoupe_trajet(mission)
