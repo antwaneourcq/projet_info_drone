@@ -55,8 +55,6 @@ def points_utiles(carte):
     carre_ext = [[(A_ext.x , A_int.x),(A_ext.y , C_int.y)] , [(A_ext.x , C_int.x),( C_int.y, C_ext.y)] , [( C_int.x, C_ext.x),(A_int.y , C_ext.y)] , [(A_int.x , C_ext.x),(A_ext.x, A_int.x)]]
     for _ in range(nbr_entrepots) :
         p = randint(0, 3)
-        x,y,z = random.uniform(carre_ext[p][0][0],carre_ext[p][0][1]),random.uniform(carre_ext[p][1][0],carre_ext[p][1][1]),0
-        l_entrepots.append(geo.Point(x,y,z))
         x,y = random.uniform(carre_ext[p][0][0],carre_ext[p][0][1]),random.uniform(carre_ext[p][1][0],carre_ext[p][1][1])
         l_entrepots.append(Entrepot(x, y, 0, MODELS))
     for _ in range(nbr_clients):
