@@ -1,11 +1,10 @@
-
-import trajet
 import geometry as geo, lecture_drones as lect_dr, mappy
 import numpy as np
 import random
-from random import uniform, randint, choice
+from random import randint, uniform, choice
 import matplotlib.pyplot as plt
-
+import geometry as geo, lecture_drones as lect_dr, mappy
+import trajet
 
 
 dico = lect_dr.read("aircraft.json")
@@ -62,7 +61,7 @@ def points_utiles(carte):
         l_entrepots.append(Entrepot(x, y, 0, MODELS))
     for _ in range(nbr_clients):
         x,y,z,t = random.uniform(A_int.x,C_int.x) ,random.uniform(A_int.y,C_int.y) , 0 , random.uniform(0,86400)
-        l_clients.append(trajet.client(x,y,z,t))
+        l_clients.append(geo.Timed_Point(x,y,z,t))
     return l_entrepots,l_clients , carre_ext
 
 

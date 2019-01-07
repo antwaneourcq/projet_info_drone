@@ -1,7 +1,6 @@
 import math
 
 
-
 Z_ALT = 1500
 
 

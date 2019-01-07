@@ -24,6 +24,7 @@ def detection(A,B,C,D): # a l'instant t AB et CD
     return AI_x * IB_y - AI_y * IB_x < 1e-4 
     
     
+def conflit(m1,m2):
 
     
     
