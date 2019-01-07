@@ -44,8 +44,9 @@ class Entrepot(geo.Point):
 def points_utiles(carte):
     '''renvoie la liste des entrepôts et des clients
     uniform génère un nombre réel aléatoire dans l'intervalle donné
-    je decoupe le contour en quatre espace , 1=espace superieur , 2= espace droit , 3= espace inferieur , 4= espace gauche
-    p est assimilé à l'un de ces espaces alétoirement'''
+    je decoupe le contour en quatre espace , 0=espace droit , 1= espace supérieur , 2= espace gauche , 4= espace inférieur
+    p est assimilé à l'un de ces espaces alétoirement
+    l_clietns est une liste d'objets de la classe client , t est en secondes et correspond à l'instant ou le client confirme sa commande et que le drone peut apparaitre sur la carte '''
 
 
     nbr_entrepots , nbr_clients = random.randint(5, NMAX_EN) , random.randint(0, NMAX_CL)
@@ -60,8 +61,8 @@ def points_utiles(carte):
         x,y = random.uniform(carre_ext[p][0][0],carre_ext[p][0][1]),random.uniform(carre_ext[p][1][0],carre_ext[p][1][1])
         l_entrepots.append(Entrepot(x, y, 0, MODELS))
     for _ in range(nbr_clients):
-        client = geo.Point(random.uniform(A_int.x,C_int.x) ,random.uniform(A_int.y,C_int.y) , 0)
-        l_clients.append(client)
+        x,y,z,t = random.uniform(A_int.x,C_int.x) ,random.uniform(A_int.y,C_int.y) , 0 , random.uniform(0,86400)
+        l_clients.append(trajet.client(x,y,z,t))
     return l_entrepots,l_clients , carre_ext
 
 
