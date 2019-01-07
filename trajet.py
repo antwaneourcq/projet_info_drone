@@ -7,14 +7,17 @@ import mappy
 
 
 ALTI_CROIS = 200  # en mètres
-
+class client:
+    def __init__(self,x,y,z,t):
+        self.position = geo.Point(x,y,z)
+        self.t = t
 
 class Mission:
 
     def __init__(self, client, carte):
         self.client = client
         self.entrepot = None
-        self.heure_livr = None #'heure de départ' plutôt que 'heure de livraison'
+        self.heure_dmde = None
         self.drone = None
 
 def ordre_priorite_drones(drones): 
