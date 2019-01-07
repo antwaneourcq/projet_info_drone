@@ -7,10 +7,7 @@ import mappy
 
 
 ALTI_CROIS = 200  # en mètres
-class client:
-    def __init__(self,x,y,z,t):
-        self.position = geo.Point(x,y,z)
-        self.t = t
+
 
 class Mission:
 
