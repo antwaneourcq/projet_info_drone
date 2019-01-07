@@ -14,7 +14,7 @@ class Mission:
     def __init__(self, client, carte):
         self.client = client
         self.entrepot = None
-        self.heure_livr = None
+        self.heure_livr = None #'heure de départ' plutôt que 'heure de livraison'
         self.drone = None
 
 def ordre_priorite_drones(drones): 
@@ -60,9 +60,12 @@ def attribuer_missions(carte):
         if drone_correct != None:
             m.entrepot = e
 
-            m.heure_livr =random.randint(0,24)
+            m.heure_livr =random.randint(0,24) #à modifier avec ordre/file à priorité
             m.drone = drone_correct(m)
             e.models[str(drone_correct.model)]-=1
+        else :
+            #traiter le cas où le drone est None
+            pass
         missions.append(m)
     return missions
 
