@@ -6,6 +6,7 @@ Z_ALT = 1500
 def detection1(A,B,C,D): # a l'instant t
     
     
+def conflit(m1,m2):
 
 
 
