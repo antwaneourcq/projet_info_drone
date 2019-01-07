@@ -56,7 +56,7 @@ def points_utiles(carte):
     for _ in range(nbr_entrepots) :
         p = randint(0, 3)
         x,y,z = random.uniform(carre_ext[p][0][0],carre_ext[p][0][1]),random.uniform(carre_ext[p][1][0],carre_ext[p][1][1]),0
-        l_entrepots.append(geo.Point(x,y,z))
+        #une des sources du problèmes....l_entrepots.append(geo.Point(x,y,z))
         x,y = random.uniform(carre_ext[p][0][0],carre_ext[p][0][1]),random.uniform(carre_ext[p][1][0],carre_ext[p][1][1])
         l_entrepots.append(Entrepot(x, y, 0, MODELS))
     for _ in range(nbr_clients):
