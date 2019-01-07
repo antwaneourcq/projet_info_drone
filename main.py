@@ -1,9 +1,9 @@
 import geometry as geo
 import lecture_drones as lect_dr
 import mappy
+import trajet 
 import tirage_au_sort as tas
 import matplotlib.pyplot as plt
-import trajet 
 
 
 FILE = "aircraft.json"
@@ -28,7 +28,7 @@ def main():
     model_prio = trajet.ordre_priorite_drones(models)
 
 
-'''AFFICHAGE'''
+    '''AFFICHAGE'''
     missions = trajet.attribuer_mission(entrepots, clients)
     print('MISSION')
     mission = missions[0]      #on a choisi une mission

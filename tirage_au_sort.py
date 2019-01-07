@@ -1,11 +1,9 @@
-
-import trajet
-import geometry as geo, lecture_drones as lect_dr, mappy
 import numpy as np
 import random
-from random import uniform, randint, choice
+from random import randint, uniform, choice
 import matplotlib.pyplot as plt
-
+import geometry as geo, lecture_drones as lect_dr, mappy
+import trajet
 
 
 dico = lect_dr.read("aircraft.json")
