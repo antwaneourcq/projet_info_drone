@@ -23,7 +23,7 @@ class Entrepot(geo.Point):
         self.models = {}
         for model in models:
             self.models[str(model)] = 0
-        self.drones = []
+        #self.drones = []
     
     def __repr__(self):
         return '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) +')' + ' drones : ' +str(self.drones)
@@ -33,6 +33,9 @@ class Entrepot(geo.Point):
         self.models[model] += 1
         if self.models[model] == 1:
             self.drones.append(model)
+    
+    def remove_drone(self, drone):
+        if.models[model]
     
     #def maj_drone_effectifs(self):
     #    '''met à jour le dictionnaire de "drones_effectifs" par rapport aux données du dictionnaire "drones"'''

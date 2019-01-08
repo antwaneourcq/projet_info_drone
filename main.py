@@ -29,7 +29,7 @@ def main():
 
 
     '''AFFICHAGE'''
-    missions = trajet.attribuer_mission(entrepots, clients)
+    missions = trajet.attribuer_mission(carte) #trajet.attribuer_mission(entrepots, clients)
     print('MISSION')
     mission = missions[0]      #on a choisi une mission
     client = mission[0]
