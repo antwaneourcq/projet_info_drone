@@ -30,10 +30,8 @@ class Entrepot(geo.Point):
         return 'identificateur' + str(self.id) + '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) +')' + ' drones : ' +str(self.models)
     
     def addDrone(self, drone):
-        model= str(drone.model)
-        self.models[model] += 1
-        if self.models[model] == 1:
-            self.drones.append(model)
+        # model= str(drone.model)
+        self.models[str(drone.model)] += 1
     
     def remove_drone(self, drone):
         if self.models[str(drone)] > 0 : self.models[str(drone)] -= 1
