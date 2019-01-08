@@ -36,7 +36,7 @@ def capacite_drone(entrepot, client):
     # drones = entrepot.drones
     vit = 1
     print('drones :', entrepot.models)
-    for drone in entrepot.drones: #models
+    for drone in entrepot.models:
         dro = lect_dr.Drone(drone, geo.Point(0, 0, 0))
         print('range', dro.range)
         if dro.range >= distance:
@@ -50,7 +50,7 @@ def capacite_drone(entrepot, client):
         return None
 
 
-def attribuer_missions(l_entrepots, l_clients):
+def attribuer_missions(carte):
     '''renvoie une liste de missions , determinées en fonction des clients et entrepots tirés au sort'''
     l_entrepots , l_clients, _ = tas.points_utiles(carte)
     missions = []

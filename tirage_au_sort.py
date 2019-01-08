@@ -50,12 +50,12 @@ def points_utiles(carte):
     p est assimilé à l'un de ces espaces alétoirement
     l_clietns est une liste d'objets de la classe client , t est en secondes et correspond à l'instant ou le client confirme sa commande et que le drone peut apparaitre sur la carte '''
 
-<<<<<<< HEAD
+
 
     nbr_entrepots, nbr_clients = random.randint(5, NMAX_EN), random.randint(0, NMAX_CL)
     A_ext, C_ext = mappy.conversion_deg_m(carte[0]) , mappy.conversion_deg_m(carte[1])
     l_entrepots, l_clients = [], []
-    A_int, C_int = mappy.carre_int(A_ext, C_ext)
+    A_int, C_int = mappy.carre_int(carte)
     carre_ext = [[(A_ext.x, A_int.x), (A_ext.y, C_int.y)], [(A_ext.x, C_int.x), (C_int.y, C_ext.y)], [(C_int.x, C_ext.x), (A_int.y, C_ext.y)], [(A_int.x, C_ext.x), (A_ext.x, A_int.x)]]
     for _ in range(nbr_entrepots):
         p = randint(0, 3)
