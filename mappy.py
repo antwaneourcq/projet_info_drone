@@ -32,7 +32,7 @@ def carre_int(carte):
     return geo.Point(A.x+p*l_x , A.y+p*l_y ,Z_ALT) , geo.Point(C_map.x-p*l_x , C_map.y-p*l_y , Z_ALT)'''
     A_map , C_map = conversion_deg_m(carte[0]) , conversion_deg_m(carte[1])
     dx, dy = p * (C_map.x - A_map.x), p * (C_map.y - A_map.y)
-    return geo.Point(A_map.x + dx, A_map.y + dy, Z_ALT), geo.Point(C_map.x - dx, C_map.y - dy, Z_ALT)
+    return geo.Point(A_map.x + dx, A_map.y + dy, Z_ALT), geo.Point(C_map.x - dx, C_map.y - dy, Z_ALT) , A_map , C_map
 
 
 
