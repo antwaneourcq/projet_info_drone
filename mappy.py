@@ -36,8 +36,9 @@ def carre_int(carte):
 
 
 
-def carre_int(A_map,C_map):
+def carre_int2(A_map,C_map):
     #environnement = liste de deux intervalles représenté par des tuples et correspond à l'intervalle des abcsisses et des ordonnées
+    #ne sert à rien
     p = 5/100
     '''je definis les limites de l'espace intérieur pour les clients'''
     dx, dy = p * (C_map.x), p * (C_map.y)

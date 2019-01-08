@@ -13,8 +13,8 @@ def main():
     dico = lect_dr.read(FILE)
     models = lect_dr.listmodels(dico)
     carte = (mappy.A, mappy.C)
-    entrepots, clients, carre_ext = tas.points_utiles(carte)
-    x_entrepots, y_entrepots , x_clients, y_clients = [], [], [], []
+    missions, entrepots, clients = trajet.attribuer_missions(carte)#entrepots, clients, carre_ext = tas.points_utiles(carte)
+    x_entrepots,y_entrepots , x_clients, y_clients =[],[] , [],[]
     for i in range(len(entrepots)):
         x_entrepots.append(entrepots[i].x)
         y_entrepots.append(entrepots[i].y)
@@ -34,7 +34,9 @@ def main():
     client = mission.client
     entrepot = mission.entrepot
     print('coordonnées client :')
-    print(client)
+    print(client.x, client.y)
+    print('départ mission:')
+    print(client.t)
     print('coordonnées entrepôt :')
     print(entrepot)
     print('modèles présents dans entrepôt :')
