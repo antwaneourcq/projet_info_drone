@@ -1,4 +1,4 @@
-import geometry as geo
+
 import lecture_drones as lect_dr
 import mappy
 import trajet 
@@ -25,21 +25,20 @@ def main():
     plt.plot(x_clients,y_clients, '.')
     plt.show()
     tas.drones_utiles(dico, entrepots)
-    model_prio = trajet.ordre_priorite_drones(models)
 
 
     '''AFFICHAGE'''
-    missions = trajet.attribuer_mission(carte) #trajet.attribuer_mission(entrepots, clients)
+    missions = trajet.attribuer_missions(entrepots, clients)
     print('MISSION')
-    mission = missions[0]      #on a choisi une mission
+    mission = missions[0]      #on a choisi la première mission de la liste missions juste pour l'affichage
     client = mission.client
-    entrepot = mission.entrepots
+    entrepot = mission.entrepot
     print('coordonnées client :')
     print(client.x, client.y)
     print('départ mission:')
     print(client.t)
     print('coordonnées entrepôt :')
-    print(entrepot.x,entrepot.y)
+    print(entrepot)
     print('modèles présents dans entrepôt :')
     print(entrepot.models)
     p1, p2, p3, p4, dt = trajet.decoupe_trajet(mission)
