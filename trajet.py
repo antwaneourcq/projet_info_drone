@@ -84,7 +84,7 @@ def attribuer_missions(entrepots, clients):
         missions.append(m)
         # print('MISSSIONSSSS : ', missions, '\n\nla mission : ', m)
     print('\ndrone correct', correctness, 'drones non traités ', drones_non_traites)
-    return missions , l_entrepots , l_clients
+    return missions
 
 
 
