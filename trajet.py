@@ -51,6 +51,7 @@ def capacite_drone(entrepot, client):
 #        return None
 
 
+
 def attribuer_missions(carte):
     '''renvoie une liste de missions , determinées en fonction des clients et entrepots tirés au sort'''
     l_entrepots , l_clients, _ = tas.points_utiles(carte)
@@ -58,6 +59,7 @@ def attribuer_missions(carte):
     nb_entrepots = len(l_entrepots)
     correctness = 0
     drones_non_traites = 0
+    drone_correct = None
     for cli in l_clients:
         m = Mission(cli)
         e = l_entrepots[0]
@@ -73,7 +75,7 @@ def attribuer_missions(carte):
             m.heure_livr =random.randint(0,24)
             m.drone = drone_correct
             m.heure_livr =random.randint(0,24) #à modifier avec ordre/file à priorité
-            m.drone = drone_correct(m)
+            m.drone = drone_correct
             e.models[str(drone_correct.model)]-=1
         else :
             #traiter le cas où le drone est None
