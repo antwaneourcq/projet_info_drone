@@ -1,7 +1,8 @@
-import math
+
 import random
 import lecture_drones as lect_dr
 import geometry as geo
+import math
 import mappy 
 import tirage_au_sort as tas
 
@@ -10,7 +11,7 @@ ALTI_CROIS = 200  # en mètres
 
 class Mission:
 
-    def __init__(self, client, carte):
+    def __init__(self, client):
         self.client = client
         self.entrepot = None
         self.heure_dmde = None
@@ -49,7 +50,7 @@ def capacite_drone(entrepot, client):
         return None
 
 
-def attribuer_missions(carte):
+def attribuer_missions(l_entrepots, l_clients):
     '''renvoie une liste de missions , determinées en fonction des clients et entrepots tirés au sort'''
     l_entrepots , l_clients, _ = tas.points_utiles(carte)
     missions = []
@@ -57,7 +58,7 @@ def attribuer_missions(carte):
     correctness = 0
     drones_non_traites = 0
     for cli in l_clients:
-        m = Mission(cli,carte)
+        m = Mission(cli)
         e = l_entrepots[0]
         distance = calcule_distance(cli,e)
         for i in range(nb_entrepots):
@@ -68,7 +69,8 @@ def attribuer_missions(carte):
         if drone_correct != None:
             correctness += 1 
             m.entrepot = e
-
+            m.heure_livr =random.randint(0,24)
+            m.drone = drone_correct
             m.heure_livr =random.randint(0,24) #à modifier avec ordre/file à priorité
             m.drone = drone_correct(m)
             e.models[str(drone_correct.model)]-=1
@@ -77,12 +79,16 @@ def attribuer_missions(carte):
             drones_non_traites += 1
             pass
         missions.append(m)
-        #print('MISSSIONSSSS : ', missions, '\n\nla mission : ', m)
+        # print('MISSSIONSSSS : ', missions, '\n\nla mission : ', m)
     print('\ndrone correct', correctness, 'drones non traités ', drones_non_traites)
-    return missions
+    return missions , l_entrepots , l_clients
 
-print(attribuer_missions((mappy.A,mappy.C)))
+
+
+
+
 carte = (mappy.A, mappy.C)
+
 
 def calcul_duree_mission(drone, p1, p4):
     # drone est on objet de la classe Drone du module lecture_drones
@@ -113,7 +119,7 @@ def liste_mission(carte):
 		s[i]=decoupe_trajet(l[i])
 	return s
 
-#liste_mission(carte)
+
 
 def drone_optimal(mission,drone): #prend en parametre un objet mission de la classe Mission et un objet drone de la classe Drone
     pass

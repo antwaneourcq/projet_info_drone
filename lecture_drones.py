@@ -51,4 +51,3 @@ def test():
     print(first_drone)
     #for i in range(len(drones_model)):
         
-    
