@@ -14,7 +14,7 @@ class Mission:
     def __init__(self, client):
         self.client = client
         self.entrepot = None
-        self.heure_dmde = None
+        self.heure_dmde = client.t
         self.drone = None
         
     def __repr__(self):
@@ -50,7 +50,7 @@ def capacite_drone(entrepot, client):
         return None
 
 
-def attribuer_missions(l_entrepots, l_clients):
+def attribuer_missions(carte):
     '''renvoie une liste de missions , determinées en fonction des clients et entrepots tirés au sort'''
     l_entrepots , l_clients, _ = tas.points_utiles(carte)
     missions = []
