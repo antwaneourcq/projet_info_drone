@@ -124,5 +124,18 @@ def liste_mission(carte):
 
 
 
+def retour(drone, mission): #drone est un objet de la classe Drone et mission un objet de la classe Mission
+    client = mission.client
+    entrepot = mission.entrepot
+    distance = calcule_distance(client, entrepot)
+    temps_arrivee = distance/(2 * drone.h_speed_max + drone.v_speed_max) #l'heure à laquelle le drone livre le client
+    if (time - mission.heure_dmde) == decoupe_trajet(mission)[4]:
+        entrepot.models[str(drone.model)] += 1
+    return temps_arrivee
+
+
+
 def drone_optimal(mission,drone): #prend en parametre un objet mission de la classe Mission et un objet drone de la classe Drone
     pass
+
+
