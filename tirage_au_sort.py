@@ -15,7 +15,6 @@ NMAX_DR = 10
 #carte est une liste de 2 tuples, donnant le coin supérieur gauche et le coin inférieur droit
 
 MODELS = lect_dr.listmodels(dico)
-carte = (mappy.A, mappy.C)
     
 class Entrepot(geo.Point):
     
@@ -52,9 +51,8 @@ def points_utiles(carte):
     l_clietns est une liste d'objets de la classe client , t est en secondes et correspond à l'instant ou le client confirme sa commande et que le drone peut apparaitre sur la carte '''
 
     nbr_entrepots , nbr_clients = random.randint(5, NMAX_EN) , random.randint(0, NMAX_CL)
-    A_ext, C_ext = mappy.conversion_deg_m(carte[0]) , mappy.conversion_deg_m(carte[1])
     l_entrepots, l_clients = [] , []
-    A_int, C_int = mappy.carre_int(carte)
+    A_int, C_int , A_ext , C_ext = mappy.carre_int(carte)
     carre_ext = [[(A_ext.x , A_int.x),(A_ext.y , C_int.y)] , [(A_ext.x , C_int.x),( C_int.y, C_ext.y)] , [( C_int.x, C_ext.x),(A_int.y , C_ext.y)] , [(A_int.x , C_ext.x),(A_ext.x, A_int.x)]]
     for _ in range(nbr_entrepots) :
         p = randint(0, 3)
