@@ -66,7 +66,7 @@ def attribuer_missions(carte):
             #traiter le cas où le drone est None
             pass
         missions.append(m)
-    return missions
+    return missions , l_entrepots , l_clients
 
 print(attribuer_missions((mappy.A,mappy.C)))
 carte = (mappy.A, mappy.C)
