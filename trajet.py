@@ -52,9 +52,9 @@ def capacite_drone(entrepot, client):
 
 
 
-def attribuer_missions(carte):
+def attribuer_missions(entrepots, clients):
     '''renvoie une liste de missions , determinées en fonction des clients et entrepots tirés au sort'''
-    l_entrepots , l_clients, _ = tas.points_utiles(carte)
+    l_entrepots , l_clients = entrepots, clients
     missions = []
     nb_entrepots = len(l_entrepots)
     correctness = 0
