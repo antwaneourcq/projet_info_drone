@@ -15,6 +15,7 @@ NMAX_DR = 10
 #carte est une liste de 2 tuples, donnant le coin supérieur gauche et le coin inférieur droit
 
 MODELS = lect_dr.listmodels(dico)
+carte = (mappy.A, mappy.C)
     
 class Entrepot(geo.Point):
     
