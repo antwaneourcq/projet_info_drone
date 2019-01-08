@@ -22,12 +22,12 @@ class Entrepot(geo.Point):
         super().__init__(x, y, z)
         self.models = {}
         for model in models:
-            self.models[str(model)] = 1
+            self.models[str(model)] = 0
         #self.drones = []
         self.id = random.randint(0,100)
     
     def __repr__(self):
-        return 'identificateur' + str(self.id) + '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) +')' + ' drones : ' +str(self.models)
+        return 'identificateur ' + str(self.id) + '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) +')' + ' drones : ' +str(self.models)
     
     def addDrone(self, drone):
         # model= str(drone.model)
@@ -73,6 +73,7 @@ def drones_utiles(dico, entrepots):
 
     for entrepot in entrepots:
         p=randint(1,NMAX_DR)
+        print(p)
         for _ in range (p) :
             drone = random.choice(models)
             entrepot.addDrone(drone)
