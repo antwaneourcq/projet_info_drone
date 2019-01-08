@@ -54,12 +54,10 @@ class Line: #ligne reliant 2 points
         c = self.Coords[0][2] - self.Coords[1][2]
         return math.sqrt(a**2 + b**2 + c**2) #calcul de la longueur de la ligne entre A et B
     
-    
-    
-        
+          
     
 import matplotlib.pyplot as plt 
-P= Point(456,8964,Z_ALT)
+
 T=Point(986,4268,Z_ALT)
 PT=Line([[P.x,P.y],[T.x,T.y]])
 plt.plot(P.x,P.y, '.')
