@@ -11,9 +11,8 @@ FILE = "aircraft.json"
 
 def main():
     dico = lect_dr.read(FILE)
-    models = lect_dr.listmodels(dico)
     carte = (mappy.A, mappy.C)
-    missions, entrepots, clients = trajet.attribuer_missions(carte)#entrepots, clients, carre_ext = tas.points_utiles(carte)
+    entrepots, clients, carre_ext = tas.points_utiles(carte)
     x_entrepots,y_entrepots , x_clients, y_clients =[],[] , [],[]
     for i in range(len(entrepots)):
         x_entrepots.append(entrepots[i].x)
@@ -28,7 +27,7 @@ def main():
 
 
     '''AFFICHAGE'''
-    missions = trajet.attribuer_missions(carte)
+    missions = trajet.attribuer_missions(entrepots, clients)[0]
     print('MISSION')
     mission = missions[0]      #on a choisi la première mission de la liste missions juste pour l'affichage
     print(missions)
