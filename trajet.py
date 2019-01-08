@@ -35,22 +35,25 @@ def capacite_drone(entrepot, client):
     print('distance =', distance)
     # drones = entrepot.drones
     vit = 1
+    dro = None
     print('drones :', entrepot.models)
-    for drone in entrepot.drones: #models
-        dro = lect_dr.Drone(drone, geo.Point(0, 0, 0))
-        print('range', dro.range)
-        if dro.range >= distance:
-            print('success range')
-            if dro.v_speed_max > vit:
-                drone_correct = dro
-                vit = dro.v_speed_max
-    try:
-        return drone_correct  # drone est un objet de la classe Drone du module lecture_drone
-    except UnboundLocalError:
-        return None
+    for drone in entrepot.models: #models
+        if entrepot.models[drone]: #s'il y a au moins un exemplaire de ce drone dans l'entrepot
+            dro = lect_dr.Drone(drone, geo.Point(0, 0, 0))
+            if dro.range >= distance:
+                if dro.v_speed_max > vit:
+                    drone_correct = dro
+                    vit = dro.v_speed_max
+    if drone_correct: entrepot.remove_drone(drone)
+    print(drone, entrepot.models[drone], 'entrepot :::::::', entrepot)
+    return drone_correct    
+#    try:
+#        return drone_correct  # drone est un objet de la classe Drone du module lecture_drone
+#    except UnboundLocalError:
+#        return None
 
 
-def attribuer_missions(l_entrepots, l_clients):
+def attribuer_missions(carte):
     '''renvoie une liste de missions , determinées en fonction des clients et entrepots tirés au sort'''
     l_entrepots , l_clients, _ = tas.points_utiles(carte)
     missions = []
