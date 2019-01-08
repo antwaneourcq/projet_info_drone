@@ -1,10 +1,10 @@
 import geometry as geo, lecture_drones as lect_dr, mappy
-import numpy as np
 import random
 from random import randint, uniform, choice
 import matplotlib.pyplot as plt
 import geometry as geo, lecture_drones as lect_dr, mappy
 import trajet
+
 
 
 dico = lect_dr.read("aircraft.json")
@@ -23,7 +23,7 @@ class Entrepot(geo.Point):
         self.models = {}
         for model in models:
             self.models[str(model)] = 0
-        self.drones = []
+        #self.drones = []
     
     def __repr__(self):
         return '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) +')' + ' drones : ' +str(self.drones)
@@ -33,6 +33,9 @@ class Entrepot(geo.Point):
         self.models[model] += 1
         if self.models[model] == 1:
             self.drones.append(model)
+    
+    def remove_drone(self, drone):
+        pass
     
     #def maj_drone_effectifs(self):
     #    '''met à jour le dictionnaire de "drones_effectifs" par rapport aux données du dictionnaire "drones"'''
@@ -45,17 +48,14 @@ def points_utiles(carte):
     uniform génère un nombre réel aléatoire dans l'intervalle donné
     je decoupe le contour en quatre espace , 0=espace droit , 1= espace supérieur , 2= espace gauche , 4= espace inférieur
     p est assimilé à l'un de ces espaces alétoirement
-    l_clietns est une liste d'objets de la classe client , t est en secondes et correspond à l'instant ou le client confirme sa commande et que le drone peut apparaitre sur la carte '''
-
+    l_clients est une liste d'objets de la classe client , t est en secondes et correspond à l'instant ou le client confirme sa commande et que le drone peut apparaitre sur la carte '''
 
     nbr_entrepots , nbr_clients = random.randint(5, NMAX_EN) , random.randint(0, NMAX_CL)
-    A_ext, C_ext = mappy.conversion_deg_m(carte[0]) , mappy.conversion_deg_m(carte[1])
     l_entrepots, l_clients = [] , []
-    A_int, C_int = mappy.carre_int(A_ext, C_ext)
+    A_int, C_int , A_ext , C_ext = mappy.carre_int(carte)
     carre_ext = [[(A_ext.x , A_int.x),(A_ext.y , C_int.y)] , [(A_ext.x , C_int.x),( C_int.y, C_ext.y)] , [( C_int.x, C_ext.x),(A_int.y , C_ext.y)] , [(A_int.x , C_ext.x),(A_ext.x, A_int.x)]]
-    for _ in range(nbr_entrepots) :
+    for _ in range(nbr_entrepots):
         p = randint(0, 3)
-        x,y,z = random.uniform(carre_ext[p][0][0],carre_ext[p][0][1]),random.uniform(carre_ext[p][1][0],carre_ext[p][1][1]),0
         #une des sources du problèmes....l_entrepots.append(geo.Point(x,y,z))
         x,y = random.uniform(carre_ext[p][0][0],carre_ext[p][0][1]),random.uniform(carre_ext[p][1][0],carre_ext[p][1][1])
         l_entrepots.append(Entrepot(x, y, 0, MODELS))
@@ -63,6 +63,7 @@ def points_utiles(carte):
         x,y,z,t = random.uniform(A_int.x,C_int.x) ,random.uniform(A_int.y,C_int.y) , 0 , random.uniform(0,86400)
         l_clients.append(geo.Timed_Point(x,y,z,t))
     return l_entrepots,l_clients , carre_ext
+
 
 
 
@@ -75,7 +76,8 @@ def drones_utiles(dico, entrepots):
         for _ in range (p) :
             drone = random.choice(models)
             entrepot.addDrone(drone)
-    #return entrepots
+    return entrepots
+
 
 
 

@@ -24,9 +24,15 @@ def detection(A,B,C,D):# a l'instant t AB et CD
     IB_y = B.y - I.y
     return AI_x * IB_y - AI_y * IB_x < 1e-4 
     
+
     
+<<<<<<< HEAD
 def resolution(A,B,C,D):
+=======
+#def conflit(m1,m2):
+>>>>>>> c9b88b0bf166ef8a4f892e8e084a38b395695d0b
 
+    pass
     
     
     
@@ -34,12 +40,12 @@ def resolution(A,B,C,D):
 
 
 
-def detection1(d1,d2): #class Drone
-    return d1.coord.distance(d2.coord) < SECU 
+#def detection1(d1,d2): #class Drone
+    #return d1.coord.distance(d2.coord) < SECU
     
-def resolution(d1,d2):
-    if detection(d1,d2):
-        d1.coord.z = Z_ALT + 15
+#def resolution(d1,d2):
+    #if detection(d1,d2):
+        #d1.coord.z = Z_ALT + 15
         
     
 
