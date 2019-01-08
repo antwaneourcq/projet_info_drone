@@ -16,7 +16,7 @@ class Point():
     
     
 class Timed_Point(Point):
-    def __init__(self, x,y,z,t):
+    def __init__(self, x, y, z, t):
         super().__init__(x, y, z)
         self.t = t
         

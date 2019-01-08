@@ -22,11 +22,12 @@ class Entrepot(geo.Point):
         super().__init__(x, y, z)
         self.models = {}
         for model in models:
-            self.models[str(model)] = 0
+            self.models[str(model)] = 1
         #self.drones = []
+        self.id = random.randint(0,100)
     
     def __repr__(self):
-        return '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) +')' + ' drones : ' +str(self.drones)
+        return 'identificateur' + str(self.id) + '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) +')' + ' drones : ' +str(self.models)
     
     def addDrone(self, drone):
         model= str(drone.model)
@@ -35,7 +36,7 @@ class Entrepot(geo.Point):
             self.drones.append(model)
     
     def remove_drone(self, drone):
-        pass
+        if self.models[drone] > 0 : self.models[drone] -= 1
     
     #def maj_drone_effectifs(self):
     #    '''met à jour le dictionnaire de "drones_effectifs" par rapport aux données du dictionnaire "drones"'''
