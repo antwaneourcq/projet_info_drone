@@ -30,6 +30,7 @@ def main():
     missions = trajet.attribuer_missions(entrepots, clients)
     print('MISSION')
     mission = missions[0]      #on a choisi la première mission de la liste missions juste pour l'affichage
+    print(missions)
     client = mission.client
     entrepot = mission.entrepot
     print('coordonnées client :')
