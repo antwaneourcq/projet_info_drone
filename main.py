@@ -37,7 +37,7 @@ def main():
     print('départ mission:')
     print(client.t)
     print('coordonnées entrepôt :')
-    print(entrepot)
+    print('('+ str(entrepot.x) + ',' + str(entrepot.y) + ',' + str(entrepot.z) + ')')
     print('modèles présents dans entrepôt :')
     print(entrepot.models)
     p1, p2, p3, p4, dt = trajet.decoupe_trajet(mission)
