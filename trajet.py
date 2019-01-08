@@ -21,7 +21,7 @@ class Mission:
         return 'mission :  entrepot : ' + str(self.entrepot) + ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone) 
 
 def ordre_priorite_drones(drones): 
-	#prend en argument une liste de drones à trier selon leur vitesse maximale
+#prend en argument une liste de drones à trier selon leur vitesse maximale
 	drones.sort(key = lambda drone : drone.v_speed_max, reverse = True) #on trie les drones de l'entrepot le plus proche par ordre décroissant de vitesse maximale en route (tri en place)
 	return drones
 	
@@ -30,7 +30,7 @@ def calcule_distance(cli,entrepot):
 
 
 def capacite_drone(entrepot, client):
-    # calcule le drone le plus rapide de l'entrepot capable d'aller livrer jusqu'à chez le client
+# calcule le drone le plus rapide de l'entrepot capable d'aller livrer jusqu'à chez le client
     distance = calcule_distance(client,entrepot)
     print('distance =', distance)
     # drones = entrepot.drones
