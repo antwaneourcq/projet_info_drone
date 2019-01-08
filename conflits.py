@@ -3,10 +3,11 @@ import geometry as geo
 SECU = 10 #en metre
 Z_ALT = 1500 
 
-def detection(A,B,C,D): # a l'instant t AB et CD
+def detection(A,B,C,D):# a l'instant t AB et CD
 #faire une droite ax+b et ensuite etudier si les deux s'interceptent 
 
-#faire une fonction pour calculer a et b
+#faire une fonction pour calculer a et b ??
+
     a1 = (B.y - A.y) / (B.x - A.x)
     b1 = A.y - a1*A.x
     
@@ -25,7 +26,11 @@ def detection(A,B,C,D): # a l'instant t AB et CD
     
 
     
+<<<<<<< HEAD
+def resolution(A,B,C,D):
+=======
 #def conflit(m1,m2):
+>>>>>>> c9b88b0bf166ef8a4f892e8e084a38b395695d0b
 
     pass
     
