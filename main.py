@@ -1,9 +1,9 @@
 
 import lecture_drones as lect_dr
 import mappy
+import trajet 
 import tirage_au_sort as tas
 import matplotlib.pyplot as plt
-import trajet 
 
 
 FILE = "aircraft.json"

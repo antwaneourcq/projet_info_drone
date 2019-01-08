@@ -1,10 +1,10 @@
+
 import random
-import tirage_au_sort as tas
 import lecture_drones as lect_dr
 import geometry as geo
 import math
-
-
+import mappy 
+import tirage_au_sort as tas
 
 ALTI_CROIS = 200  # en mètres
 
@@ -14,7 +14,7 @@ class Mission:
     def __init__(self, client):
         self.client = client
         self.entrepot = None
-        self.heure_livr = None
+        self.heure_dmde = None
         self.drone = None
 
 def ordre_priorite_drones(drones): 
@@ -45,6 +45,7 @@ def capacite_drone(entrepot, client):
 
 def attribuer_missions(l_entrepots, l_clients):
     '''renvoie une liste de missions , determinées en fonction des clients et entrepots tirés au sort'''
+    l_entrepots , l_clients, _ = tas.points_utiles(carte)
     missions = []
     nb_entrepots = len(l_entrepots)
     for cli in l_clients:
@@ -60,10 +61,17 @@ def attribuer_missions(l_entrepots, l_clients):
             m.entrepot = e
             m.heure_livr =random.randint(0,24)
             m.drone = drone_correct
+            m.heure_livr =random.randint(0,24) #à modifier avec ordre/file à priorité
+            m.drone = drone_correct(m)
             e.models[str(drone_correct.model)]-=1
+        else :
+            #traiter le cas où le drone est None
+            pass
         missions.append(m)
     return missions
 
+
+carte = (mappy.A, mappy.C)
 
 
 def calcul_duree_mission(drone, p1, p4):

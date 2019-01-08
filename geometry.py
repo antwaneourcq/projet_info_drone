@@ -1,6 +1,4 @@
-#Module permettant de créer les classes Points, Segments
 import math
-
 
 
 Z_ALT = 1500
@@ -48,14 +46,15 @@ class Real_Point():
 
 class Line: #ligne reliant 2 points
     def __init__(self,Coords):
-        self.Coords = Coords #liste contenant les coordonnées des 2 points A,B de la ligne
+        self.Coords = Coords #liste de liste contenant les coordonnées des 2 points A,B de la ligne
         
     def lenght(self):
         a = self.Coords[0][0] - self.Coords[1][0]
         b = self.Coords[0][1] - self.Coords[1][1]
         c = self.Coords[0][2] - self.Coords[1][2]
         return math.sqrt(a**2 + b**2 + c**2) #calcul de la longueur de la ligne entre A et B
-        
+    
+    
     
         
     

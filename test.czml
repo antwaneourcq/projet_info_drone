@@ -1,9 +1,4 @@
-// l'horloge définit l'heure de l'ouverture de l'application, 
-//"_availability" définit le début de la mission
-//cartographic degrees : temps, long (décimale), lat(déc), altitude
-//rgba ( a pour la transparence) 0à 255
 [
-
    {
       "id":"document",
       "name":"CZML Model",

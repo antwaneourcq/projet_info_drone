@@ -28,6 +28,9 @@ class Drone():
         
     def __repr__(self):
         return str(self.model) #+ ' ; ' + str(self.current_position) + ' ; ' + str(self.available)
+
+
+
     
 def listmodels(dico):
     models = []
