@@ -36,7 +36,7 @@ class Entrepot(geo.Point):
             self.drones.append(model)
     
     def remove_drone(self, drone):
-        if self.models[drone] > 0 : self.models[drone] -= 1
+        if self.models[str(drone)] > 0 : self.models[str(drone)] -= 1
     
     #def maj_drone_effectifs(self):
     #    '''met à jour le dictionnaire de "drones_effectifs" par rapport aux données du dictionnaire "drones"'''

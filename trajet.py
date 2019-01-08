@@ -32,11 +32,10 @@ def calcule_distance(cli,entrepot):
 def capacite_drone(entrepot, client):
 # calcule le drone le plus rapide de l'entrepot capable d'aller livrer jusqu'à chez le client
     distance = calcule_distance(client,entrepot)
-    print('distance =', distance)
+    #print('distance =', distance)
     # drones = entrepot.drones
     vit = 1
-    dro = None
-    print('drones :', entrepot.models)
+    drone_correct = None
     for drone in entrepot.models: #models
         if entrepot.models[drone]: #s'il y a au moins un exemplaire de ce drone dans l'entrepot
             dro = lect_dr.Drone(drone, geo.Point(0, 0, 0))
@@ -44,8 +43,7 @@ def capacite_drone(entrepot, client):
                 if dro.v_speed_max > vit:
                     drone_correct = dro
                     vit = dro.v_speed_max
-    if drone_correct: entrepot.remove_drone(drone)
-    print(drone, entrepot.models[drone], 'entrepot :::::::', entrepot)
+    if drone_correct: entrepot.remove_drone(drone_correct)
     return drone_correct    
 #    try:
 #        return drone_correct  # drone est un objet de la classe Drone du module lecture_drone
