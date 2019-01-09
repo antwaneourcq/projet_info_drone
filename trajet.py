@@ -102,7 +102,7 @@ def calcul_duree_mission(drone, p1, p4):
     vit_vert = drone.h_speed_max
     vit_hori = drone.v_speed_max
     distance = calcule_distance(p1,p4)
-    return 2 * (ALTI_CROIS / vit_vert) + 2 * (distance / vit_hori)
+    return 2 * (drone.current_position.z / vit_vert) + 2 * (distance / vit_hori)
 
 
 def decoupe_trajet(mission):
