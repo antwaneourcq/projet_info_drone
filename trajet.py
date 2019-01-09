@@ -18,7 +18,7 @@ class Mission:
         self.drone = None
         
     def __repr__(self):
-        return 'mission :  entrepot : ' + str(self.entrepot) + ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone) 
+        return 'mission :  entrepot : ' + str(self.entrepot) +'\n' #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone) 
 
 def ordre_priorite_drones(drones): 
 #prend en argument une liste de drones à trier selon leur vitesse maximale
@@ -37,6 +37,7 @@ def capacite_drone(entrepot, client):
     vit = 1
     drone_correct = None
     for drone in entrepot.models: #models
+        if entrepot.models[drone] : print('entréeeee   ', entrepot.models[drone], drone)
         if entrepot.models[drone]>0: #s'il y a au moins un exemplaire de ce drone dans l'entrepot
             dro = lect_dr.Drone(drone, geo.Point(0, 0, 0))
             if dro.range >= distance:
@@ -44,6 +45,8 @@ def capacite_drone(entrepot, client):
                     drone_correct = dro
                     vit = dro.v_speed_max
     if drone_correct: entrepot.remove_drone(drone_correct)
+    if drone_correct == None:
+        print('\néchec\t', entrepot)
     return drone_correct    
 #    try:
 #        return drone_correct  # drone est un objet de la classe Drone du module lecture_drone

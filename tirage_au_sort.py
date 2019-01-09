@@ -19,7 +19,7 @@ class Entrepot(geo.Point):
         super().__init__(x, y, z)
         self.models = {}
         for model in models:
-            self.models[str(model)] = 0
+            self.models[str(model)] = 1
         #self.drones = []
         self.id = random.randint(0,100)
     
