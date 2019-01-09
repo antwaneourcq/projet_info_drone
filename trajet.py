@@ -4,12 +4,13 @@ import lecture_drones as lect_dr
 import geometry as geo
 import math
 import tirage_au_sort as tas
+import conflits
+import math
 
-ALTI_CROIS = 200  # en mètres
 
 class Mission:
 
-    def __init__(self, client):
+    def __init__(self, client): #client est un objet de la classe Client
         self.client = client
         self.entrepot = None
         self.heure_dmde = client.t
@@ -20,11 +21,61 @@ class Mission:
     def __repr__(self):
         return 'mission :  entrepot : ' + str(self.entrepot) +'\nMission retour ligne\n' #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone)
 
-    def changer_altitude(self):
+    def changer_altitude(self,I):
         a = tas.alt_random()
         while a == self.alti[0]:
             a = tas.alt_random()
         self.alti.append(a)
+        p2, p3 = decoupe_trajet(self)[1] , decoupe_trajet(self)[2]
+        a,b = conflits.a(p2,p3) , conflits.b(p2,p3)
+        angle = math.tan(p3.x/p3.y)
+        de1 , de2 = geo.Point()
+
+
+
+
+
+
+    def decoupe_trajet(self):
+        # renvoie un tuple de 4 points et une durée
+        # print('Client : ::: ', mission.client, '\nEntrepot : ', mission.entrepot, '\nDrone : ', mission.drone)
+        arr, dep, drone = self.client, self.entrepot, self.drone
+        alt = tas.alt_random()
+        distance = calcule_distance(self.client, self.entrepot)
+        p1 = geo.Timed_Point(dep.x, dep.y, 0, self.heure_dmde)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
+        p2 = geo.Timed_Point(dep.x, dep.y, alt, distance/self.drone.h_speed_max)
+        p3 = geo.Timed_Point(arr.x, arr.y, alt, distance/self.drone.v_speed_max)
+        p4 = geo.Timed_Point(arr.x, arr.y, 0)
+        return p1, p2, p3, p4, calcul_duree_mission(self.drone, p1, p4)
+
+
+class Entrepot(geo.Point):
+
+    def __init__(self, x, y, z, models):  # models: liste de modèle de drones
+        super().__init__(x, y, z)
+        self.models = {}
+        for mod in models:
+            self.models[str(mod)] = 1
+        self.id = random.randint(0, 100)
+
+    def __repr__(self):
+        return 'identificateur ' + str(self.id) + '(' + str(self.x) + ',' + str(self.y) + ',' + str(
+            self.z) + ')' + ' drones : ' + str(self.models)
+
+    def addDrone(self, drone):
+        self.models[str(drone.model)] += 1
+
+    def remove_drone(self, drone):
+        if self.models[str(drone)] > 0: self.models[str(drone)] -= 1
+
+
+
+class Client(geo.Timed_Point):
+
+    def __init__(self, x, y, z, t, entrepot):
+        super().__init___(x, y, z)
+        self.entrepot = entrepot
+        self.t = t
 
 
 def ordre_priorite_drones(drones): 
@@ -44,7 +95,7 @@ def capacite_drone(entrepot, client):
     vit = 1
     for drone in entrepot.models:
         if entrepot.models[drone]>0:
-            dro = lect_dr.Drone(drone, geo.Point(0, 0, 0))
+            dro = lect_dr.Drone(drone, geo.Point(entrepot.x, entrepot.y, entrepot.z))
             if dro.range >= distance:
                 if dro.v_speed_max > vit:
                     drone_correct = dro
@@ -56,40 +107,32 @@ def capacite_drone(entrepot, client):
 
 
 
-def attribuer_missions(entrepots , clients):
+def attribuer_missions(clients): #clients est une liste d'objets de la classe Client
 
     '''renvoie une liste de missions , determinées en fonction des clients et entrepots tirés au sort'''
-    l_entrepots , l_clients = entrepots, clients
+    file_attente = []
     missions = []
-    nb_entrepots = len(l_entrepots)
     correctness = 0
     drones_non_traites = 0
-    drone_correct = None
-    for cli in l_clients:
+    for cli in clients:
+        e = cli.entrepot
+        drone = capacite_drone(e, cli)
         m = Mission(cli)
-        e = l_entrepots[0]
-        distance = calcule_distance(cli,e)
-        for i in range(nb_entrepots):
-            if calcule_distance(cli,l_entrepots[i]) < distance: #calcule l'entrepot le plus proche du client cli
-                distance = calcule_distance(cli,l_entrepots[i])
-                e = l_entrepots[i]
-            drone_correct = capacite_drone(e, cli)
-        if drone_correct != None:
+        if drone != None:
             correctness += 1 
             m.entrepot = e
-            m.heure_livr =random.randint(0,24)
-            m.drone = drone_correct
             m.heure_livr =random.randint(0,24) #à modifier avec ordre/file à priorité
-            m.drone = drone_correct
-            e.models[str(drone_correct.model)]-=1
+            m.drone = drone
+            e.models[str(drone.model)] -= 1
         else :
             #traiter le cas où le drone est None
             drones_non_traites += 1
-            pass
+            file_attente.append(cli)
         missions.append(m)
         # print('MISSSIONSSSS : ', missions, '\n\nla mission : ', m)
-    print('\ndrone correct', correctness, 'drones non traités ', drones_non_traites)
-    return missions
+    return missions, file_attente
+    #print('\ndrone correct', correctness, 'drones non traités ', drones_non_traites)
+
 
 
 
@@ -104,16 +147,20 @@ def calcul_duree_mission(drone, p1, p4):
     return 2 * (drone.current_position.z / vit_vert) + 2 * (distance / vit_hori)
 
 
+
 def decoupe_trajet(mission):
     # renvoie un tuple de 4 points et une durée
     #print('Client : ::: ', mission.client, '\nEntrepot : ', mission.entrepot, '\nDrone : ', mission.drone)
     arr, dep, drone = mission.client, mission.entrepot, mission.drone
+    p1 = geo.Point(dep.x, dep.y,0)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
+    alt = mission.alti
     alt = tas.alt_random()
     p1 = geo.Point(dep.x, dep.y,0)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
     p2 = geo.Point(dep.x, dep.y, alt)
     p3 = geo.Point(arr.x, arr.y, alt)
     p4 = geo.Point(arr.x, arr.y, 0)
     return p1, p2, p3, p4, calcul_duree_mission(drone, p1, p4)
+
 
 
 def liste_mission(carte):
@@ -127,7 +174,7 @@ def liste_mission(carte):
 
 
 
-def retour(drone, mission): #drone est un objet de la classe Drone et mission un objet de la classe Mission
+def retour(mission): #drone est un objet de la classe Drone et mission un objet de la classe Mission
     client = mission.client
     entrepot = mission.entrepot
     distance = calcule_distance(client, entrepot)
