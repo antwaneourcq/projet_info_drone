@@ -14,7 +14,7 @@ class Mission:
     def __init__(self, client):
         self.client = client
         self.entrepot = None
-        self.heure_dmde = None
+        self.heure_dmde = client.t
         self.drone = None
         
     def __repr__(self):
@@ -35,6 +35,22 @@ def capacite_drone(entrepot, client):
     #print('distance =', distance)
     # drones = entrepot.drones
     vit = 1
+    print('drones :', entrepot.models)
+    for drone in entrepot.drones: #models
+        dro = lect_dr.Drone(drone, geo.Point(0, 0, 0))
+        print('range', dro.range)
+        if dro.range >= distance:
+            print('success range')
+            if dro.v_speed_max > vit:
+                drone_correct = dro
+                vit = dro.v_speed_max
+    try:
+        return drone_correct  # drone est un objet de la classe Drone du module lecture_drone
+    except UnboundLocalError:
+        return None
+
+
+def attribuer_missions(carte):
     drone_correct = None
     for drone in entrepot.models: #models
         if entrepot.models[drone] : print('entréeeee   ', entrepot.models[drone], drone)
@@ -53,9 +69,8 @@ def capacite_drone(entrepot, client):
 #    except UnboundLocalError:
 #        return None
 
+def attribuer_missions(entrepots , clients):
 
-
-def attribuer_missions(entrepots, clients):
     '''renvoie une liste de missions , determinées en fonction des clients et entrepots tirés au sort'''
     l_entrepots , l_clients = entrepots, clients
     missions = []
@@ -93,9 +108,6 @@ def attribuer_missions(entrepots, clients):
 
 
 
-carte = (mappy.A, mappy.C)
-
-
 def calcul_duree_mission(drone, p1, p4):
     # drone est on objet de la classe Drone du module lecture_drones
     # calcul le temps que met le drone pour faire un aller-retour de p1 à p4
@@ -127,5 +139,18 @@ def liste_mission(carte):
 
 
 
+def retour(drone, mission): #drone est un objet de la classe Drone et mission un objet de la classe Mission
+    client = mission.client
+    entrepot = mission.entrepot
+    distance = calcule_distance(client, entrepot)
+    temps_arrivee = distance/(2 * drone.h_speed_max + drone.v_speed_max) #l'heure à laquelle le drone livre le client
+    if (time - mission.heure_dmde) == decoupe_trajet(mission)[4]:
+        entrepot.models[str(drone.model)] += 1
+    return temps_arrivee
+
+
+
 def drone_optimal(mission,drone): #prend en parametre un objet mission de la classe Mission et un objet drone de la classe Drone
     pass
+
+

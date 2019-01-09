@@ -80,6 +80,8 @@ def drones_utiles(dico, entrepots):
 
 
 
+def alt_random(P):
+    P.z = random.randrange(300,625,25)
 
 
 
