@@ -1,6 +1,6 @@
 import geometry as geo
 import trajet
-
+import Timer
 SECU = 180 #en secondes
 Z_ALT = 1500
 
@@ -41,6 +41,7 @@ def appartenance_segment(point , A,B):
             return A.x<=point.x<=B.x and B.y<=point.y<=A.y
         if A.y<B.y :
             return B.x<=point.x<=A.x and A.y<=point.y<=B.y
+        return B.x<=point.x<=A.x and A.y<=point.y<=B.y
     return False
 
 def interception (A,B,C,D) :
@@ -50,7 +51,7 @@ def interception (A,B,C,D) :
     return False
 
 def conflit(m1,m2):
-    ''' si les drones arrivent au point d'intersection avec un temps de différence inférieur à 3min , on consodère u'ils sotn en conflit'''
+    ''' si les drones arrivent au point d'intersection avec un temps de différence inférieur à 3min , on considère qu'ils sont en conflit'''
     A,B,C,D = m1.entrepot , m1.client , m2.entrepot , m2.client
     if interception(A,B,C,D):
         t1_dep, t2_dep = m1.heure_dmde, m2.heure_dmde
@@ -62,6 +63,16 @@ def conflit(m1,m2):
             print ('!!conflit!!')
             return True
     return False
+
+def detect(missions,t):
+    missions_actives = Timer.select(missions,t)
+    conflicts = {}
+    for i, mi in enumerate(missions_actives):
+        for j in range(i):
+            mj = missions_actives[j]
+            if conflit(mi, mj):
+                mi.changer_altitude(mi)
+
 
 client1 = geo.Timed_Point(2,2,0,0)
 m1  = trajet.Mission(client1)

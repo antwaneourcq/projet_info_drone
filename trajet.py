@@ -18,7 +18,10 @@ class Mission:
         self.deviation = []
         
     def __repr__(self):
-        return 'mission :  entrepot : ' + str(self.entrepot) +'\n' #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone) 
+        return 'mission :  entrepot : ' + str(self.entrepot) +'\n' #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone)
+
+    def changer_altitude(self):
+        
 
 def ordre_priorite_drones(drones): 
 #prend en argument une liste de drones à trier selon leur vitesse maximale
