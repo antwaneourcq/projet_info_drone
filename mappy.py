@@ -5,6 +5,14 @@ import geometry as geo
 import math
 
 
+
+#coordonées en degrés décimaux (trouvées sur internet)
+A = geo.Real_Point(1.35, 43.53, 0)
+B = geo.Real_Point(1.53, 43.67 ,0)
+C = geo.Real_Point(1.52, 43.67, 0)
+D = geo.Real_Point(1.52, 43.53, 0)
+
+
 #coordonées en DD (trouvées sur internet)
 A = geo.Real_Point(1.35, 43.53, 0)
 B = geo.Real_Point(1.53, 43.67 ,0)

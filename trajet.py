@@ -4,6 +4,9 @@ import lecture_drones as lect_dr
 import geometry as geo
 import math
 import tirage_au_sort as tas
+import conflits
+import math
+
 
 
 class Mission:
@@ -19,11 +22,20 @@ class Mission:
     def __repr__(self):
         return 'mission :  entrepot : ' + str(self.entrepot) +'\n' #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone)
 
-    def changer_altitude(self):
+    def changer_altitude(self,I):
         a = tas.alt_random()
         while a == self.alti[0]:
             a = tas.alt_random()
         self.alti.append(a)
+        p2, p3 = decoupe_trajet(self)[1] , decoupe_trajet(self)[2]
+        a,b = conflits.a(p2,p3) , conflits.b(p2,p3)
+        angle = math.tan(p3.x/p3.y)
+        de1 , de2 = geo.Point()
+
+
+
+
+
 
     def decoupe_trajet(self):
         # renvoie un tuple de 4 points et une durée
@@ -134,6 +146,21 @@ def calcul_duree_mission(drone, p1, p4):
     vit_hori = drone.v_speed_max
     distance = calcule_distance(p1,p4)
     return 2 * (drone.current_position.z / vit_vert) + 2 * (distance / vit_hori)
+
+
+
+def decoupe_trajet(mission):
+    # renvoie un tuple de 4 points et une durée
+    #print('Client : ::: ', mission.client, '\nEntrepot : ', mission.entrepot, '\nDrone : ', mission.drone)
+    arr, dep, drone = mission.client, mission.entrepot, mission.drone
+    p1 = geo.Point(dep.x, dep.y,0)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
+    alt = mission.alti
+    alt = tas.alt_random()
+    p1 = geo.Point(dep.x, dep.y,0)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
+    p2 = geo.Point(dep.x, dep.y, alt)
+    p3 = geo.Point(arr.x, arr.y, alt)
+    p4 = geo.Point(arr.x, arr.y, 0)
+    return p1, p2, p3, p4, calcul_duree_mission(drone, p1, p4)
 
 
 
