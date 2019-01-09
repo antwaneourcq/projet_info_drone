@@ -51,7 +51,10 @@ def conversion_m_deg(P):  #convertir des coordonées x,y en DD
     x_deg = P.x/(1852*60*math.cos(A.lat))
     lat_P = round(A.lat + y_deg, 2) #arrondi 2 chiffres après la virgule
     long_P = round(A.long + x_deg, 2) #idem
-    return geo.Real_Point(lat_P, long_P, P.z)
+    try :
+        return geo.Real_Point(lat_P, long_P, P.z, P.t)
+    except:
+        return geo.Real_Point(lat_P, long_P, P.z)
     
     
 def conversion_deg_m(P):

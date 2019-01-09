@@ -28,7 +28,7 @@ class Entrepot(geo.Point):
         self.id = random.randint(0,100)
     
     def __repr__(self):
-        return 'identificateur ' + str(self.id) + '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) +')' + ' drones : ' +str(self.models)
+        return 'ENtrepotXXXX, identificateur ' + str(self.id) + '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) +')' + ' drones : ' +str(self.models)
     
     def addDrone(self, drone):
         # model= str(drone.model)
@@ -62,7 +62,7 @@ def points_utiles(carte):
         x,y = random.uniform(carre_ext[p][0][0],carre_ext[p][0][1]),random.uniform(carre_ext[p][1][0],carre_ext[p][1][1])
         l_entrepots.append(Entrepot(x, y, 0, MODELS))
     for _ in range(nbr_clients):
-        x,y,z,t = random.uniform(A_int.x,C_int.x) ,random.uniform(A_int.y,C_int.y) , 0 , random.uniform(0,86400)
+        x,y,z,t = random.uniform(A_int.x,C_int.x) ,random.uniform(A_int.y,C_int.y) , 0 , random.randint(0,86400)
         l_clients.append(geo.Timed_Point(x,y,z,t))
     return l_entrepots,l_clients , carre_ext
 

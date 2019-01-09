@@ -18,7 +18,7 @@ class Mission:
         self.deviation = []
         
     def __repr__(self):
-        return 'mission :  entrepot : ' + str(self.entrepot) +'\n' #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone)
+        return 'mission :  entrepot : ' + str(self.entrepot) +'\nMission retour ligne\n' #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone)
 
     def changer_altitude(self):
         a = tas.alt_random()
@@ -138,7 +138,5 @@ def retour(drone, mission): #drone est un objet de la classe Drone et mission un
 
 
 
-def drone_optimal(drone, mission): #prend en parametre un objet mission de la classe Mission et un objet drone de la classe Drone
-
-
-
+def drone_optimal(drone, mission): #prend en parametre un objet mission de la classe Mission et un objet drone de la classe Drone7
+    pass

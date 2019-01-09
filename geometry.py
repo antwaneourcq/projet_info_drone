@@ -30,12 +30,15 @@ class Timed_Point(Point):
 #print(Timed_Point(0,2,3,78))
 
 class Real_Point():
-    def __init__(self, long,lat,z):
+    def __init__(self, long,lat,z, t=None):
         self.long = long
         self.lat = lat
         self.z = z
+        self.t = t
         
     def __repr__(self):
+        if self.t:
+            return '(' + str(self.t) + ',' + str(self.long) + ',' + str(self.lat) + ',' + str(self.z) + ')'
         return '(' + str(self.long) + ',' + str(self.lat) + ',' + str(self.z) + ')'
         
     def __sub__(self, other):
