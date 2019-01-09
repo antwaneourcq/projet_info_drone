@@ -1,8 +1,6 @@
 import geometry as geo
 import trajet
 import Timer
-SECU = 180 #en secondes
-Z_ALT = 1500
 
 def a(A,B):
     return (B.y - A.y) / (B.x - A.x)
