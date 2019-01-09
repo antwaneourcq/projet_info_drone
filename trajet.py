@@ -35,15 +35,13 @@ def capacite_drone(entrepot, client):
     #print('distance =', distance)
     # drones = entrepot.drones
     vit = 1
-    print('drones :', entrepot.models)
-    for drone in entrepot.drones: #models
-        dro = lect_dr.Drone(drone, geo.Point(0, 0, 0))
-        print('range', dro.range)
-        if dro.range >= distance:
-            print('success range')
-            if dro.v_speed_max > vit:
-                drone_correct = dro
-                vit = dro.v_speed_max
+    for drone in entrepot.models:
+        if entrepot.models[drone]>0:
+            dro = lect_dr.Drone(drone, geo.Point(0, 0, 0))
+            if dro.range >= distance:
+                if dro.v_speed_max > vit:
+                    drone_correct = dro
+                    vit = dro.v_speed_max
     try:
         return drone_correct  # drone est un objet de la classe Drone du module lecture_drone
     except UnboundLocalError:
@@ -53,7 +51,7 @@ def capacite_drone(entrepot, client):
 def attribuer_missions(carte):
     drone_correct = None
     for drone in entrepot.models: #models
-        if entrepot.models[drone] : print('entréeeee   ', entrepot.models[drone], drone)
+        #if entrepot.models[drone] : print('entréeeee   ', entrepot.models[drone], drone)
         if entrepot.models[drone]>0: #s'il y a au moins un exemplaire de ce drone dans l'entrepot
             dro = lect_dr.Drone(drone, geo.Point(0, 0, 0))
             if dro.range >= distance:
@@ -61,8 +59,8 @@ def attribuer_missions(carte):
                     drone_correct = dro
                     vit = dro.v_speed_max
     if drone_correct: entrepot.remove_drone(drone_correct)
-    if drone_correct == None:
-        print('\néchec\t', entrepot)
+    #if drone_correct == None:
+    #    print('\néchec\t', entrepot)
     return drone_correct    
 #    try:
 #        return drone_correct  # drone est un objet de la classe Drone du module lecture_drone
