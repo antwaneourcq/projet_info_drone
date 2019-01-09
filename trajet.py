@@ -16,6 +16,7 @@ class Mission:
         self.entrepot = None
         self.heure_dmde = client.t
         self.drone = None
+        self.deviation = []
         
     def __repr__(self):
         return 'mission :  entrepot : ' + str(self.entrepot) +'\n' #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone) 
