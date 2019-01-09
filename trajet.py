@@ -1,12 +1,11 @@
-
+import Timer
 import random
 import lecture_drones as lect_dr
 import geometry as geo
 import math
-import mappy 
 import tirage_au_sort as tas
 
-
+ALTI_CROIS = 200  # en mètres
 
 
 class Mission:
@@ -102,8 +101,8 @@ def decoupe_trajet(mission):
     # renvoie un tuple de 4 points et une durée
     #print('Client : ::: ', mission.client, '\nEntrepot : ', mission.entrepot, '\nDrone : ', mission.drone)
     arr, dep, drone = mission.client, mission.entrepot, mission.drone
-    p1 = geo.Point(dep.x, dep.y,0)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
     alt = tas.alt_random()
+    p1 = geo.Point(dep.x, dep.y,0)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
     p2 = geo.Point(dep.x, dep.y, alt)
     p3 = geo.Point(arr.x, arr.y, alt)
     p4 = geo.Point(arr.x, arr.y, 0)
@@ -126,7 +125,7 @@ def retour(drone, mission): #drone est un objet de la classe Drone et mission un
     entrepot = mission.entrepot
     distance = calcule_distance(client, entrepot)
     temps_arrivee = distance/(2 * drone.h_speed_max + drone.v_speed_max) #l'heure à laquelle le drone livre le client
-    if (time - mission.heure_dmde) == decoupe_trajet(mission)[4]:
+    if (Timer.time - mission.heure_dmde) == decoupe_trajet(mission)[4]:
         entrepot.models[str(drone.model)] += 1
     return temps_arrivee
 
