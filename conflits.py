@@ -41,6 +41,7 @@ def appartenance_segment(point , A,B):
             return A.x<=point.x<=B.x and B.y<=point.y<=A.y
         if A.y<B.y :
             return B.x<=point.x<=A.x and A.y<=point.y<=B.y
+        return B.x<=point.x<=A.x and A.y<=point.y<=B.y
     return False
 
 def interception (A,B,C,D) :
