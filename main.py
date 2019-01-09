@@ -4,7 +4,7 @@ import mappy
 import trajet 
 import tirage_au_sort as tas
 import matplotlib.pyplot as plt
-
+import czmlconverter as czmlc
 
 FILE = "aircraft.json"
 
@@ -54,4 +54,5 @@ def main():
 #    print(dep)
 #    print('arrivée :')
 #    print(arr)
+    czmlc.conversion(missions)
 main()

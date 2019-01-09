@@ -21,7 +21,8 @@ class Timed_Point(Point):
         self.t = t
         
     def __repr__(self):
-        return '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) + ',' + str(self.t) + ')'
+        return '('str(self.t) + ',' + str(self.x) + ',' + str(self.y) + ',' + str(self.z)')'
+
         
     def distance(self,other):
         return math.sqrt((other.x - self.x)**2 + (other.y - self.y)**2)
