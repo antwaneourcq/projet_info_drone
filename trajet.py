@@ -48,24 +48,6 @@ def capacite_drone(entrepot, client):
         return None
 
 
-def attribuer_missions(carte):
-    drone_correct = None
-    for drone in entrepot.models: #models
-        #if entrepot.models[drone] : print('entréeeee   ', entrepot.models[drone], drone)
-        if entrepot.models[drone]>0: #s'il y a au moins un exemplaire de ce drone dans l'entrepot
-            dro = lect_dr.Drone(drone, geo.Point(0, 0, 0))
-            if dro.range >= distance:
-                if dro.v_speed_max > vit:
-                    drone_correct = dro
-                    vit = dro.v_speed_max
-    if drone_correct: entrepot.remove_drone(drone_correct)
-    #if drone_correct == None:
-    #    print('\néchec\t', entrepot)
-    return drone_correct    
-#    try:
-#        return drone_correct  # drone est un objet de la classe Drone du module lecture_drone
-#    except UnboundLocalError:
-#        return None
 
 def attribuer_missions(entrepots , clients):
 
@@ -148,7 +130,7 @@ def retour(drone, mission): #drone est un objet de la classe Drone et mission un
 
 
 
-def drone_optimal(mission,drone): #prend en parametre un objet mission de la classe Mission et un objet drone de la classe Drone
-    pass
+def drone_optimal(drone, mission): #prend en parametre un objet mission de la classe Mission et un objet drone de la classe Drone
+
 
 
