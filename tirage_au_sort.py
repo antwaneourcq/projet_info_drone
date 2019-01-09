@@ -52,7 +52,7 @@ def points_utiles(carte): #changer le nom de la fonction
 def drones_utiles(dico, entrepots):
     '''renvoie un dictionnaire assimilant entre 1 et 10 drones à un entrepot'''
 
-    for entr in entrepots:
+    for entr in entrepots:   #entr: objet de la classe Entrepot
         p=randint(1,NMAX_DR)
         for _ in range (p) :
             drone = random.choice(MODELS) 
