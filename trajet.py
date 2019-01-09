@@ -15,13 +15,18 @@ class Mission:
         self.entrepot = None
         self.heure_dmde = client.t
         self.drone = None
+        self.alti = [tas.alt_random()]
         self.deviation = []
         
     def __repr__(self):
         return 'mission :  entrepot : ' + str(self.entrepot) +'\n' #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone)
 
     def changer_altitude(self):
-        
+        a = tas.alt_random()
+        while a == self.alti[0]:
+            a = tas.alt_random()
+        self.alti.append(a)
+
 
 def ordre_priorite_drones(drones): 
 #prend en argument une liste de drones à trier selon leur vitesse maximale

@@ -4,12 +4,12 @@
 import geometry as geo
 import math
 
-Z_ALT = 1500
+
 #coordonées en DD (trouvées sur internet)
-A = geo.Real_Point(1.35, 43.53, Z_ALT)
-B = geo.Real_Point(1.53, 43.67 ,Z_ALT)
-C = geo.Real_Point(1.52, 43.67, Z_ALT)
-D = geo.Real_Point(1.52, 43.53, Z_ALT)
+A = geo.Real_Point(1.35, 43.53, 0)
+B = geo.Real_Point(1.53, 43.67 ,0)
+C = geo.Real_Point(1.52, 43.67, 0)
+D = geo.Real_Point(1.52, 43.53, 0)
 
 
 
@@ -26,13 +26,13 @@ def carre_int(carte):
 #environnement = liste de deux points A_int , C_int
     p = 5/100
     '''C_map = conversion_deg_m(C)
-    A_origin = geo.Point(0,0,Z_ALT)
+    A_origin = geo.Point(0,0,0)
     l_x, l_y = C.x-A.x, C.y-A.y
     #je definis les limites de l'espace intérieur pour les clients
-    return geo.Point(A.x+p*l_x , A.y+p*l_y ,Z_ALT) , geo.Point(C_map.x-p*l_x , C_map.y-p*l_y , Z_ALT)'''
+    return geo.Point(A.x+p*l_x , A.y+p*l_y ,0) , geo.Point(C_map.x-p*l_x , C_map.y-p*l_y , 0)'''
     A_map , C_map = conversion_deg_m(carte[0]) , conversion_deg_m(carte[1])
     dx, dy = p * (C_map.x - A_map.x), p * (C_map.y - A_map.y)
-    return geo.Point(A_map.x + dx, A_map.y + dy, Z_ALT), geo.Point(C_map.x - dx, C_map.y - dy, Z_ALT) , A_map , C_map
+    return geo.Point(A_map.x + dx, A_map.y + dy, 0), geo.Point(C_map.x - dx, C_map.y - dy, 0) , A_map , C_map
 
 
 
@@ -42,7 +42,7 @@ def carre_int2(A_map,C_map):
     p = 5/100
     '''je definis les limites de l'espace intérieur pour les clients'''
     dx, dy = p * (C_map.x), p * (C_map.y)
-    return geo.Point(dx, dy, Z_ALT), geo.Point(C_map.x - dx, C_map.y - dy, Z_ALT)
+    return geo.Point(dx, dy, 0), geo.Point(C_map.x - dx, C_map.y - dy, 0)
 
 
 def conversion_m_deg(P):  #convertir des coordonées x,y en DD
