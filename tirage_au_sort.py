@@ -17,25 +17,6 @@ STEP = 25
 #carte est une liste de 2 tuples, donnant le coin supérieur gauche et le coin inférieur droit
 
 MODELS = lect_dr.listmodels(dico)
-    
-class Entrepot(geo.Point):
-    
-    def __init__(self, x, y, z, models): #models: liste de modèle de drones
-        super().__init__(x, y, z)
-        self.models = {}
-        for mod in models:
-            self.models[str(mod)] = 1
-        self.id = random.randint(0,100)
-    
-    def __repr__(self):
-        return 'identificateur ' + str(self.id) + '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) +')' + ' drones : ' +str(self.models)
-    
-    def addDrone(self, drone):
-        self.models[str(drone.model)] += 1
-    
-    def remove_drone(self, drone):
-        if self.models[str(drone)] > 0 : self.models[str(drone)] -= 1
-    
 
 
 def points_utiles(carte): #changer le nom de la fonction
