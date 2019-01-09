@@ -47,7 +47,7 @@ class Aircraft():
         self.id = iD
         self.description = '<h2>' + description + '</h2>'
         self.name = name
-        timeS, timeE = conversionTimeCzml(time_end, time_start)
+        timeS, timeE = conversionTimeCzml(points_trajet[-1].t, points_trajet[0].t)
         self._availability = timeS + '/' + timeE
         self.position = {"epoch" : timeS}
         self.position["cartographicDegrees"] = points_trajet
@@ -73,12 +73,25 @@ def color_maker():
     return [random.randint(45,255) for _ in range(3)] + [200]
 
 
-def test():
+def conversion(missions):
     document = Document("document", 0, 100)
-    drone = Aircraft('001', 'mon premier drone', 'Drone model', 0, 100, [0,1.47,43.67,50,20,1.47,43.67,1000,50,1.5,43.65,1000])
-    with open('ecriture en json1.czml', 'w') as f: #, encoding ='utf-8'
+    #drone = Aircraft('001', 'mon premier drone', 'Drone model', [0,1.47,43.67,50,20,1.47,43.67,1000,50,1.5,43.65,1000])
+    with open('Test1.czml', 'w') as f: #, encoding ='utf-8'
         f.write('[\n')
         json.dump(document, f, indent=4, default = document.serialiseur)
         f.write(',\n')
-        json.dump(drone, f, indent=4, default = drone.serialiseur)
+        for i,mission in enumerate(missions):
+            trajectoire = [mission.entrepot, mission.client] + mission.deviation
+            drone = Aircraft(str(i), 'name'+str(i), str(mission.drone), trajectoire[0].t, trajectoire[-1].t, trajectoire)
+            json.dump(drone, f, indent=4, default = drone.serialiseur)
+            f.write(',\n')
         f.write('\n]')
+
+
+        
+'''        
+def conversion(missions):
+    for mission in missions:
+        trajectoire = [mission.entrepot, mission.client] + mission.deviation
+        drone = Aircraft('00XX', 'nameXX', str(mission.drone), trajectoire[0].t, trajectoire[-1].t, trajectoire)
+'''
