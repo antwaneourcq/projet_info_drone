@@ -71,17 +71,17 @@ def detect(missions,t):
             if conflit(mi, mj):
                 mi.changer_altitude(mi)
 
+def test():
+    client1 = geo.Timed_Point(2,2,0,0)
+    m1  = trajet.Mission(client1)
+    client2 = geo.Timed_Point(0,2,0,0)
+    m2  = trajet.Mission(client2)
+    entrepot1 , entrepot2 = geo.Point(0,0,0) , geo.Point(2,0,0)
+    m1.entrepot = entrepot1
+    m2.entrepot = entrepot2
+    print (conflit(m1,m2))
 
-client1 = geo.Timed_Point(2,2,0,0)
-m1  = trajet.Mission(client1)
-client2 = geo.Timed_Point(0,2,0,0)
-m2  = trajet.Mission(client2)
-entrepot1 , entrepot2 = geo.Point(0,0,0) , geo.Point(2,0,0)
-m1.entrepot = entrepot1
-m2.entrepot = entrepot2
-print (conflit(m1,m2))
-
-
+#test()
 
 
 

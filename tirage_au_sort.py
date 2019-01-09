@@ -1,6 +1,6 @@
 
-from random
-import geometry as geo, lecture_drones as lect_dr, mappy
+import random
+import geometry as geo, lecture_drones as lect_dr, mappy, trajet
 
 
 dico = lect_dr.read("aircraft.json")
@@ -23,7 +23,7 @@ def points_utiles(carte): #changer le nom de la fonction
     '''renvoie la liste des entrepôts et des clients'''
     
     
-    l_clients est une liste d'objets de la classe client 
+    #l_clients est une liste d'objets de la classe client 
 
     nbr_entrepots = random.randint(5, NMAX_EN)
     nbr_clients = random.randint(nbr_entrepots , NMAX_CL)
@@ -37,13 +37,13 @@ def points_utiles(carte): #changer le nom de la fonction
     zones = [ zone_droite , zone_sup , zone_gauche , zone_inf ]
     
     for _ in range(nbr_entrepots):
-        p = randint(0 , 3)   #p est assimilé à l'une des zones alétoirement
+        p = random.randint(0 , 3)   #p est assimilé à l'une des zones alétoirement
         x,y = random.uniform(zones[p][0],zones[p][1]),random.uniform(zones[p][2],zones[p][3])
-        l_entrepots.append(Entrepot(x, y, 0, MODELS))
+        l_entrepots.append(trajet.Entrepot(x, y, 0, MODELS))
     
     for _ in range(nbr_clients):
         x, y, z, t = random.uniform(A_int.x,C_int.x), random.uniform(A_int.y,C_int.y), 0, random.randint(0,86400) #à l'instant t le client confirme sa commande 
-        l_clients.append(geo.Timed_Point(x,y,z,t))
+        l_clients.append(trajet.Client(x,y,z,t, None))
     return l_entrepots,l_clients
 
 
@@ -53,7 +53,7 @@ def drones_utiles(dico, entrepots):
     '''renvoie un dictionnaire assimilant entre 1 et 10 drones à un entrepot'''
 
     for entr in entrepots:   #entr: objet de la classe Entrepot
-        p=randint(1,NMAX_DR)
+        p = random.randint(1,NMAX_DR)
         for _ in range (p) :
             drone = random.choice(MODELS) 
             entr.addDrone(drone)

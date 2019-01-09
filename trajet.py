@@ -31,11 +31,6 @@ class Mission:
         angle = math.tan(p3.x/p3.y)
         de1 , de2 = geo.Point()
 
-
-
-
-
-
     def decoupe_trajet(self):
         # renvoie un tuple de 4 points et une durée
         # print('Client : ::: ', mission.client, '\nEntrepot : ', mission.entrepot, '\nDrone : ', mission.drone)
@@ -73,9 +68,9 @@ class Entrepot(geo.Point):
 class Client(geo.Timed_Point):
 
     def __init__(self, x, y, z, t, entrepot):
-        super().__init___(x, y, z)
+        super().__init__(x, y, z, t)
         self.entrepot = entrepot
-        self.t = t
+        #self.t = t
 
 
 def ordre_priorite_drones(drones): 
