@@ -9,6 +9,10 @@ dico = lect_dr.read("aircraft.json")
 NMAX_CL = 50 #nombre maximal de clients autorisés
 NMAX_EN = 10 #nombre maximal d'entrepôts autorisés
 NMAX_DR = 10
+
+Z_ALT_MIN = 300
+Z_ALT_MAX = 600
+STEP = 25
 #carte est une liste de 2 tuples, donnant le coin supérieur gauche et le coin inférieur droit
 
 MODELS = lect_dr.listmodels(dico)
@@ -78,10 +82,8 @@ def drones_utiles(dico, entrepots):
     return entrepots
 
 
-
-
-def alt_random(P):
-    P.z = random.randrange(300,625,25)
+def alt_random():
+    return random.randrange(Z_ALT_MIN , Z_ALT_MAX , STEP) 
 
 
 

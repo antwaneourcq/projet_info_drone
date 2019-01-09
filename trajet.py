@@ -6,7 +6,7 @@ import math
 import mappy 
 import tirage_au_sort as tas
 
-ALTI_CROIS = 200  # en mètres
+
 
 
 class Mission:
@@ -16,9 +16,13 @@ class Mission:
         self.entrepot = None
         self.heure_dmde = client.t
         self.drone = None
+        self.deviation = []
         
     def __repr__(self):
-        return 'mission :  entrepot : ' + str(self.entrepot) +'\n' #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone) 
+        return 'mission :  entrepot : ' + str(self.entrepot) +'\n' #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone)
+
+    def changer_altitude(self):
+        
 
 def ordre_priorite_drones(drones): 
 #prend en argument une liste de drones à trier selon leur vitesse maximale
@@ -120,8 +124,9 @@ def decoupe_trajet(mission):
     #print('Client : ::: ', mission.client, '\nEntrepot : ', mission.entrepot, '\nDrone : ', mission.drone)
     arr, dep, drone = mission.client, mission.entrepot, mission.drone
     p1 = geo.Point(dep.x, dep.y,0)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
-    p2 = geo.Point(dep.x, dep.y, ALTI_CROIS)
-    p3 = geo.Point(arr.x, arr.y, ALTI_CROIS)
+    alt = tas.alt_random()
+    p2 = geo.Point(dep.x, dep.y, alt)
+    p3 = geo.Point(arr.x, arr.y, alt)
     p4 = geo.Point(arr.x, arr.y, 0)
     return p1, p2, p3, p4, calcul_duree_mission(drone, p1, p4)
 
