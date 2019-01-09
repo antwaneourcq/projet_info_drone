@@ -5,8 +5,6 @@ import geometry as geo
 import math
 import tirage_au_sort as tas
 
-ALTI_CROIS = 200  # en mètres
-
 
 class Mission:
 
