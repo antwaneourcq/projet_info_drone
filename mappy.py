@@ -5,7 +5,7 @@ import geometry as geo
 import math
 
 Z_ALT = 1500
-#coordonées en DD (trouvées sur internet)
+#coordonées en degrés décimaux (trouvées sur internet)
 A = geo.Real_Point(1.35, 43.53, Z_ALT)
 B = geo.Real_Point(1.53, 43.67 ,Z_ALT)
 C = geo.Real_Point(1.52, 43.67, Z_ALT)
