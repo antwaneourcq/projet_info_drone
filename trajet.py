@@ -1,23 +1,12 @@
-
+import Timer
 import random
 import lecture_drones as lect_dr
 import geometry as geo
 import math
-import mappy 
 import tirage_au_sort as tas
 import conflits
 import math
 
-def decoupe_trajet(mission):
-    # renvoie un tuple de 4 points et une durée
-    #print('Client : ::: ', mission.client, '\nEntrepot : ', mission.entrepot, '\nDrone : ', mission.drone)
-    arr, dep, drone = mission.client, mission.entrepot, mission.drone
-    p1 = geo.Point(dep.x, dep.y,0)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
-    alt = tas.alt_random()
-    p2 = geo.Point(dep.x, dep.y, alt)
-    p3 = geo.Point(arr.x, arr.y, alt)
-    p4 = geo.Point(arr.x, arr.y, 0)
-    return p1, p2, p3, p4, calcul_duree_mission(drone, p1, p4)
 
 
 class Mission:
@@ -66,7 +55,7 @@ def capacite_drone(entrepot, client):
     vit = 1
     for drone in entrepot.models:
         if entrepot.models[drone]>0:
-            dro = lect_dr.Drone(drone, geo.Point(0, 0, 0))
+            dro = lect_dr.Drone(drone, geo.Point(entrepot.x, entrepot.y, entrepot.z))
             if dro.range >= distance:
                 if dro.v_speed_max > vit:
                     drone_correct = dro
@@ -77,24 +66,6 @@ def capacite_drone(entrepot, client):
         return None
 
 
-def attribuer_missions(carte):
-    drone_correct = None
-    for drone in entrepot.models: #models
-        #if entrepot.models[drone] : print('entréeeee   ', entrepot.models[drone], drone)
-        if entrepot.models[drone]>0: #s'il y a au moins un exemplaire de ce drone dans l'entrepot
-            dro = lect_dr.Drone(drone, geo.Point(0, 0, 0))
-            if dro.range >= distance:
-                if dro.v_speed_max > vit:
-                    drone_correct = dro
-                    vit = dro.v_speed_max
-    if drone_correct: entrepot.remove_drone(drone_correct)
-    #if drone_correct == None:
-    #    print('\néchec\t', entrepot)
-    return drone_correct    
-#    try:
-#        return drone_correct  # drone est un objet de la classe Drone du module lecture_drone
-#    except UnboundLocalError:
-#        return None
 
 def attribuer_missions(entrepots , clients):
 
@@ -141,7 +112,7 @@ def calcul_duree_mission(drone, p1, p4):
     vit_vert = drone.h_speed_max
     vit_hori = drone.v_speed_max
     distance = calcule_distance(p1,p4)
-    return 2 * (ALTI_CROIS / vit_vert) + 2 * (distance / vit_hori)
+    return 2 * (drone.current_position.z / vit_vert) + 2 * (distance / vit_hori)
 
 
 def decoupe_trajet(mission):
@@ -150,6 +121,8 @@ def decoupe_trajet(mission):
     arr, dep, drone = mission.client, mission.entrepot, mission.drone
     p1 = geo.Point(dep.x, dep.y,0)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
     alt = mission.alti
+    alt = tas.alt_random()
+    p1 = geo.Point(dep.x, dep.y,0)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
     p2 = geo.Point(dep.x, dep.y, alt)
     p3 = geo.Point(arr.x, arr.y, alt)
     p4 = geo.Point(arr.x, arr.y, 0)
@@ -172,13 +145,13 @@ def retour(drone, mission): #drone est un objet de la classe Drone et mission un
     entrepot = mission.entrepot
     distance = calcule_distance(client, entrepot)
     temps_arrivee = distance/(2 * drone.h_speed_max + drone.v_speed_max) #l'heure à laquelle le drone livre le client
-    if (time - mission.heure_dmde) == decoupe_trajet(mission)[4]:
+    if (Timer.time - mission.heure_dmde) == decoupe_trajet(mission)[4]:
         entrepot.models[str(drone.model)] += 1
     return temps_arrivee
 
 
 
-def drone_optimal(mission,drone): #prend en parametre un objet mission de la classe Mission et un objet drone de la classe Drone
-    pass
+def drone_optimal(drone, mission): #prend en parametre un objet mission de la classe Mission et un objet drone de la classe Drone
+
 
 
