@@ -8,7 +8,6 @@ import tirage_au_sort as tas
 
 
 
-
 class Mission:
 
     def __init__(self, client):
