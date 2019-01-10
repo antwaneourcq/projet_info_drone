@@ -159,8 +159,8 @@ def calcul_duree_mission(drone, p1, p4):
     #vit_hori = drone.v_speed_max
     #distance = calcule_distance(p1,p4)
     #return 2 * (drone.current_position.z / vit_vert) + 2 * (distance / vit_hori)
-    p1 = dep
-    p4 = arr
+    dep = p1
+    arr = p4
     return arr.t - dep.t
 
 
