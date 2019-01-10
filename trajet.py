@@ -8,7 +8,6 @@ import conflits
 import math
 
 
-
 class Mission:
 
     def __init__(self, client): #client est un objet de la classe Client
@@ -20,34 +19,7 @@ class Mission:
         self.deviation = []
         
     def __repr__(self):
-        return 'mission :  entrepot : ' + str(self.entrepot) +'\n' #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone)
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    def changer_altitude(self,I):  #a finir : résolution de conflits 
-        a = tas.alt_random()
-        while a == self.alti[0]:
-            a = tas.alt_random()
-        self.alti.append(a)
-        p2, p3 = decoupe_trajet(self)[1] , decoupe_trajet(self)[2]
-        a,b = conflits.a(p2,p3) , conflits.b(p2,p3)
-        angle = math.tan(p3.x/p3.y)
-        de1 , de2 = geo.Point()
-
-
-
-
+        return 'mission :  entrepot : ' + str(self.entrepot) +'\nMission retour ligne\n' #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone)
 
 
     def decoupe_trajet(self):
@@ -61,6 +33,18 @@ class Mission:
         p3 = geo.Timed_Point(arr.x, arr.y, alt, distance/self.drone.v_speed_max)
         p4 = geo.Timed_Point(arr.x, arr.y, 0)
         return p1, p2, p3, p4, calcul_duree_mission(self.drone, p1, p4)
+
+
+    def changer_altitude(self,I) :
+    # permet de changer l'altitude pendant une mission en cas de conflits
+        a = tas.alt_random()
+        while a == self.alti[0]:
+            a = tas.alt_random()
+        self.alti.append(a)
+        p2, p3 = self.decoupe_trajet[1] , self.decoupe_trajet(self)[2]
+        a,b = conflits.a(p2,p3) , conflits.b(p2,p3)
+        angle = math.tan(p3.x/p3.y)
+        de1 , de2 = geo.Point()
 
 
 class Entrepot(geo.Point):
@@ -91,7 +75,6 @@ class Client(geo.Timed_Point):
         self.entrepot = entrepot
         
 
-
 def ordre_priorite_drones(drones): 
 #prend en argument une liste de drones à trier selon leur vitesse maximale
 	drones.sort(key = lambda drone : drone.v_speed_max, reverse = True) #on trie les drones de l'entrepot le plus proche par ordre décroissant de vitesse maximale en route (tri en place)
@@ -118,6 +101,14 @@ def capacite_drone(entrepot, client):
         return drone_correct  # drone est un objet de la classe Drone du module lecture_drone
     except UnboundLocalError:
         return None
+
+
+def attribuer_entrepot(entrepots,clients):
+    l = len(entrepots)
+    for cli in clients :
+        if cli.entrepot != None :
+            p = random.randint(l-1)
+            cli.entepot = entrepots[p]
 
 
 
@@ -183,7 +174,7 @@ def liste_mission(carte):
 	nb_missions=len(l)
 	s=[0]*nb_missions
 	for i in range(nb_missions):
-		s[i]=decoupe_trajet(l[i])
+		s[i]=l[i].decoupe_trajet()
 	return s
 
 
@@ -192,14 +183,12 @@ def retour(mission): #drone est un objet de la classe Drone et mission un objet 
     client = mission.client
     entrepot = mission.entrepot
     distance = calcule_distance(client, entrepot)
-    temps_arrivee = distance/(2 * drone.h_speed_max + drone.v_speed_max) #l'heure à laquelle le drone livre le client
-    if (Timer.time - mission.heure_dmde) == decoupe_trajet(mission)[4]:
-        entrepot.models[str(drone.model)] += 1
+    temps_arrivee = distance/(2 * mission.drone.h_speed_max + mission.drone.v_speed_max) #l'heure à laquelle le drone livre le client
+    if (Timer.time - mission.heure_dmde) == mission.decoupe_trajet()[4]:
+        entrepot.models[str(mission.drone.model)] += 1
     return temps_arrivee
 
 
 
-def drone_optimal(drone, mission): #prend en parametre un objet mission de la classe Mission et un objet drone de la classe Drone
-
-
-
+def drone_optimal(drone, mission): #prend en parametre un objet mission de la classe Mission et un objet drone de la classe Drone7
+    pass

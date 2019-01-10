@@ -12,16 +12,6 @@ B = geo.Real_Point(1.53, 43.67 ,0)
 C = geo.Real_Point(1.52, 43.67, 0)
 D = geo.Real_Point(1.52, 43.53, 0)
 
-
-#coordonées en DD (trouvées sur internet)
-A = geo.Real_Point(1.35, 43.53, 0)
-B = geo.Real_Point(1.53, 43.67 ,0)
-C = geo.Real_Point(1.52, 43.67, 0)
-D = geo.Real_Point(1.52, 43.53, 0)
-
-
-
-
 def verif_map(P):
     #pas d'influence du A puisque c'est le point nul
     C_map = conversion_deg_m(C)
@@ -42,26 +32,17 @@ def carre_int(carte):
     dx, dy = p * (C_map.x - A_map.x), p * (C_map.y - A_map.y)
     return geo.Point(A_map.x + dx, A_map.y + dy, 0), geo.Point(C_map.x - dx, C_map.y - dy, 0) , A_map , C_map
 
-
-
-def carre_int2(A_map,C_map):
-    #environnement = liste de deux intervalles représenté par des tuples et correspond à l'intervalle des abcsisses et des ordonnées
-    #ne sert à rien
-    p = 5/100
-    '''je definis les limites de l'espace intérieur pour les clients'''
-    dx, dy = p * (C_map.x), p * (C_map.y)
-    return geo.Point(dx, dy, 0), geo.Point(C_map.x - dx, C_map.y - dy, 0)
-
-
 def conversion_m_deg(P):  #convertir des coordonées x,y en DD
     '''on passe de x en metres à x en degrés'''
     y_deg = P.y / (1852*60) #on passe x en Nm puis en ° puisqu'il est sur une ortho
     x_deg = P.x/(1852*60*math.cos(A.lat))
     lat_P = round(A.lat + y_deg, 2) #arrondi 2 chiffres après la virgule
     long_P = round(A.long + x_deg, 2) #idem
-    return geo.Real_Point(lat_P, long_P, P.z)
-    
-    
+    try :
+        return geo.Real_Point(lat_P, long_P, P.z, P.t)
+    except:
+        return geo.Real_Point(lat_P, long_P, P.z)
+        
 def conversion_deg_m(P):
     y_lat = abs(P.lat - A.lat)
     x_long = abs(P.long - A.long)

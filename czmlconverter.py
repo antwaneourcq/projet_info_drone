@@ -1,6 +1,8 @@
 #import datetime
 import json
 import random
+import geometry as geo
+import mappy
 
 STEP = 1 #une seconde correspond à un pas de 1 pour les calculs précédents
 MULTI = 5
@@ -24,6 +26,15 @@ class Document():
         raise TypeError(repr(obj) + "n'est pas sérialisable")
         
 def conversionTimeCzml(timeCalcul, refTime):
+    print('reftime :', refTime)
+    print('timeC : ', timeCalcul)
+    if not timeCalcul:
+        timeCalcul = 0
+        print('timeCalcul non défini')
+    if not refTime:
+        refTime = 0
+        print('refTime non défini')
+    timeCalcul += 30
     h = refTime//3600
     temp = refTime%3600
     m = temp//60
@@ -47,7 +58,9 @@ class Aircraft():
         self.id = iD
         self.description = '<h2>' + description + '</h2>'
         self.name = name
+        print(points_trajet[-1], points_trajet[0])
         timeS, timeE = conversionTimeCzml(points_trajet[-1].t, points_trajet[0].t)
+        #print('afficaheg des temps :', timeS, timeE)
         self._availability = timeS + '/' + timeE
         self.position = {"epoch" : timeS}
         self.position["cartographicDegrees"] = points_trajet
@@ -80,11 +93,23 @@ def conversion(missions):
         f.write('[\n')
         json.dump(document, f, indent=4, default = document.serialiseur)
         f.write(',\n')
+        j, k = 0, 0
         for i,mission in enumerate(missions):
-            trajectoire = [mission.entrepot, mission.client] + mission.deviation
-            drone = Aircraft(str(i), 'name'+str(i), str(mission.drone), trajectoire[0].t, trajectoire[-1].t, trajectoire)
-            json.dump(drone, f, indent=4, default = drone.serialiseur)
-            f.write(',\n')
+            if mission.drone:
+                k += 1
+                print('mission énumérée : ', i, mission, '\n  entrepot attribué : ', mission.drone)
+                e = mappy.conversion_m_deg(geo.Timed_Point(mission.entrepot.x, mission.entrepot.y, mission.entrepot.z, mission.heure_dmde))
+                c = mappy.conversion_m_deg(mission.client)
+                print('entrepot :', e, 'client :', c)
+                trajectoire = [e, c] + mission.deviation
+                print(str(i), 'name'+str(i), str(mission.drone), trajectoire[0], trajectoire[-1], trajectoire)
+                drone = Aircraft(str(i), 'name'+str(i), str(mission.drone), trajectoire[0].t, trajectoire[-1].t, trajectoire)
+                json.dump(drone, f, indent=4, default = drone.serialiseur)
+                f.write(',\n')
+            
+            else:
+                j += 1
+        print('nombre de mission non gérées :', j)
         f.write('\n]')
 
 

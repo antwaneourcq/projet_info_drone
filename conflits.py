@@ -59,29 +59,30 @@ def conflit(m1,m2):
         t1_I , t2_I = t1_dep + d1/v1 , t2_dep + d2/v2
         if abs(t1_I - t2_I) <= 180 :
             print ('!!conflit!!')
-            return True
+            return True , I
     return False
 
 def detect(missions,t):
     missions_actives = Timer.select(missions,t)
-    conflicts = {}
     for i, mi in enumerate(missions_actives):
         for j in range(i):
             mj = missions_actives[j]
-            if conflit(mi, mj):
-                mi.changer_altitude(mi)
+            if conflit(mi, mj)[0]:
+                I = conflit(mi,mj)[1]
+                mi.changer_altitude(mi,I)
 
 
-client1 = geo.Timed_Point(2,2,0,0)
-m1  = trajet.Mission(client1)
-client2 = geo.Timed_Point(0,2,0,0)
-m2  = trajet.Mission(client2)
-entrepot1 , entrepot2 = geo.Point(0,0,0) , geo.Point(2,0,0)
-m1.entrepot = entrepot1
-m2.entrepot = entrepot2
-print (conflit(m1,m2))
+def test():
+    client1 = geo.Timed_Point(2,2,0,0)
+    m1  = trajet.Mission(client1)
+    client2 = geo.Timed_Point(0,2,0,0)
+    m2  = trajet.Mission(client2)
+    entrepot1 , entrepot2 = geo.Point(0,0,0) , geo.Point(2,0,0)
+    m1.entrepot = entrepot1
+    m2.entrepot = entrepot2
+    print (conflit(m1,m2))
 
-
+#test()
 
 
 
