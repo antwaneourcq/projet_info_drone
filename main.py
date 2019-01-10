@@ -39,7 +39,7 @@ def main():
     for t in range (0, 86400, 1800) :
         missions_actives = []
         for m in missions :
-            if heure_demande(m)+ m.decoupe_trajet()[4] <= t :
+            if heure_demande(m)+ m.duree <= t :
                 missions_actives.append(m)
             print(m)
 
