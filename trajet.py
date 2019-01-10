@@ -22,6 +22,19 @@ class Mission:
     def __repr__(self):
         return 'mission :  entrepot : ' + str(self.entrepot) +'\n' #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone)
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     def changer_altitude(self,I):  #a finir : résolution de conflits 
         a = tas.alt_random()
         while a == self.alti[0]:
