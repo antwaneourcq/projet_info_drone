@@ -35,12 +35,12 @@ class Mission:
 
 
     def changer_altitude(self,I) :
-''' permet de changer l'altitude pendant une mission en cas de conflits'''
+    # permet de changer l'altitude pendant une mission en cas de conflits
         a = tas.alt_random()
         while a == self.alti[0]:
             a = tas.alt_random()
         self.alti.append(a)
-        p2, p3 = decoupe_trajet(self)[1] , decoupe_trajet(self)[2]
+        p2, p3 = self.decoupe_trajet[1] , self.decoupe_trajet(self)[2]
         a,b = conflits.a(p2,p3) , conflits.b(p2,p3)
         angle = math.tan(p3.x/p3.y)
         de1 , de2 = geo.Point()
