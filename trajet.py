@@ -126,7 +126,6 @@ def attribuer_missions(clients): #clients est une liste d'objets de la classe Cl
         if drone != None:
             correctness += 1 
             m.entrepot = e
-            m.heure_livr =random.randint(0,24) #à modifier avec ordre/file à priorité
             m.drone = drone
             e.models[str(drone.model)] -= 1
         else :
