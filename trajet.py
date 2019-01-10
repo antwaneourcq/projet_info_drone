@@ -12,7 +12,7 @@ class Mission:
 
     def __init__(self, client): #client est un objet de la classe Client
         self.client = client
-        self.entrepot = None
+        self.entrepot = client.entrepot
         self.heure_dmde = client.t
         self.drone = None
         self.alti = [tas.alt_random()]
@@ -37,10 +37,17 @@ class Mission:
         arr, dep, drone = self.client, self.entrepot, self.drone
         alt = tas.alt_random()
         distance = calcule_distance(self.client, self.entrepot)
-        p1 = geo.Timed_Point(dep.x, dep.y, 0, self.heure_dmde)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
-        p2 = geo.Timed_Point(dep.x, dep.y, alt, distance/self.drone.h_speed_max)
-        p3 = geo.Timed_Point(arr.x, arr.y, alt, distance/self.drone.v_speed_max)
-        p4 = geo.Timed_Point(arr.x, arr.y, 0)
+        t_courant = self.heure_dmde
+        print(t_courant)
+        print(alt, self.drone.v_speed_max, self.drone.h_speed_max)
+        temps_montee = alt/self.drone.v_speed_max
+        p1 = geo.Timed_Point(dep.x, dep.y, 0, t_courant)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
+        t_courant += temps_montee
+        p2 = geo.Timed_Point(dep.x, dep.y, alt, t_courant)
+        t_courant += distance/self.drone.h_speed_max
+        p3 = geo.Timed_Point(arr.x, arr.y, alt, t_courant)
+        t_courant += temps_montee
+        p4 = geo.Timed_Point(arr.x, arr.y, 0, t_courant)
         return p1, p2, p3, p4, calcul_duree_mission(self.drone, p1, p4)
 
 
@@ -136,10 +143,15 @@ def attribuer_missions(clients): #clients est une liste d'objets de la classe Cl
 def calcul_duree_mission(drone, p1, p4):
     # drone est on objet de la classe Drone du module lecture_drones
     # calcul le temps que met le drone pour faire un aller-retour de p1 à p4
-    vit_vert = drone.h_speed_max
-    vit_hori = drone.v_speed_max
-    distance = calcule_distance(p1,p4)
-    return 2 * (drone.current_position.z / vit_vert) + 2 * (distance / vit_hori)
+    
+    '''fonction obsolète?'''
+    #vit_vert = drone.h_speed_max
+    #vit_hori = drone.v_speed_max
+    #distance = calcule_distance(p1,p4)
+    #return 2 * (drone.current_position.z / vit_vert) + 2 * (distance / vit_hori)
+    p1 = dep
+    p4 = arr
+    return arr.t - dep.t
 
 
 
