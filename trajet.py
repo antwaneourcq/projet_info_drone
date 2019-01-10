@@ -63,7 +63,7 @@ class Entrepot(geo.Point):
         return 'identificateur ' + str(self.id) + '(' + str(self.x) + ',' + str(self.y) + ',' + str(
             self.z) + ')' + ' drones : ' + str(self.models)
 
-    def addDrone(self, drone):
+    def add_drone(self, drone):
         self.models[str(drone.model)] += 1
 
     def remove_drone(self, drone):
@@ -74,9 +74,9 @@ class Entrepot(geo.Point):
 class Client(geo.Timed_Point):
 
     def __init__(self, x, y, z, t, entrepot):
-        super().__init___(x, y, z)
+        super().__init___(x, y, z, t)
         self.entrepot = entrepot
-        self.t = t
+        
 
 
 def ordre_priorite_drones(drones): 
