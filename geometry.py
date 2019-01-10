@@ -18,7 +18,7 @@ class Timed_Point(Point):
         self.t = t
         
     def __repr__(self):
-        return '('str(self.t) + ',' + str(self.x) + ',' + str(self.y) + ',' + str(self.z)')'
+        return '(' + str(self.t) + ',' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) + ')'
 
         
     def distance(self,other):
@@ -27,13 +27,20 @@ class Timed_Point(Point):
 
 
 class Real_Point():
+<<<<<<< HEAD
     '''point en coordonnées géographiques'''
     def __init__(self, long,lat,z):
+=======
+    def __init__(self, long,lat,z, t=None):
+>>>>>>> 4c0d1e52bf1f4074246966b325276ae309fa46d9
         self.long = long
         self.lat = lat
         self.z = z
+        self.t = t
         
     def __repr__(self):
+        if self.t:
+            return '(' + str(self.t) + ',' + str(self.long) + ',' + str(self.lat) + ',' + str(self.z) + ')'
         return '(' + str(self.long) + ',' + str(self.lat) + ',' + str(self.z) + ')'
         
     def __sub__(self, other):

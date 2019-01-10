@@ -35,4 +35,5 @@ class Simulation:
 
 
 
-def drones_en_points()
+def drones_en_points():
+    pass

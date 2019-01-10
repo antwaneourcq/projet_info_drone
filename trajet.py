@@ -8,7 +8,6 @@ import conflits
 import math
 
 
-
 class Mission:
 
     def __init__(self, client): #client est un objet de la classe Client
@@ -20,7 +19,7 @@ class Mission:
         self.deviation = []
         
     def __repr__(self):
-        return 'mission :  entrepot : ' + str(self.entrepot) +'\n' #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone)
+        return 'mission :  entrepot : ' + str(self.entrepot) +'\nMission retour ligne\n' #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone)
 
     def changer_altitude(self,I):
         a = tas.alt_random()
@@ -31,11 +30,6 @@ class Mission:
         a,b = conflits.a(p2,p3) , conflits.b(p2,p3)
         angle = math.tan(p3.x/p3.y)
         de1 , de2 = geo.Point()
-
-
-
-
-
 
     def decoupe_trajet(self):
         # renvoie un tuple de 4 points et une durée
@@ -74,9 +68,9 @@ class Entrepot(geo.Point):
 class Client(geo.Timed_Point):
 
     def __init__(self, x, y, z, t, entrepot):
-        super().__init___(x, y, z)
+        super().__init__(x, y, z, t)
         self.entrepot = entrepot
-        self.t = t
+        #self.t = t
 
 
 def ordre_priorite_drones(drones): 
@@ -186,7 +180,5 @@ def retour(mission): #drone est un objet de la classe Drone et mission un objet 
 
 
 
-def drone_optimal(drone, mission): #prend en parametre un objet mission de la classe Mission et un objet drone de la classe Drone
-
-
-
+def drone_optimal(drone, mission): #prend en parametre un objet mission de la classe Mission et un objet drone de la classe Drone7
+    pass
