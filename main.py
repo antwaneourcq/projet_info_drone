@@ -41,7 +41,7 @@ def main():
 #    print('('+ str(entrepot.x) + ',' + str(entrepot.y) + ',' + str(entrepot.z) + ')') #parfois erreur entrepot n'est pas défini (NoneType)
 #    print('modèles présents dans entrepôt :')
 #    print(entrepot.models)
-    p1, p2, p3, p4, dt = trajet.decoupe_trajet(mission)
+    trajet.decoupe_trajet(mission)
 #    print('découpage spatial du trajet :')
 #    print(p1,p2,p3,p4)
 #    print('durée de la mission :')
