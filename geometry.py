@@ -1,9 +1,6 @@
 import math
 
 
-Z_ALT = 1500
-
-
 class Point():
     def __init__(self,x,y,z):
         self.x = x  #coordonnée x en mètres 
