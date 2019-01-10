@@ -32,17 +32,6 @@ def carre_int(carte):
     dx, dy = p * (C_map.x - A_map.x), p * (C_map.y - A_map.y)
     return geo.Point(A_map.x + dx, A_map.y + dy, 0), geo.Point(C_map.x - dx, C_map.y - dy, 0) , A_map , C_map
 
-
-###carre_int2 a supprimer ????
-def carre_int2(A_map,C_map):
-    #environnement = liste de deux intervalles représenté par des tuples et correspond à l'intervalle des abcsisses et des ordonnées
-    #ne sert à rien
-    p = 5/100
-    '''je definis les limites de l'espace intérieur pour les clients'''
-    dx, dy = p * (C_map.x), p * (C_map.y)
-    return geo.Point(dx, dy, 0), geo.Point(C_map.x - dx, C_map.y - dy, 0)
-
-
 def conversion_m_deg(P):  #convertir des coordonées x,y en DD
     '''on passe de x en metres à x en degrés'''
     y_deg = P.y / (1852*60) #on passe x en Nm puis en ° puisqu'il est sur une ortho
@@ -53,8 +42,7 @@ def conversion_m_deg(P):  #convertir des coordonées x,y en DD
         return geo.Real_Point(lat_P, long_P, P.z, P.t)
     except:
         return geo.Real_Point(lat_P, long_P, P.z)
-    
-###Fonction ci dessous à supprimer ???     
+        
 def conversion_deg_m(P):
     y_lat = abs(P.lat - A.lat)
     x_long = abs(P.long - A.long)
