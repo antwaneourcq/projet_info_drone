@@ -8,11 +8,19 @@ import czmlconverter as czmlc
 
 FILE = "aircraft.json"
 
+def heure_demande(mission) :
+    return mission.heure_dmde
+
+def heure_demande2(client) :
+    return client.t
+
 
 def main():
     dico = lect_dr.read(FILE)
     carte = (mappy.A, mappy.C)
-    entrepots, clients = tas.points_utiles(carte)  #, carre_ext 
+    entrepots, clients = tas.points_utiles(carte)  #, carre_ext
+    print(entrepots)
+    print(clients)
     x_entrepots,y_entrepots , x_clients, y_clients =[],[] , [],[]
     for i in range(len(entrepots)):
         x_entrepots.append(entrepots[i].x)
@@ -24,6 +32,19 @@ def main():
     plt.plot(x_clients,y_clients, '.')
     plt.show()
     tas.drones_utiles(dico, entrepots)
+    trajet.attribuer_entrepot(entrepots , clients)
+    missions , file_attente = trajet.attribuer_missions(clients)
+    sorted(missions , key = heure_demande , reverse = True)
+    sorted(file_attente, key = heure_demande2 , reverse = True)
+    for t in range (0, 86400, 1800) :
+        missions_actives = []
+        for m in missions :
+            if heure_demande(m)+ m.duree <= t :
+                missions_actives.append(m)
+            print(m)
+
+
+
 
 
     '''AFFICHAGE'''
