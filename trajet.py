@@ -65,7 +65,7 @@ class Mission:
 
 class Entrepot(geo.Point):
 
-    def __init__(self, x, y, z, models):  # models: liste de modèle de drones
+    def __init__(self, x, y, z, models):  # models: dico de modèle de drones
         super().__init__(x, y, z)
         self.models = {}
         for mod in models:
