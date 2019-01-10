@@ -27,12 +27,8 @@ class Timed_Point(Point):
 
 
 class Real_Point():
-<<<<<<< HEAD
     '''point en coordonnées géographiques'''
-    def __init__(self, long,lat,z):
-=======
     def __init__(self, long,lat,z, t=None):
->>>>>>> 4c0d1e52bf1f4074246966b325276ae309fa46d9
         self.long = long
         self.lat = lat
         self.z = z
