@@ -106,7 +106,7 @@ def capacite_drone(entrepot, client):
 def attribuer_entrepot(entrepots,clients):
     l = len(entrepots)
     for cli in clients :
-        if cli.entrepot != None :
+        if cli.entrepot == None :
             p = random.randint(l-1)
             cli.entepot = entrepots[p]
 
