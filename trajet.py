@@ -1,6 +1,6 @@
 import Timer
 import random
-import lecture_drones as lect_dr
+import lecture_drones as ldr #lect_dr
 import geometry as geo
 import math
 import tirage_au_sort as tas
@@ -29,13 +29,11 @@ class Mission:
         alt = tas.alt_random()
         distance = calcule_distance(self.client, self.entrepot)
         t_courant = self.heure_dmde
-        print(t_courant)
-        print(alt, self.drone.v_speed_max, self.drone.h_speed_max)
-        temps_montee = alt/self.drone.v_speed_max
+        temps_montee = round(alt/self.drone.v_speed_max)
         p1 = geo.Timed_Point(dep.x, dep.y, 0, t_courant)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
         t_courant += temps_montee
         p2 = geo.Timed_Point(dep.x, dep.y, alt, t_courant)
-        t_courant += distance/self.drone.h_speed_max
+        t_courant += round(distance/self.drone.h_speed_max)
         p3 = geo.Timed_Point(arr.x, arr.y, alt, t_courant)
         t_courant += temps_montee
         p4 = geo.Timed_Point(arr.x, arr.y, 0, t_courant)
@@ -78,7 +76,7 @@ class Entrepot(geo.Point):
 class Client(geo.Timed_Point):
 
     def __init__(self, x, y, z, t, entrepot):
-        super().__init___(x, y, z, t)
+        super().__init__(x, y, z, t)
         self.entrepot = entrepot
         
 
