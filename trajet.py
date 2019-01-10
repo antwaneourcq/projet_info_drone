@@ -16,7 +16,8 @@ class Mission:
         self.heure_dmde = client.t
         self.drone = None
         self.alti = [tas.alt_random()]
-        self.deviation = []
+        self.trajet = []
+        self.duree = 0
         
     def __repr__(self):
         return 'mission :  entrepot : ' + str(self.entrepot) +'\nMission retour ligne\n' #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone)
@@ -39,7 +40,9 @@ class Mission:
         p3 = geo.Timed_Point(arr.x, arr.y, alt, t_courant)
         t_courant += temps_montee
         p4 = geo.Timed_Point(arr.x, arr.y, 0, t_courant)
-        return p1, p2, p3, p4, calcul_duree_mission(self.drone, p1, p4)
+        self.trajet  = [p1, p2 , p3 , p4]
+        self.duree = calcul_duree_mission(self.drone, p1, p4)
+
 
 
     def changer_altitude(self,I) :
@@ -48,7 +51,7 @@ class Mission:
         while a == self.alti[0]:
             a = tas.alt_random()
         self.alti.append(a)
-        p2, p3 = self.decoupe_trajet[1] , self.decoupe_trajet(self)[2]
+        p2, p3 = self.trajet[1] , self.trajet[2]
         a,b = conflits.a(p2,p3) , conflits.b(p2,p3)
         angle = math.tan(p3.x/p3.y)
         de1 , de2 = geo.Point()
@@ -113,7 +116,7 @@ def capacite_drone(entrepot, client):
 def attribuer_entrepot(entrepots,clients):
     l = len(entrepots)
     for cli in clients :
-        if cli.entrepot != None :
+        if cli.entrepot == None :
             p = random.randint(l-1)
             cli.entepot = entrepots[p]
 
@@ -133,7 +136,6 @@ def attribuer_missions(clients): #clients est une liste d'objets de la classe Cl
         if drone != None:
             correctness += 1 
             m.entrepot = e
-            m.heure_livr =random.randint(0,24) #à modifier avec ordre/file à priorité
             m.drone = drone
             e.models[str(drone.model)] -= 1
         else :
@@ -164,40 +166,19 @@ def calcul_duree_mission(drone, p1, p4):
     return arr.t - dep.t
 
 
-
-def decoupe_trajet(mission):
-    # renvoie un tuple de 4 points et une durée
-    #print('Client : ::: ', mission.client, '\nEntrepot : ', mission.entrepot, '\nDrone : ', mission.drone)
-    arr, dep, drone = mission.client, mission.entrepot, mission.drone
-    p1 = geo.Point(dep.x, dep.y,0)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
-    alt = mission.alti
-    alt = tas.alt_random()
-    p1 = geo.Point(dep.x, dep.y,0)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
-    p2 = geo.Point(dep.x, dep.y, alt)
-    p3 = geo.Point(arr.x, arr.y, alt)
-    p4 = geo.Point(arr.x, arr.y, 0)
-    return p1, p2, p3, p4, calcul_duree_mission(drone, p1, p4)
+def missions_actives(m):
+    pass
 
 
 
-def liste_mission(carte):
-    #cumulation de attribuer mission et decoupe trajet
-	l=attribuer_missions(carte)
-	nb_missions=len(l)
-	s=[0]*nb_missions
-	for i in range(nb_missions):
-		s[i]=l[i].decoupe_trajet()
-	return s
-
-
-
-def retour(mission): #drone est un objet de la classe Drone et mission un objet de la classe Mission
+def retour(mission,t): #drone est un objet de la classe Drone et mission un objet de la classe Mission
     client = mission.client
     entrepot = mission.entrepot
     distance = calcule_distance(client, entrepot)
     temps_arrivee = distance/(2 * mission.drone.h_speed_max + mission.drone.v_speed_max) #l'heure à laquelle le drone livre le client
-    if (Timer.time - mission.heure_dmde) == mission.decoupe_trajet()[4]:
+    if t > mission.trajet[-1].t:
         entrepot.models[str(mission.drone.model)] += 1
+        missions_actives(m)
     return temps_arrivee
 
 
