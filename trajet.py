@@ -34,12 +34,20 @@ class Mission:
         p1 = geo.Timed_Point(dep.x, dep.y, 0, t_courant)  # 0 correspond à la coordonnée en altitude que je rajoute aux coordonnées de point p1
         t_courant += temps_montee
         p2 = geo.Timed_Point(dep.x, dep.y, alt, t_courant)
-        t_courant += round(distance/self.drone.h_speed_max)
+        temps_palier = round(distance/self.drone.h_speed_max)
+        t_courant += temps_palier
         p3 = geo.Timed_Point(arr.x, arr.y, alt, t_courant)
         t_courant += temps_montee
         p4 = geo.Timed_Point(arr.x, arr.y, 0, t_courant)
         self.trajet  = [p1, p2 , p3 , p4]
-        self.duree = calcul_duree_mission(self.drone, p1, p4)
+        t_courant += temps_montee
+        p3.t = t_courant
+        t_courant += temps_palier
+        p2.t = t_courant
+        t_courant += temps_montee
+        p1.t = t_courant
+        self.trajet += [p3, p2, p1]
+        self.duree = calcul_duree_mission(self.drone, self.trajet[0], self.trajet[-1])
 
 
 
@@ -167,13 +175,16 @@ def calcul_duree_mission(drone, p1, p4):
 def missions_actives(m):
     pass
 
-
+m=Mission(Client(0,1,2,500,Entrepot(100,110,120,ldr.listmodels(ldr.read("aircraft.json")))))
+m.drone = ldr.Drone('EC35', geo.Point(100,110,120))
+m.decoupe_trajet()
+print('mission :', m, '\n', m.trajet)
 
 def retour(mission,t): #drone est un objet de la classe Drone et mission un objet de la classe Mission
-    client = mission.client
+    #client = mission.client
     entrepot = mission.entrepot
-    distance = calcule_distance(client, entrepot)
-    temps_arrivee = distance/(2 * mission.drone.h_speed_max + mission.drone.v_speed_max) #l'heure à laquelle le drone livre le client
+    #distance = calcule_distance(client, entrepot)
+    #temps_arrivee = distance/(2 * mission.drone.h_speed_max + mission.drone.v_speed_max) #l'heure à laquelle le drone livre le client
     if t > mission.trajet[-1].t:
         entrepot.models[str(mission.drone.model)] += 1
         missions_actives(m)
