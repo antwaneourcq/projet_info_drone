@@ -203,10 +203,11 @@ print('mission :', m, '\n', m.trajet)
 
 def retour(mission, t): #drone est un objet de la classe Drone et mission un objet de la classe Mission
     entrepot = mission.entrepot
-    if t > mission.trajet[-1].t:
+    if t > mission.heure_dmde+2*mission.duree.t:
         entrepot.models[str(mission.drone.model)] += 1
-        missions_actives(m)
-    return mission.trajet[-1].t
+    else:
+        pass
+
 
 
 
