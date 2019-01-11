@@ -94,16 +94,16 @@ def conversion(missions):
         json.dump(document, f, indent=4, default = document.serialiseur)
         f.write(',\n')
         j, k = 0, 0
-        for i,mission in enumerate(missions):
-            if mission.drone:
+        for i, m in enumerate(missions):
+            if m.drone:
                 k += 1
-                print('mission énumérée : ', i, mission, '\n  entrepot attribué : ', mission.drone)
-                e = mappy.conversion_m_deg(geo.Timed_Point(mission.entrepot.x, mission.entrepot.y, mission.entrepot.z, mission.heure_dmde))
-                c = mappy.conversion_m_deg(mission.client)
+                print('mission énumérée : ', i, m, '\n  entrepot attribué : ', m.drone)
+                e = mappy.conversion_m_deg(geo.Timed_Point(m.entrepot.x, m.entrepot.y, m.entrepot.z, m.heure_dmde))
+                c = mappy.conversion_m_deg(m.client)
                 print('entrepot :', e, 'client :', c)
-                trajectoire = [e, c] + mission.deviation
-                print(str(i), 'name'+str(i), str(mission.drone), trajectoire[0], trajectoire[-1], trajectoire)
-                drone = Aircraft(str(i), 'name'+str(i), str(mission.drone), trajectoire[0].t, trajectoire[-1].t, trajectoire)
+                trajectoire = [e, c] + m.deviation
+                print(str(i), 'name'+str(i), str(m.drone), trajectoire[0], trajectoire[-1], trajectoire)
+                drone = Aircraft(str(i), 'name'+str(i), str(m.drone), trajectoire[0].t, trajectoire[-1].t, trajectoire)
                 json.dump(drone, f, indent=4, default = drone.serialiseur)
                 f.write(',\n')
             

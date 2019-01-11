@@ -1,6 +1,7 @@
-
 import random
-import geometry as geo, lecture_drones as lect_dr, mappy, trajet
+import lecture_drones as lect_dr
+import mappy
+import trajet
 
 
 dico = lect_dr.read("aircraft.json")
@@ -43,25 +44,24 @@ def points_utiles(carte): #changer le nom de la fonction
     
     for _ in range(nbr_clients):
         x, y, z, t = random.uniform(A_int.x,C_int.x), random.uniform(A_int.y,C_int.y), 0, random.randint(0,86400) #à l'instant t le client confirme sa commande 
-        l_clients.append(trajet.Client(x,y,z,t, None))
+        l_clients.append(trajet.Client(x, y, z, t))
     return l_entrepots,l_clients
 
 
 
 
-def drones_utiles(dico, entrepots):
+def drones_utiles(entrepots):
     '''renvoie un dictionnaire assimilant entre 1 et 10 drones à un entrepot'''
-
     for entr in entrepots:   #entr: objet de la classe Entrepot
         p = random.randint(1,NMAX_DR)
         for _ in range (p) :
             drone = random.choice(MODELS) 
-            entr.addDrone(drone)
+            entr.add_drone(drone)
     return entrepots
 
 
 def alt_random():
-    '''donnne aleatoirement un palier d'altitude'''
+    '''donne aleatoirement un palier d'altitude'''
     return random.randrange(Z_ALT_MIN , Z_ALT_MAX , STEP) 
 
 
