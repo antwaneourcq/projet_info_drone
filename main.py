@@ -31,11 +31,11 @@ def main():
         print(missions_actives)
         for m in missions :
             trajet.retour(m,t)
-        l1,l2 = trajet.attribuer_missions(file_attente)
-        l1 = sorted(l1, key=heure_demande, reverse=True)
+        missions_non_triees,file_dattente_non_triee = trajet.attribuer_missions(file_attente)
+        missions_non_triees = sorted(missions_non_triees, key=heure_demande, reverse=True)
         for m in l1 :
             missions.append(m)
-        file_attente = sorted(l2, key=heure_demande2, reverse=True)
+        file_attente = sorted(file_dattente_non_triee, key=heure_demande2, reverse=True)
 
     '''AFFICHAGE'''
     missions, file = trajet.attribuer_missions(clients)   #entrepots, 
