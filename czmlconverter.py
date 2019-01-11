@@ -54,7 +54,7 @@ def conversionTimeCzml(timeCalcul, refTime):
 
 class Aircraft():
         
-    def __init__(self, iD, description, name, time_start, time_end, points_trajet):
+    def __init__(self, iD, description, name, points_trajet, time_start=0, time_end=0):
         self.id = iD
         self.description = '<h2>' + description + '</h2>'
         self.name = name
@@ -94,6 +94,7 @@ def conversion(missions):
         json.dump(document, f, indent=4, default = document.serialiseur)
         f.write(',\n')
         j, k = 0, 0
+        print('\n MIssion : \n', missions, type(missions), 'type :', type(missions[0]), 'mission 00 : ', missions[0], 'fin de mission')
         for i, m in enumerate(missions):
             if m.drone:
                 k += 1
@@ -101,9 +102,9 @@ def conversion(missions):
                 e = mappy.conversion_m_deg(geo.Timed_Point(m.entrepot.x, m.entrepot.y, m.entrepot.z, m.heure_dmde))
                 c = mappy.conversion_m_deg(m.client)
                 print('entrepot :', e, 'client :', c)
-                trajectoire = [e, c] + m.deviation
-                print(str(i), 'name'+str(i), str(m.drone), trajectoire[0], trajectoire[-1], trajectoire)
-                drone = Aircraft(str(i), 'name'+str(i), str(m.drone), trajectoire[0].t, trajectoire[-1].t, trajectoire)
+                print(str(i), 'name'+str(i), str(m.drone))#, trajectoire[0], trajectoire[-1], trajectoire)
+                print('\ntrajet :', m.trajet)
+                drone = Aircraft(str(i), 'name'+str(i), str(m.drone), m.trajet) #, trajectoire[0].t, trajectoire[-1].t, 
                 json.dump(drone, f, indent=4, default = drone.serialiseur)
                 f.write(',\n')
             

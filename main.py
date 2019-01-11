@@ -19,6 +19,7 @@ def main():
     entrepots, clients = tas.points_utiles(carte)  #, carre_ext
     print(entrepots)
     print(clients)
+
     mappy.affichage_carte(entrepots , clients)
 
     tas.drones_utiles(entrepots)
@@ -33,16 +34,11 @@ def main():
                     drone = trajet.capacite_drone(cli.entrepot , cli)
 
 
-
-
-
-
-
     '''AFFICHAGE'''
-    missions = trajet.attribuer_missions(clients)   #entrepots, 
+    missions, file = trajet.attribuer_missions(clients)   #entrepots, 
     print('MISSION')
 #    m = missions[0]      #on a choisi la première mission de la liste missions juste pour l'affichage
-    print(missions)
+#    print(missions)
 #    client = mission.client
 #    entrepot = mission.entrepot
 #    print('coordonnées client :')
