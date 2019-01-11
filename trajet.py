@@ -157,6 +157,7 @@ def attribuer_missions(clients): #clients est une liste d'objets de la classe Cl
             m.entrepot = e
             m.drone = drone
             e.models[str(drone.model)] -= 1
+            m.decoupe_trajet()
         else :
             #traite le cas où le drone == None
             drones_non_traites += 1
