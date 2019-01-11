@@ -1,6 +1,7 @@
 import json
 import geometry as geo
 
+FILE = "aircraft.json"
 
 
 def read(file):
@@ -9,13 +10,14 @@ def read(file):
         dico = json.load(f)
     del dico["__comment"] ##1er dictionnaire __comment explicatif inutile pour la suite
     return dico
-dico=read('aircraft.json')
+
 
 class Drone():
     
     def __init__(self, key, coord, serial_number='serial_number'):
         '''"key" of the main dictionary, "coord" : Point from geometry, "available" if in a warehouse, "serial number" defined as str ex "_00"'''
         self.model =  key
+        dico = read(FILE)
         self.h_speed_max = dico[key]['envelop']['v_max']
         self.h_speed_min = dico[key]['envelop']['v_min']
         self.v_speed_max = dico[key]['envelop']['vs_max']

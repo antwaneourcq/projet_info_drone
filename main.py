@@ -4,7 +4,6 @@ import tirage_au_sort as tas
 import czmlconverter as czmlc
 
 
-FILE = "aircraft.json"
 
 def heure_demande(mission) :
     return mission.heure_dmde
@@ -14,7 +13,6 @@ def heure_demande2(client) :
 
 
 def main():
-    dico = lect_dr.read(FILE)
     carte = (mappy.A, mappy.C)
     entrepots, clients = tas.points_utiles(carte)  #, carre_ext
     print(entrepots)
