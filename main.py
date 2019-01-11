@@ -36,22 +36,22 @@ def main():
     missions, file_attente = trajet.attribuer_missions(clients)
     sorted(missions, key = heure_demande, reverse = True)
     sorted(file_attente, key = heure_demande2, reverse = True)
-    for t in range(0, 86400, 1800):
+    '''for t in range(0, 86400, 1800):
         missions_actives = []
         for m in missions:
             if heure_demande(m) + m.duree <= t:
                 missions_actives.append(m)
             print(m)
-
+    '''
 
 
 
 
     '''AFFICHAGE'''
-    missions = trajet.attribuer_missions(clients)   #entrepots, 
+    missions, file = trajet.attribuer_missions(clients)   #entrepots, 
     print('MISSION')
 #    m = missions[0]      #on a choisi la première mission de la liste missions juste pour l'affichage
-    print(missions)
+#    print(missions)
 #    client = mission.client
 #    entrepot = mission.entrepot
 #    print('coordonnées client :')
