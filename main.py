@@ -32,7 +32,9 @@ def main():
         for m in missions :
             trajet.retour(m,t)
         l1,l2 = trajet.attribuer_missions(file_attente)
-        missions = sorted(l1, key=heure_demande, reverse=True)
+        l1 = sorted(l1, key=heure_demande, reverse=True)
+        for m in l1 :
+            missions.append(m)
         file_attente = sorted(l2, key=heure_demande2, reverse=True)
 
     '''AFFICHAGE'''
