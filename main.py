@@ -31,17 +31,19 @@ def main():
     plt.plot(x_entrepots,y_entrepots, '.')
     plt.plot(x_clients,y_clients, '.')
     plt.show()
+
     tas.drones_utiles(dico, entrepots)
     trajet.attribuer_entrepot(entrepots , clients)
-    missions , file_attente = trajet.attribuer_missions(clients)
-    sorted(missions , key = heure_demande , reverse = True)
-    sorted(file_attente, key = heure_demande2 , reverse = True)
+    l1 , l2 = trajet.attribuer_missions(clients)
+    missions = sorted(l1 , key = heure_demande , reverse = True)
+    file_attente = sorted(l2, key = heure_demande2 , reverse = True)
     for t in range (0, 86400, 1800) :
-        missions_actives = []
-        for m in missions :
-            if heure_demande(m)+ m.duree <= t :
-                missions_actives.append(m)
-            print(m)
+        missions_actives = trajet.missions_actives(missions,t)
+        for cli in file_attente :
+                if cli.t <= t :
+                    drone = trajet.capacite_drone(cli.entrepot , cli)
+
+
 
 
 

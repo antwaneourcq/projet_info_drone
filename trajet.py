@@ -166,8 +166,12 @@ def calcul_duree_mission(drone, p1, p4):
     return arr.t - dep.t
 
 
-def missions_actives(m):
-    pass
+def missions_actives(missions,t):
+    missions_actives = []
+    for m in missions:
+        if m.heure_dmde + m.duree >= t >= m.heure_dmde :
+            missions_actives.append(m)
+    return(m)
 
 
 
