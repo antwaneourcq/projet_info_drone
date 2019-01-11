@@ -80,7 +80,9 @@ class Aircraft():
         if isinstance(obj, Aircraft):
             #"__class__": "Aircraft", 
             return {"id":obj.id, "description":obj.description, "_availability":obj._availability, "name":obj.name, "position":obj.position, "orientation":obj.orientation, "path":obj.path, "point":obj.point}
-        raise TypeError(repr(obj) + " n'est pas sérialisable !")
+        else :
+            print(TypeError(repr(obj), " n'est pas sérialisable !"))
+        
 
 def color_maker():
     return [random.randint(45,255) for _ in range(3)] + [200]
