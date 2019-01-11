@@ -14,25 +14,27 @@ def heure_demande2(client) :
 
 
 def main():
-    #dico = lect_dr.read(FILE)
+    dico = lect_dr.read(FILE)
     carte = (mappy.A, mappy.C)
     entrepots, clients = tas.points_utiles(carte)  #, carre_ext
     print(entrepots)
     print(clients)
 
-    mappy.affichage_carte(entrepots , clients)
+    #mappy.affichage_carte(entrepots , clients)
 
     tas.drones_utiles(entrepots)
-    trajet.attribuer_entrepot(entrepots , clients)
+    trajet.attribuer_entrepot(clients, entrepots)
     l1 , l2 = trajet.attribuer_missions(clients)
     missions = sorted(l1 , key = heure_demande , reverse = True)
     file_attente = sorted(l2, key = heure_demande2 , reverse = True)
     for t in range (0, 86400, 1800) :
         missions_actives = trajet.missions_actives(missions,t)
-        for cli in file_attente :
-                if cli.t <= t :
-                    drone = trajet.capacite_drone(cli.entrepot , cli)
-
+        print(missions_actives)
+        for m in missions :
+            trajet.retour(m,t)
+        l1,l2 = trajet.attribuer_missions(file_attente)
+        missions = sorted(l1, key=heure_demande, reverse=True)
+        file_attente = sorted(l2, key=heure_demande2, reverse=True)
 
     '''AFFICHAGE'''
     missions, file = trajet.attribuer_missions(clients)   #entrepots, 
