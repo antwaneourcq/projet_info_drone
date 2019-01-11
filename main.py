@@ -21,30 +21,19 @@ def main():
     entrepots, clients = tas.points_utiles(carte)  #, carre_ext
     print(entrepots)
     print(clients)
-    x_entrepots,y_entrepots , x_clients, y_clients = [], [], [], []
-    for i in range(len(entrepots)):
-        x_entrepots.append(entrepots[i].x)
-        y_entrepots.append(entrepots[i].y)
-    for i in range(len(clients)):
-        x_clients.append(clients[i].x)
-        y_clients.append(clients[i].y)
-    plt.plot(x_entrepots, y_entrepots, '.')
-    plt.plot(x_clients, y_clients, '.')
-    plt.show()
-    tas.drones_utiles(entrepots)
-    trajet.attribuer_entrepot(clients, entrepots)
-    missions, file_attente = trajet.attribuer_missions(clients)
-    sorted(missions, key = heure_demande, reverse = True)
-    sorted(file_attente, key = heure_demande2, reverse = True)
-    '''for t in range(0, 86400, 1800):
-        missions_actives = []
-        for m in missions:
-            if heure_demande(m) + m.duree <= t:
-                missions_actives.append(m)
-            print(m)
-    '''
 
+    mappy.affichage_carte(entrepots , clients)
 
+    tas.drones_utiles(dico, entrepots)
+    trajet.attribuer_entrepot(entrepots , clients)
+    l1 , l2 = trajet.attribuer_missions(clients)
+    missions = sorted(l1 , key = heure_demande , reverse = True)
+    file_attente = sorted(l2, key = heure_demande2 , reverse = True)
+    for t in range (0, 86400, 1800) :
+        missions_actives = trajet.missions_actives(missions,t)
+        for cli in file_attente :
+                if cli.t <= t :
+                    drone = trajet.capacite_drone(cli.entrepot , cli)
 
 
     '''AFFICHAGE'''

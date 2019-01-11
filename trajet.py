@@ -167,8 +167,31 @@ def attribuer_missions(clients): #clients est une liste d'objets de la classe Cl
     #print('\ndrone correct', correctness, 'drones non traités ', drones_non_traites)
 
 
-def missions_actives(m):
-    pass
+
+
+
+
+def calcul_duree_mission(drone, p1, p4):
+    # drone est on objet de la classe Drone du module lecture_drones
+    # calcul le temps que met le drone pour faire un aller-retour de p1 à p4
+    
+    '''fonction obsolète?'''
+    #vit_vert = drone.h_speed_max
+    #vit_hori = drone.v_speed_max
+    #distance = calcule_distance(p1,p4)
+    #return 2 * (drone.current_position.z / vit_vert) + 2 * (distance / vit_hori)
+    dep = p1
+    arr = p4
+    return arr.t - dep.t
+
+
+def missions_actives(missions,t):
+    missions_actives = []
+    for m in missions:
+        if m.heure_dmde + m.duree >= t >= m.heure_dmde :
+            missions_actives.append(m)
+    return(m)
+
 
 e = Entrepot(100, 110, 120, ldr.listmodels(ldr.read("aircraft.json")))
 c = Client(0, 1, 2, 500)
