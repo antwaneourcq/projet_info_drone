@@ -3,6 +3,7 @@ import trajet
 import tirage_au_sort as tas
 import czmlconverter as czmlc
 
+
 FILE = "aircraft.json"
 
 def heure_demande(mission) :

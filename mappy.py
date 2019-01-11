@@ -3,6 +3,7 @@
 
 import geometry as geo
 import math
+import matplotlib.pyplot as plt
 
 
 
