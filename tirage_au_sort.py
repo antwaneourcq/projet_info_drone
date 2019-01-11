@@ -1,10 +1,9 @@
 import random
-import lecture_drones as lect_dr
+import lecture_drones as ldr
 import mappy
 import trajet
 
 
-dico = lect_dr.read("aircraft.json")
 
 NMAX_CL = 50 #nombre maximal de clients autorisés
 NMAX_EN = 10 #nombre maximal d'entrepôts autorisés
@@ -15,13 +14,13 @@ Z_ALT_MIN = 300
 Z_ALT_MAX = 600
 STEP = 25
 
-#carte est une liste de 2 tuples, donnant le coin supérieur gauche et le coin inférieur droit
-
-MODELS = lect_dr.listmodels(dico)
+FILE = "aircraft.json"
+dico = ldr.read(FILE)
+MODELS = ldr.listmodels(dico)
 
 
 def points_utiles(carte): #changer le nom de la fonction
-    '''renvoie la liste des entrepôts et des clients'''
+    '''renvoie la liste des entrepôts et des clients et carte est une liste de 2 tuples de coordonnées, donnant le coin supérieur gauche et le coin inférieur droit'''
     
     
     #l_clients est une liste d'objets de la classe client 
