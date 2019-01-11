@@ -19,10 +19,10 @@ def main():
     print(entrepots)
     print(clients)
 
-    mappy.affichage_carte(entrepots , clients)
+    #mappy.affichage_carte(entrepots , clients)
 
     tas.drones_utiles(entrepots)
-    trajet.attribuer_entrepot(entrepots , clients)
+    trajet.attribuer_entrepot(clients, entrepots)
     l1 , l2 = trajet.attribuer_missions(clients)
     missions = sorted(l1 , key = heure_demande , reverse = True)
     file_attente = sorted(l2, key = heure_demande2 , reverse = True)
@@ -34,7 +34,6 @@ def main():
         l1,l2 = trajet.attribuer_missions(file_attente)
         missions = sorted(l1, key=heure_demande, reverse=True)
         file_attente = sorted(l2, key=heure_demande2, reverse=True)
-
 
     '''AFFICHAGE'''
     missions, file = trajet.attribuer_missions(clients)   #entrepots, 
