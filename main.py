@@ -1,9 +1,6 @@
-
-import lecture_drones as lect_dr
 import mappy
 import trajet 
 import tirage_au_sort as tas
-import matplotlib.pyplot as plt
 import czmlconverter as czmlc
 
 FILE = "aircraft.json"
@@ -24,7 +21,7 @@ def main():
 
     mappy.affichage_carte(entrepots , clients)
 
-    tas.drones_utiles(dico, entrepots)
+    tas.drones_utiles(entrepots)
     trajet.attribuer_entrepot(entrepots , clients)
     l1 , l2 = trajet.attribuer_missions(clients)
     missions = sorted(l1 , key = heure_demande , reverse = True)
