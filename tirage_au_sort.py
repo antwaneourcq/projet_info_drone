@@ -15,13 +15,13 @@ Z_ALT_MIN = 300
 Z_ALT_MAX = 600
 STEP = 25
 
-#carte est une liste de 2 tuples, donnant le coin supérieur gauche et le coin inférieur droit
+
 
 MODELS = lect_dr.listmodels(dico)
 
 
 def points_utiles(carte): #changer le nom de la fonction
-    '''renvoie la liste des entrepôts et des clients'''
+    '''renvoie la liste des entrepôts et des clients et carte est une liste de 2 tuples de coordonnées, donnant le coin supérieur gauche et le coin inférieur droit'''
     
     
     #l_clients est une liste d'objets de la classe client 
