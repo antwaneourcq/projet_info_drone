@@ -2,7 +2,7 @@ import mappy
 import trajet 
 import tirage_au_sort as tas
 import czmlconverter as czmlc
-
+import lecture_drones as lect_dr
 FILE = "aircraft.json"
 
 def heure_demande(mission) :
@@ -10,6 +10,12 @@ def heure_demande(mission) :
 
 def heure_demande2(client) :
     return client.t
+
+def tri_missions(liste):
+    return sorted(liste,key=heure_demande)
+
+def tri_file_attente(liste):
+    return sorted(liste,key=heure_demande2)
 
 
 def main():
@@ -24,18 +30,19 @@ def main():
     tas.drones_utiles(entrepots)
     trajet.attribuer_entrepot(clients, entrepots)
     l1 , l2 = trajet.attribuer_missions(clients)
-    missions = sorted(l1 , key = heure_demande , reverse = True)
-    file_attente = sorted(l2, key = heure_demande2 , reverse = True)
+    missions = tri_missions(l1)
+    file_attente = tri_file_attente(l2)
     for t in range (0, 86400, 1800) :
+        '''a chaque pas de temps: actualisation des missions actives + ajout des drones revenus dans l'entrepot qui seront a nouveau disponibles + attribution de missions aux clients qui netait pas servis '''
         missions_actives = trajet.missions_actives(missions,t)
         print(missions_actives)
         for m in missions :
             trajet.retour(m,t)
-        missions_non_triees,file_dattente_non_triee = trajet.attribuer_missions(file_attente)
-        missions_non_triees = sorted(missions_non_triees, key=heure_demande, reverse=True)
-        for m in l1 :
+        l1,l2 = trajet.attribuer_missions(file_attente)
+        missions_ajoutees, file_attente = tri_missions(l1), tri_file_attente(l2)
+        for m in missions_ajoutees :
             missions.append(m)
-        file_attente = sorted(file_dattente_non_triee, key=heure_demande2, reverse=True)
+
 
     '''AFFICHAGE'''
     missions, file = trajet.attribuer_missions(clients)   #entrepots, 
