@@ -5,6 +5,9 @@ import czmlconverter as czmlc
 import lecture_drones as lect_dr
 FILE = "aircraft.json"
 
+
+
+
 def heure_demande(mission) :
     return mission.heure_dmde
 
@@ -19,7 +22,6 @@ def tri_file_attente(liste):
 
 
 def main():
-    dico = lect_dr.read(FILE)
     carte = (mappy.A, mappy.C)
     entrepots, clients = tas.points_utiles(carte)  #, carre_ext
     print(entrepots)
