@@ -203,13 +203,13 @@ m.decoupe_trajet()
 print('mission :', m, '\n', m.trajet)
 
 def retour(mission, t): #drone est un objet de la classe Drone et mission un objet de la classe Mission
-    #entrepot = mission.entrepot
     print('retour: ', mission)
     print('trajet :', mission.trajet)
     print('\ndernier point', mission.trajet[-1], 'temps : ', mission.trajet[-1].t)
     if t > mission.trajet[-1].t:
         print(m)
         mission.entrepot.models[str(mission.drone.model)] += 1
+
     else:
         pass
 

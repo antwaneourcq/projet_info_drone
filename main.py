@@ -6,19 +6,16 @@ import lecture_drones as lect_dr
 FILE = "aircraft.json"
 
 
-
-
 def heure_demande(mission) :
     return mission.heure_dmde
 
 def heure_demande2(client) :
     return client.t
 
-def tri_missions(liste):
-    return sorted(liste,key=heure_demande)
+def tri(liste , f):
+    return sorted(liste,key=f)
 
-def tri_file_attente(liste):
-    return sorted(liste,key=heure_demande2)
+
 
 
 def main():
@@ -32,11 +29,12 @@ def main():
     tas.drones_utiles(entrepots)
     trajet.attribuer_entrepot(clients, entrepots)
     l1 , l2 = trajet.attribuer_missions(clients)
-
+    missions = tri(l1, heure_demande)
+    file_attente = tri(l2 , heure_demande2)
     mission_vide = 0
     mission_traite = 0
-    missions = tri_missions(l1)
-    file_attente = tri_file_attente(l2)
+
+
     for t in range (0, 86400, 1800) :
         '''a chaque pas de temps: actualisation des missions actives + ajout des drones revenus dans l'entrepot qui seront a nouveau disponibles + attribution de missions aux clients qui netait pas servis '''
         missions_actives = trajet.missions_actives(missions,t)
@@ -48,7 +46,7 @@ def main():
             else:
                 mission_vide += 1
         l1,l2 = trajet.attribuer_missions(file_attente)
-        missions_ajoutees, file_attente = tri_missions(l1), tri_file_attente(l2)
+        missions_ajoutees, file_attente = tri(l1 , heure_demande), tri(l2, heure_demande2)
         for m in missions_ajoutees :
             missions.append(m)
 
