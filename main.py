@@ -31,12 +31,20 @@ def main():
     l1 , l2 = trajet.attribuer_missions(clients)
     missions = tri(l1, heure_demande)
     file_attente = tri(l2 , heure_demande2)
+    mission_vide = 0
+    mission_traite = 0
+
+
     for t in range (0, 86400, 1800) :
         '''a chaque pas de temps: actualisation des missions actives + ajout des drones revenus dans l'entrepot qui seront a nouveau disponibles + attribution de missions aux clients qui netait pas servis '''
         missions_actives = trajet.missions_actives(missions,t)
         print(missions_actives)
         for m in missions :
-            trajet.retour(m,t)
+            if m.trajet != []:
+                trajet.retour(m,t)
+                mission_traite += 1
+            else:
+                mission_vide += 1
         l1,l2 = trajet.attribuer_missions(file_attente)
         missions_ajoutees, file_attente = tri(l1 , heure_demande), tri(l2, heure_demande2)
         for m in missions_ajoutees :
@@ -44,6 +52,7 @@ def main():
 
 
     '''AFFICHAGE'''
+    print('mission vide :', mission_vide, 'mission traitées :', mission_traite)
     missions, file = trajet.attribuer_missions(clients)   #entrepots, 
     print('MISSION')
 #    m = missions[0]      #on a choisi la première mission de la liste missions juste pour l'affichage

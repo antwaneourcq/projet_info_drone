@@ -191,7 +191,7 @@ def missions_actives(missions,t):
     for m in missions:
         if m.heure_dmde + m.duree >= t >= m.heure_dmde :
             missions_actives.append(m)
-    return(m)
+    return(missions_actives)
 
 
 e = Entrepot(100, 110, 120, ldr.listmodels(ldr.read("aircraft.json")))
@@ -203,9 +203,13 @@ m.decoupe_trajet()
 print('mission :', m, '\n', m.trajet)
 
 def retour(mission, t): #drone est un objet de la classe Drone et mission un objet de la classe Mission
-    entrepot = mission.entrepot
-    if t > m.trajet[-1].t:
-        entrepot.models[str(mission.drone.model)] += 1
+    print('retour: ', mission)
+    print('trajet :', mission.trajet)
+    print('\ndernier point', mission.trajet[-1], 'temps : ', mission.trajet[-1].t)
+    if t > mission.trajet[-1].t:
+        print(m)
+        mission.entrepot.models[str(mission.drone.model)] += 1
+
     else:
         pass
 
