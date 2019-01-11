@@ -1,33 +1,23 @@
-'''la ville de Toulouse est la map: donc les points ne peuvent pas sortir de la map'''
-#on definit un carré ABCD dans lequel les points évoluent: le coin A est le point en bas à gauche"
 
 import geometry as geo
 import math
 
 
 
-#coordonées en degrés décimaux (trouvées sur internet)
+#coordonées en degrés décimaux de la ville de Toulouse (trouvées sur internet)
 A = geo.Real_Point(1.35, 43.53, 0)
 B = geo.Real_Point(1.53, 43.67 ,0)
 C = geo.Real_Point(1.52, 43.67, 0)
 D = geo.Real_Point(1.52, 43.53, 0)
 
-def verif_map(P):
-    #pas d'influence du A puisque c'est le point nul
-    C_map = conversion_deg_m(C)
-    return P.x <= C_map.x and P.y <= C_map.y  and P.x >= 0 and P.y >= 0
+'''on definit un carré ABCD dans lequel les points évoluent: le coin A est le point en bas à gauche'''
 
 #carte est une liste de 2 points, donnant le coin supérieur gauche et le coin inférieur droit A_map , C_map et définit par leur longitude et latitude
 
+
 def carre_int(carte):
-#je crée l'environnement des clients
-#environnement = liste de deux points A_int , C_int
-    p = 5/100
-    '''C_map = conversion_deg_m(C)
-    A_origin = geo.Point(0,0,0)
-    l_x, l_y = C.x-A.x, C.y-A.y
-    #je definis les limites de l'espace intérieur pour les clients
-    return geo.Point(A.x+p*l_x , A.y+p*l_y ,0) , geo.Point(C_map.x-p*l_x , C_map.y-p*l_y , 0)'''
+    '''crée l'environnement des clients : liste de deux points A_int , C_int'''
+    p = 5/100   # les cotés de carré int sont egaux à 5% des cotés de carré ext
     A_map , C_map = conversion_deg_m(carte[0]) , conversion_deg_m(carte[1])
     dx, dy = p * (C_map.x - A_map.x), p * (C_map.y - A_map.y)
     return geo.Point(A_map.x + dx, A_map.y + dy, 0), geo.Point(C_map.x - dx, C_map.y - dy, 0) , A_map , C_map
