@@ -21,17 +21,7 @@ def main():
     entrepots, clients = tas.points_utiles(carte)  #, carre_ext
     print(entrepots)
     print(clients)
-    x_entrepots,y_entrepots , x_clients, y_clients = [], [], [], []
-    for i in range(len(entrepots)):
-        x_entrepots.append(entrepots[i].x)
-        y_entrepots.append(entrepots[i].y)
-    for i in range(len(clients)):
-        x_clients.append(clients[i].x)
-        y_clients.append(clients[i].y)
-    plt.plot(x_entrepots, y_entrepots, '.')
-    plt.plot(x_clients, y_clients, '.')
-    plt.show()
-
+    mappy.affichage_carte(entrepots , clients)
 
     tas.drones_utiles(dico, entrepots)
     trajet.attribuer_entrepot(entrepots , clients)
