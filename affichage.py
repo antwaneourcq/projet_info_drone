@@ -34,10 +34,5 @@ def ecriture_missions( Missions, l_mission):
             f.write('heure de la demande = {0}\n'.format(temps))
             f.write('drone utilisé : {0.drone}\n'.format(m))
             for p in m.trajet :
-                p_real = mappy.conversion_m_deg(p)
-                f.write('points du trajet : long : {0}, lat : {1}\n'.format(p_real.long, p_real.lat))
-                
-
-
-    
+                f.write('points du trajet : long : {0}, lat : {1}\n'.format(p.long, p.lat))
 
