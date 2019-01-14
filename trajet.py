@@ -29,6 +29,7 @@ class Mission:
         alt = tas.alt_random()
         distance = calcule_distance(self.client)
         t_courant = self.heure_dmde
+        t_largage = 10 #temps où le drone reste posé pour larguer le colis
         temps_montee = round(alt/self.drone.v_speed_max)
         p1 = geo.Timed_Point(dep.x, dep.y, 0, t_courant)  # 0 correspond à la coordonnée en altitude
         t_courant += temps_montee
@@ -39,13 +40,15 @@ class Mission:
         t_courant += temps_montee
         p4 = geo.Timed_Point(arr.x, arr.y, 0, t_courant)
         self.trajet = [p1, p2 , p3 , p4]
+        t_courant += t_largage
+        self.trajet.append(geo.Timed_Point(arr.x, arr.y, 0, t_courant))
         t_courant += temps_montee
-        p3.t = t_courant
+        p5 = geo.Timed_Point(p3.x, p3.y, p3.z, t_courant)
         t_courant += temps_palier
-        p2.t = t_courant
+        p6 = geo.Timed_Point(p2.x, p2.y, p2.z, t_courant)
         t_courant += temps_montee
-        p1.t = t_courant
-        self.trajet += [p3, p2, p1]
+        p7 = geo.Timed_Point(p1.x, p1.y, p1.z, t_courant)
+        self.trajet += [p5, p6, p7]
         self.duree = self.calcul_duree_mission()
 
 
