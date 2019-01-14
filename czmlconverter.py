@@ -98,7 +98,7 @@ def color_maker():
 
 
 def writeczml(missions):
-    document = Document("document", 0, 100)
+    document = Document("document", 0, 86400) #trouver la derniere mission
     #drone = Aircraft('001', 'mon premier drone', 'Drone model', [0,1.47,43.67,50,20,1.47,43.67,1000,50,1.5,43.65,1000])
     with open('Test1.czml', 'w') as f: #, encoding ='utf-8'
         f.write('[\n')
