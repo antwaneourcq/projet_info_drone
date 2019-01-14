@@ -80,5 +80,5 @@ def main():
 #    print('arrivée :')
 #    print(arr)
     print('mission vide :', mission_vide, 'mission traitées :', mission_traite)
-    czmlc.conversion(missions)
+    czmlc.writeczml(missions)
 main()
