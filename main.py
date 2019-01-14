@@ -52,7 +52,6 @@ def main():
 
 
     '''AFFICHAGE'''
-    print('mission vide :', mission_vide, 'mission traitées :', mission_traite)
     missions, file = trajet.attribuer_missions(clients)   #entrepots, 
     print('MISSION')
 #    m = missions[0]      #on a choisi la première mission de la liste missions juste pour l'affichage
@@ -80,5 +79,6 @@ def main():
 #    print(dep)
 #    print('arrivée :')
 #    print(arr)
+    print('mission vide :', mission_vide, 'mission traitées :', mission_traite)
     czmlc.conversion(missions)
 main()
