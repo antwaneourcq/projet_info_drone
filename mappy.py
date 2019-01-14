@@ -58,3 +58,7 @@ def conversion_deg_m(P):
     y_m = y_lat * 1852 * 60
     x_m = x_long * 1852 *60 * math.cos(A.lat)
     return geo.Point(x_m, y_m, P.z)
+
+def conversion_mission(mission):
+    for i in range(len(mission.trajet)):
+        mission.trajet[i] = conversion_m_deg(mission.trajet[i])
