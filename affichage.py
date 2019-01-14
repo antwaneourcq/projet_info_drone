@@ -5,7 +5,17 @@ import mappy
 
 Missions = 'missions.txt'
 
-def convertisseur_s_h(temps):
+def convertisseur_temps(temps):
+    min = temps // 60
+    s = temps % 60
+    heures = min // 60
+    m = min % 60
+    j = heures // 24
+    h = heures % 24
+    return j, h, m, s
+    
+    
+    
     
     
     
