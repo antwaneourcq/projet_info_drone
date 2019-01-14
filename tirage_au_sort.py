@@ -1,11 +1,14 @@
 import random
 import lecture_drones as ldr
 import mappy
-import trajet
 
 
 
-NMAX_CL = 50 #nombre maximal de clients autorisés
+
+
+
+
+NMAX_CL = 15#nombre maximal de clients autorisés
 NMAX_EN = 10 #nombre maximal d'entrepôts autorisés
 NMAX_DR = 10 #nombre maximal de drones autorisés
 
@@ -17,6 +20,12 @@ STEP = 25
 FILE = "aircraft.json"
 dico = ldr.read(FILE)
 MODELS = ldr.listmodels(dico)
+
+def alt_random():
+    '''donne aleatoirement un palier d'altitude'''
+    return random.randrange(Z_ALT_MIN , Z_ALT_MAX , STEP)
+
+import trajet
 
 
 def points_utiles(carte): #changer le nom de la fonction
