@@ -64,8 +64,8 @@ class Aircraft():
             pts_trajet.append(pt.z)
         self.position["cartographicDegrees"] = pts_trajet
         self.orientation = {"velocityReference" : "#position"}
-        color_1 = [45,245,33,150]#color_maker()
-        color_2 = [45,245,33,150]#[255,255,255,255]
+        color_1 = color_maker()
+        color_2 = [255,255,255,110]
         self.path = {"material":{"polylineOutline":{"color":{"rgba":color_1}}, "outlineColor":{"rgba":color_1}, "outlineWidth":3}, "width":3, "leadTime":0,"trailTime":100000, "resolution":5}
         self.point = {"color" : {"rgba" : color_1}, "outlineColor" : {"rgba" : color_2}}
         self.point["outlineWidth"] = 2
@@ -84,7 +84,8 @@ class Aircraft():
         
 
 def color_maker():
-    return [random.randint(45,255) for _ in range(3)] + [20]
+    #[45,245,33,150]
+    return [random.randint(45,255) for _ in range(3)] + [150]
 
 
 def writeczml(missions):
