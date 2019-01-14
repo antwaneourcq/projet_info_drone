@@ -83,8 +83,8 @@ class Entrepot(geo.Point):
         self.id = random.randint(0, 100)
 
     def __repr__(self):
-        return 'identificateur ' + str(self.id) + '(' + str(self.x) + ',' + str(self.y) + ',' + str(
-            self.z) + ')' + ' drones : ' + str(self.models)
+        return str(self.id) 
+        #+ '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) + ')' + ' drones : ' + str(self.models)
 
     def add_drone(self, drone):
         self.models[str(drone.model)] += 1

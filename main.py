@@ -4,7 +4,7 @@ import tirage_au_sort as tas
 import czmlconverter as czmlc
 import lecture_drones as lect_dr
 FILE = "aircraft.json"
-
+Missions = 'missions.txt'
 
 def heure_demande(mission) :
     return mission.heure_dmde
@@ -81,4 +81,5 @@ def main():
 #    print(arr)
     print('mission vide :', mission_vide, 'mission traitées :', mission_traite)
     czmlc.writeczml(missions)
+    affichage.ecriture_missions(Missions, missions)
 main()
