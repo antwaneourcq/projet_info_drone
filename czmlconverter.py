@@ -33,22 +33,12 @@ def conversionTimeCzml(time_start, time_end):
     if not time_end:
         time_end = 0
         print('time_end non défini')
-    h = time_start//3600
-    temp = time_start%3600
-    m = temp//60
-    s = temp%60
-    d = 1
+    d0,h,m,s = mappy.convertisseur_temps(time_start)
+    d = d0 + 1
     date = '2019-01'
     timeS = '{}-{:02d}T{:02d}:{:02d}:{:02d}Z'.format(date, d, h, m, s)
-    d += time_end//86400
-    h0 = time_end%86400
-    h = h0//3600
-    temp = h0%3600
-    m = temp//60
-    s = temp%60
-    if h>=24:
-        h -= 24
-        d +=1
+    d0, h, m, s = mappy.convertisseur_temps(time_end)
+    d = d0 + 1
     timeE = '{}-{:02d}T{:02d}:{:02d}:{:02d}Z'.format(date, d, h, m, s)
     return timeS, timeE 
 
