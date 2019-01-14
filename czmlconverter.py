@@ -27,8 +27,6 @@ class Document():
         raise TypeError(repr(obj) + "n'est pas sérialisable")
         
 def conversionTimeCzml(time_start, time_end):
-    print('reftime :', refTime)
-    print('timeC : ', timeCalcul)
     if not time_start:
         time_start = 0
         print('time start non défini')
@@ -36,7 +34,7 @@ def conversionTimeCzml(time_start, time_end):
         time_end = 0
         print('time_end non défini')
     h = time_start//3600
-    temp = refTime%3600
+    temp = time_start%3600
     m = temp//60
     s = temp%60
     d = 1
