@@ -3,6 +3,7 @@ import json
 import random
 import geometry as geo
 import mappy
+import affichage
 from collections import OrderedDict
 
 STEP = 1 #une seconde correspond à un pas de 1 pour les calculs précédents
@@ -33,7 +34,7 @@ def conversionTimeCzml(time_start, time_end):
     if not time_end:
         time_end = 0
         print('time_end non défini')
-    d0,h,m,s = mappy.convertisseur_temps(time_start)
+    d0,h,m,s = affichage.convertisseur_temps(time_start)
     d = d0 + 1
     date = '2019-01'
     timeS = '{}-{:02d}T{:02d}:{:02d}:{:02d}Z'.format(date, d, h, m, s)
