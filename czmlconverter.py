@@ -38,7 +38,7 @@ def conversionTimeCzml(time_start, time_end):
     d = d0 + 1
     date = '2019-01'
     timeS = '{}-{:02d}T{:02d}:{:02d}:{:02d}Z'.format(date, d, h, m, s)
-    d0, h, m, s = mappy.convertisseur_temps(time_end)
+    d0, h, m, s = affichage.convertisseur_temps(time_end)
     d = d0 + 1
     timeE = '{}-{:02d}T{:02d}:{:02d}:{:02d}Z'.format(date, d, h, m, s)
     return timeS, timeE 
