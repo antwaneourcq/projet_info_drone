@@ -1,6 +1,7 @@
 import geometry as geo
 import trajet
 import Timer
+import math
 
 def a(A,B):
     return (B.y - A.y) / (B.x - A.x)
@@ -20,8 +21,8 @@ def point_intersection(A,B,C,D):# a l'instant t AB et CD
     
     Ix = (b1 - b2)/(a1 - a2)
     Iy = Ix * a1 + b1
-    I = geo.Point(Ix, Iy, Z_ALT)
 
+    I = geo.Point(Ix, Iy, Z_ALT)
     AI_x = I.x - A. x
     AI_y = I.y - A.y
     IB_x = B.x - I.x
@@ -59,8 +60,8 @@ def conflit(m1,m2):
         t1_I , t2_I = t1_dep + d1/v1 , t2_dep + d2/v2
         if abs(t1_I - t2_I) <= 180 :
             print ('!!conflit!!')
-            return True , I
-    return False
+            return I
+
 
 def detect(missions,t):
     missions_actives = Timer.select(missions,t)
@@ -71,6 +72,20 @@ def detect(missions,t):
                 I = conflit(mi,mj)[1]
                 mi.changer_altitude(mi,I)
 
+def cal_distance(p1,p2):
+    '''Calcule la distance entre p1 et p2'''
+    return math.sqrt((p1.x-p2.x)**2+(p1.y-p2.y)**2)
+
+
+def heure_conflit(m1,m2):
+    I=conflit(m1,m2)
+    if I:
+        d1 = cal_distance(m1.entrepot, I)
+        d2 = cal_distance(m2.entrepot, I)
+        t1 = m1.heure_dmde + d1/m1.drone.v_speed_max
+        t2 = m2.heure_dmde + d2/m2.drone.v_speed_max
+        maxt , mint = max(t1,t2) , min(t1,t2)
+        return 'le conflit se passera entre {} et {}'.format(mint,maxt)
 
 def test():
     client1 = geo.Timed_Point(2,2,0,0)
