@@ -27,30 +27,18 @@ class Document():
         raise TypeError(repr(obj) + "n'est pas sérialisable")
         
 def conversionTimeCzml(time_start, time_end):
-    print('reftime :', refTime)
-    print('timeC : ', timeCalcul)
     if not time_start:
         time_start = 0
         print('time start non défini')
     if not time_end:
         time_end = 0
         print('time_end non défini')
-    h = time_start//3600
-    temp = refTime%3600
-    m = temp//60
-    s = temp%60
-    d = 1
+    d0,h,m,s = mappy.convertisseur_temps(time_start)
+    d = d0 + 1
     date = '2019-01'
     timeS = '{}-{:02d}T{:02d}:{:02d}:{:02d}Z'.format(date, d, h, m, s)
-    d += time_end//86400
-    h0 = time_end%86400
-    h = h0//3600
-    temp = h0%3600
-    m = temp//60
-    s = temp%60
-    if h>=24:
-        h -= 24
-        d +=1
+    d0, h, m, s = mappy.convertisseur_temps(time_end)
+    d = d0 + 1
     timeE = '{}-{:02d}T{:02d}:{:02d}:{:02d}Z'.format(date, d, h, m, s)
     return timeS, timeE 
 
@@ -100,7 +88,7 @@ def color_maker():
 
 
 def writeczml(missions):
-    document = Document("document", 0, 100)
+    document = Document("document", 0, 86400) #trouver la derniere mission
     #drone = Aircraft('001', 'mon premier drone', 'Drone model', [0,1.47,43.67,50,20,1.47,43.67,1000,50,1.5,43.65,1000])
     with open('Test1.czml', 'w') as f: #, encoding ='utf-8'
         f.write('[\n')
