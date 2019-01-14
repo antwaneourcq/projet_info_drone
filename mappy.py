@@ -46,9 +46,9 @@ def conversion_m_deg(P):
     lat_P = round(A.lat + y_deg, 2)    #arrondi 2 chiffres après la virgule
     long_P = round(A.long + x_deg, 2) 
     try :
-        return geo.Real_Point(lat_P, long_P, P.z, P.t)
+        return geo.Real_Point(long_P, lat_P, P.z, P.t)
     except:
-        return geo.Real_Point(lat_P, long_P, P.z)
+        return geo.Real_Point(long_P, lat_P, P.z)
         
         
 def conversion_deg_m(P):
