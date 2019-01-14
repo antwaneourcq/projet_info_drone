@@ -14,7 +14,7 @@ class Document():
         self.id = iD
         self.name = "CZML Model"
         self.version = "1.0"
-        timeS, timeE = conversionTimeCzml(end_time, start_time)
+        timeS, timeE = conversionTimeCzml(start_time, end_time)
         timeS = timeS[:len(timeS)-1] + '.001Z'
         self.clock = {"interval" : timeS + '/' + timeE , "currentTime" : timeS, "multiplier": MULTI}
     
@@ -26,25 +26,26 @@ class Document():
             return OrderedDict({"id":obj.id, "name":obj.name, "version":obj.version, "clock":obj.clock})
         raise TypeError(repr(obj) + "n'est pas sérialisable")
         
-def conversionTimeCzml(timeCalcul, refTime):
+def conversionTimeCzml(time_start, time_end):
     print('reftime :', refTime)
     print('timeC : ', timeCalcul)
-    if not timeCalcul:
-        timeCalcul = 0
-        print('timeCalcul non défini')
-    if not refTime:
-        refTime = 0
-        print('refTime non défini')
-    timeCalcul += 30
-    h = refTime//3600
+    if not time_start:
+        time_start = 0
+        print('time start non défini')
+    if not time_end:
+        time_end = 0
+        print('time_end non défini')
+    h = time_start//3600
     temp = refTime%3600
     m = temp//60
     s = temp%60
     d = 1
     date = '2019-01'
     timeS = '{}-{:02d}T{:02d}:{:02d}:{:02d}Z'.format(date, d, h, m, s)
-    h = timeCalcul//3600
-    temp = timeCalcul%3600
+    d += time_end//86400
+    h0 = time_end%86400
+    h = h0//3600
+    temp = h0%3600
     m = temp//60
     s = temp%60
     if h>=24:
