@@ -3,6 +3,7 @@ import trajet
 import tirage_au_sort as tas
 import czmlconverter as czmlc
 import lecture_drones as lect_dr
+import affichage
 FILE = "aircraft.json"
 Missions = 'missions.txt'
 
