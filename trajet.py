@@ -50,7 +50,7 @@ class Mission:
 
 
 
-    def changer_altitude(self,I) :
+    def changer_altitude(self) :
         '''Permet de changer l'altitude du drone affilié en cas de conflits au cours de la mission'''
         a = tas.alt_random()
         while a == self.alti[0]:
