@@ -22,7 +22,7 @@ def point_intersection(A,B,C,D):# a l'instant t AB et CD
     Ix = (b1 - b2)/(a1 - a2)
     Iy = Ix * a1 + b1
 
-    I = geo.Point(Ix, Iy, Z_ALT)
+    I = geo.Point(Ix, Iy, 0)
     AI_x = I.x - A. x
     AI_y = I.y - A.y
     IB_x = B.x - I.x
