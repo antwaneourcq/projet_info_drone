@@ -7,7 +7,7 @@ import affichage
 from collections import OrderedDict
 
 STEP = 1 #une seconde correspond à un pas de 1 pour les calculs précédents
-MULTI = 5
+MULTI = 100
 
 class Document():
     
