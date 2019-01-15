@@ -95,7 +95,7 @@ def liste_conflits(l_missions):
         m1 = l_mission[i]
         for j in range(i+1, n_missions):
             m2 = l_mission[j]
-            pbl = conflits.conflit(m1, m2)
+            pbl = conflit(m1, m2)
             if pbl:
                 conflits.append((m1,m2))
     return conflits
