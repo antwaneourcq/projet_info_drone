@@ -9,30 +9,25 @@ def a(A,B):
 def b(A,B) :
     return A.y - a(A,B)*A.x
 def point_intersection(A,B,C,D):# a l'instant t AB et CD
-#faire une droite ax+b et ensuite etudier si les deux s'interceptent grace au critères de colinearité
-
-#faire une fonction pour calculer a et b ??
-
+#faire une droite ax+b et ensuite etudier si les deux s'interceptent grace au critère de colinearité
     a1 = a(A,B)
     b1 = b(A,B)
-    
     a2 = a(C,D)
     b2 = b(C,D)
-    
-    Ix = (b1 - b2)/(a1 - a2)
-    Iy = Ix * a1 + b1
+    #traiter avant le cas des droites identiques i.e.    a1 == a2 and b1 == b2 (nombre de pts d'intersection infini)
+    if a1 != a2:
+        Ix = (b1 - b2)/(a1 - a2)
+        Iy = Ix * a1 + b1
+        I = geo.Point(Ix, Iy, 0)
+        AI_x = I.x - A. x
+        AI_y = I.y - A.y
+        IB_x = B.x - I.x
+        IB_y = B.y - I.y
+        if AI_x * IB_y - AI_y * IB_x < 1e-4 :
+            return I
 
-    I = geo.Point(Ix, Iy, 0)
-    AI_x = I.x - A. x
-    AI_y = I.y - A.y
-    IB_x = B.x - I.x
-    IB_y = B.y - I.y
-    if AI_x * IB_y - AI_y * IB_x < 1e-4 :
-        return I
-    else :
-        return None
 
-def appartenance_segment(point , A,B):
+def appartenance_segment(point, A,B): ###s'assurer que A, B et point sont de classe point avec attribut x, y et non long et lat
     if a(A,B)*point.x + b(A,B) == point.y :
         if A.x < B.x :
             if A.y<B.y:
@@ -45,9 +40,7 @@ def appartenance_segment(point , A,B):
 
 def interception (A,B,C,D) :
     I = point_intersection(A,B,C,D)
-    if appartenance_segment(I,A,B) and appartenance_segment(I, C,D):
-        return True
-    return False
+    return appartenance_segment(I, A, B) and appartenance_segment(I, C, D)
 
 def conflit(m1,m2):
     ''' si les drones arrivent au point d'intersection avec un temps de différence inférieur à 3min , on considère qu'ils sont en conflit'''
