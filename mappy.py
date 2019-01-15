@@ -42,7 +42,7 @@ def affichage_carte(entrepots , clients):
 def conversion_m_deg(P): 
     '''on passe de x en metres à x en degrés décimaux '''
     y_deg = P.y / (1852*60)   #on passe x en Nm puis en ° puisqu'il est sur une ortho
-    x_deg = P.x/(1852*60*math.cos(A.lat))
+    x_deg = P.x / (1852*60*math.cos(A.lat))
     lat_P = round(A.lat + y_deg, 2)    #arrondi 2 chiffres après la virgule
     long_P = round(A.long + x_deg, 2) 
     try :
