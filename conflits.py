@@ -87,7 +87,7 @@ def heure_conflit(m1,m2):
     return mint , maxt
     
     
-def liste_conflits(l_missions):
+def liste_conflits(l_mission):
     '''donnne la liste des missions en conflits'''
     n_missions = len(l_mission)
     conflits = []
