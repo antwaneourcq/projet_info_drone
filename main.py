@@ -45,7 +45,7 @@ def main():
         for m in missions_ajoutees:
             missions.append(m)
 
-
+    missions.sort(key = lambda m: m.trajet[0].t)
     '''AFFICHAGE'''
     #missions, file = trajet.attribuer_missions(clients)   #entrepots, cça ne sert à rien à part détruire le travail précédent...
     print('MISSION')
