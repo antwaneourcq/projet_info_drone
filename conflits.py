@@ -40,7 +40,8 @@ def appartenance_segment(point, A,B): ###s'assurer que A, B et point sont de cla
 
 def interception (A,B,C,D) :
     I = point_intersection(A,B,C,D)
-    return appartenance_segment(I, A, B) and appartenance_segment(I, C, D)
+    if I:
+        return appartenance_segment(I, A, B) and appartenance_segment(I, C, D)
 
 def conflit(m1,m2):
     ''' si les drones arrivent au point d'intersection avec un temps de différence inférieur à 3min , on considère qu'ils sont en conflit'''
