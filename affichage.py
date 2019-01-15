@@ -27,13 +27,13 @@ def ecriture_missions(Missions, l_mission):
             f.write('heure de la demande = {0}\n'.format(temps))
             f.write('drone utilisé : {0.drone}\n'.format(m))
             f.write('points du trajet:\n')
-            f.write('{:^20}'.format('long: ')
-            f.write('{:^20}\n'.format('lat: ')
+            f.write('{:^20}'.format('long: '))
+            f.write('{:^20}\n'.format('lat: '))
             for p in m.trajet :
                 # attention les points de trajet de chaque mission ont déjà été convertis en coordonnées sphériques par CZML
                 #p_real = mappy.conversion_m_deg(p)
-                f.write('{:^20}'.format(p.long)
-                f.write('{:^20}\n'.format(p.lat)
+                f.write('{:^20}'.format(p.long))
+                f.write('{:^20}\n'.format(p.lat))
             f.write('\nconflits :')
             l_conflits = conflits.liste_conflits(l_mission)
             for c in l_conflits:
