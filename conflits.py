@@ -72,7 +72,7 @@ def detect(missions,t):
                 I = conflit(mi,mj)[1]
                 mi.changer_altitude(mi,I)
 
-def cal_distance(p1,p2):
+def cal_distance(p1,p2): # la meme fonction existe dans le module trajet 
     '''Calcule la distance entre p1 et p2'''
     return math.sqrt((p1.x-p2.x)**2+(p1.y-p2.y)**2)
 
@@ -92,6 +92,23 @@ def heure_conflit(m1,m2):
     t1,t2 = arrivee_en_I ( m1 , m2)
     maxt , mint = max(t1,t2) , min(t1,t2)
     return mint , maxt
+    
+    
+def liste_conflits(l_missions):
+    '''donnne la liste des missions en conflits'''
+    n_missions = len(l_mission)
+    conflits = []
+    for i in range(n_missions):
+        m1 = l_mission[i]
+        for j in range(i+1, n_missions):
+            m2 = l_mission[j]
+            pbl = conflits.conflit(m1, m2)
+            if pbl:
+                conflits.append((m1,m2))
+    return conflits
+                
+                    
+
 
 def test():
     client1 = geo.Timed_Point(2,2,0,0)
