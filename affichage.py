@@ -1,7 +1,7 @@
 import tirage_au_sort as tas
 import trajet
 import mappy
-
+import conflits
 
 Missions = 'missions.txt'
 
@@ -36,6 +36,16 @@ def ecriture_missions( Missions, l_mission):
             for p in m.trajet :
                 p_real = mappy.conversion_m_deg(p)
                 f.write('points du trajet : long : {0}, lat : {1}\n'.format(p_real.long, p_real.lat))
+            f.write('\nconflits :')
+            for i,m in enumerate(l_mission):
+                for j in range(i,len(l_mission)):
+                    I = conflits.conflit(i,j)
+                    if I :
+                        f.write('les missions {} et {} sont en conflit\n'.format(i,j))
+                        f.write('le conflit se passera entre {} et {} secondes\n'.format(conflits.heure_conflit(i,j)))
+                        f.write('lieu du conflit : {}'.format(I))
+
+
                 
 
 

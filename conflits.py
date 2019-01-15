@@ -76,16 +76,22 @@ def cal_distance(p1,p2):
     '''Calcule la distance entre p1 et p2'''
     return math.sqrt((p1.x-p2.x)**2+(p1.y-p2.y)**2)
 
+def arrivee_en_I (m1, m2):
+    I = conflit(m1,m2)
+    if I :
+        d1 = cal_distance(m1.entrepot, I)
+        d2 = cal_distance(m2.entrepot, I)
+        t1 = m1.heure_dmde + d1 / m1.drone.v_speed_max
+        t2 = m2.heure_dmde + d2 / m2.drone.v_speed_max
+    return t1, t2
+
+
 
 def heure_conflit(m1,m2):
     I=conflit(m1,m2)
-    if I:
-        d1 = cal_distance(m1.entrepot, I)
-        d2 = cal_distance(m2.entrepot, I)
-        t1 = m1.heure_dmde + d1/m1.drone.v_speed_max
-        t2 = m2.heure_dmde + d2/m2.drone.v_speed_max
-        maxt , mint = max(t1,t2) , min(t1,t2)
-        return 'le conflit se passera entre {} et {}'.format(mint,maxt)
+    t1,t2 = arrivee_en_I ( m1 , m2)
+    maxt , mint = max(t1,t2) , min(t1,t2)
+    return mint , maxt
 
 def test():
     client1 = geo.Timed_Point(2,2,0,0)
