@@ -104,20 +104,31 @@ def liste_conflits(l_mission):
                     
 
 
-def thales(A,I)
+def thales(A,I,m, dIA):
+    '''retourne les coordonnées du point entre A et I pour lequel le drone monte ou descends en utlisant le theoreme de thales et pythagore'''
+    v = m.drone.v_speed_max
+    xIA = abs(I.x - A.x)
+    x = abs(xIA - 5*v*xIA/dIA)
+    y = math.sqrt(((5*v)**2)*(1-(xIA/dIA)**2))
+    return x,y
 
 
 def changer_altitude(m1,m2) :
-    '''Permet de changer l'altitude du drone (passe 10 mètres au dessus du palier actuel) en cas de conflits au cours de la mission'''
-    m1.alti.append(m1.alti[-1]+10)
+    '''Permet de changer l'altitude du drone (passe 10 mètres au dessus du palier actuel) en cas de conflits au cours de la mission ,
+    le drone passera au palier au-dessus 5 secondes avant le conflits et redescendra 5 secondes après'''
+    alti_sup = m1.alti[-1]+10
+    m1.alti.append(alti_sup)
     p2_1, p3_1 = m1.trajet[1] , m1.trajet[2]
-    p2_2, p3_2 = m2.trajet[1], m2.trajet[2]
-    a1,b1 = a(p2_1,p3_1) , b(p2_1,p3_1)
-    a2,b2 = a(p2_2,p3_2) , b(p2_2, p3_2)
     I = conflit(m1,m2)
     t1,t2 = arrivee_en_I(m1,m2)
-    d1, d2 = cal_distance(p2_1,I) , cal_distance(p2_2, I)
-    p5 =
+    dp2I, dp3I = cal_distance(p2_1,I) , cal_distance(p3_1, I)
+    x,y= thales(p2_1, I , m1, dp2I)
+    z,t = alti_sup , t1-5
+    u,v = thales(p3_1, I , m1, dp3I)
+    w,tt = alti_sup , t1+5
+    p5 = geo.Timed_Point(x,y,z,t)
+    p6 = geo.Timed_Point(u,v,w,tt)
+    m1.trajet = [m1.trajet[:2], p5, p6 , m1.trajet[3:]]
 
 
 def test():
