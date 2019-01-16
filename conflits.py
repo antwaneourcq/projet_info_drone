@@ -46,15 +46,16 @@ def interception (A,B,C,D) :
 def conflit(m1,m2):
     ''' si les drones arrivent au point d'intersection avec un temps de différence inférieur à 3min , on considère qu'ils sont en conflit'''
     A,B,C,D = m1.entrepot , m1.client , m2.entrepot , m2.client
-    if interception(A,B,C,D):
-        t1_dep, t2_dep = m1.heure_dmde, m2.heure_dmde
-        v1 , v2 = m1.drone.v_speed_max , m2.drone.v_speed_max
-        I = point_intersection(A, B, C, D)
-        d1 , d2 = trajet.calcule_distance(A,I) , trajet.calcule_distance(B,I)
-        t1_I , t2_I = t1_dep + d1/v1 , t2_dep + d2/v2
-        if abs(t1_I - t2_I) <= 3 :
-            print ('!!conflit!!')
-            return I
+    if m1.trajet and m2.trajet and m1.trajet[1].z == m2.trajet[1].z:
+        if interception(A,B,C,D):
+            t1_dep, t2_dep = m1.heure_dmde, m2.heure_dmde
+            v1 , v2 = m1.drone.v_speed_max , m2.drone.v_speed_max
+            I = point_intersection(A, B, C, D)
+            d1 , d2 = trajet.calcule_distance(A,I) , trajet.calcule_distance(B,I)
+            t1_I , t2_I = t1_dep + d1/v1 , t2_dep + d2/v2
+            if abs(t1_I - t2_I) <= 3 :
+                print ('!!conflit!!')
+                return I
 
 
 def detect(missions,t):
