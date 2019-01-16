@@ -31,10 +31,6 @@ def main():
     file_attente = tri(l2 , heure_demande2)
     mission_vide = 0
     mission_traite = 0
-    l_conflits = conflits.liste_conflits(missions)
-    print(l_conflits)
-    for (m1,m2) in l_conflits :
-        conflits.changer_altitude(m1,m2)
     for t in range (0, 86400, 1800):
         '''a chaque pas de temps: actualisation des missions actives + ajout des drones revenus dans l'entrepot qui seront a nouveau disponibles + attribution de missions aux clients qui netait pas servis '''
         missions_actives = trajet.missions_actives(missions,t)
@@ -55,6 +51,7 @@ def main():
     #missions, file = trajet.attribuer_missions(clients)   #entrepots, cça ne sert à rien à part détruire le travail précédent...
     print('MISSION')
     print('mission vide :', mission_vide, 'mission traitées :', mission_traite)
+    l_conflits = conflits.liste_conflits(missions)
     czmlc.writeczml(missions)
     affichage.ecriture_missions(Missions, missions)
 main()

@@ -13,7 +13,7 @@ def convertisseur_temps(temps):
     h = heures % 24
     return j, h, m, s
     
-def ecriture_missions(Missions, l_mission):
+def ecriture_missions(Missions, l_mission, l_conflits):
     '''écrit dans un fichier Missions les caracteristiques de chaque mission, ainsi que les conflits détectés.'''
     with open(Missions, 'w') as f:
         f.write('{:~^50}\n\n'.format('Missions'))
@@ -35,7 +35,7 @@ def ecriture_missions(Missions, l_mission):
                 f.write('{:^20}'.format(p.long))
                 f.write('{:^20}\n'.format(p.lat))
             f.write('\nconflits :')
-            l_conflits = conflits.liste_conflits(l_mission)
+
             for c in l_conflits:
                 f.write('les missions {} et {} sont en conflit\n'.format(c[0], c[1]))
                 f.write('le conflit se passera entre {} et {} secondes\n'.format(conflits.heure_conflit(c[0], c[1])))
