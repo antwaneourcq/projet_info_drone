@@ -129,6 +129,7 @@ def changer_altitude(m1,m2) :
     p5 = geo.Timed_Point(x,y,z,t)
     p6 = geo.Timed_Point(u,v,w,tt)
     m1.trajet = [m1.trajet[:2], p5, p6 , m1.trajet[3:]]
+    m1.duree += m1.drone.h_speed_max*2*10
 
 
 def test():
