@@ -7,7 +7,7 @@ import affichage
 from collections import OrderedDict
 
 STEP = 1 #une seconde correspond à un pas de 1 pour les calculs précédents
-MULTI = 5
+MULTI = 100
 
 class Document():
     
@@ -59,7 +59,8 @@ class Aircraft():
         pts_trajet = []
         t0 = points_trajet[0].t
         for pt in points_trajet:
-            pts_trajet.append(pt.t - t0)
+            t_add = pt.t - t0
+            pts_trajet.append(t_add)
             pts_trajet.append(pt.long)
             pts_trajet.append(pt.lat)
             pts_trajet.append(pt.z)
@@ -67,7 +68,9 @@ class Aircraft():
         self.orientation = {"velocityReference" : "#position"}
         color_1 = color_maker()
         color_2 = [255,255,255,110]
-        self.path = {"material":{"polylineOutline":{"color":{"rgba":color_1}}, "outlineColor":{"rgba":color_1}, "outlineWidth":3}, "width":3, "leadTime":0,"trailTime":100000, "resolution":5}
+        try :trailTime = t_add
+        except : trailTime = 10000
+        self.path = {"material":{"polylineOutline":{"color":{"rgba":color_1}}, "outlineColor":{"rgba":color_1}, "outlineWidth":3}, "width":3, "leadTime":0,"trailTime":trailTime, "resolution":5}
         self.point = {"color" : {"rgba" : color_1}, "outlineColor" : {"rgba" : color_2}}
         self.point["outlineWidth"] = 2
         self.point["pixelSize"] = 12

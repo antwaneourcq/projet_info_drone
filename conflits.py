@@ -9,30 +9,25 @@ def a(A,B):
 def b(A,B) :
     return A.y - a(A,B)*A.x
 def point_intersection(A,B,C,D):# a l'instant t AB et CD
-#faire une droite ax+b et ensuite etudier si les deux s'interceptent grace au critères de colinearité
-
-#faire une fonction pour calculer a et b ??
-
+#faire une droite ax+b et ensuite etudier si les deux s'interceptent grace au critère de colinearité
     a1 = a(A,B)
     b1 = b(A,B)
-    
     a2 = a(C,D)
     b2 = b(C,D)
-    
-    Ix = (b1 - b2)/(a1 - a2)
-    Iy = Ix * a1 + b1
+    #traiter avant le cas des droites identiques i.e.    a1 == a2 and b1 == b2 (nombre de pts d'intersection infini)
+    if a1 != a2:
+        Ix = (b1 - b2)/(a1 - a2)
+        Iy = Ix * a1 + b1
+        I = geo.Point(Ix, Iy, 0)
+        AI_x = I.x - A. x
+        AI_y = I.y - A.y
+        IB_x = B.x - I.x
+        IB_y = B.y - I.y
+        if AI_x * IB_y - AI_y * IB_x < 1e-4 :
+            return I
 
-    I = geo.Point(Ix, Iy, 0)
-    AI_x = I.x - A. x
-    AI_y = I.y - A.y
-    IB_x = B.x - I.x
-    IB_y = B.y - I.y
-    if AI_x * IB_y - AI_y * IB_x < 1e-4 :
-        return I
-    else :
-        return None
 
-def appartenance_segment(point , A,B):
+def appartenance_segment(point, A,B): ###s'assurer que A, B et point sont de classe point avec attribut x, y et non long et lat
     if a(A,B)*point.x + b(A,B) == point.y :
         if A.x < B.x :
             if A.y<B.y:
@@ -45,9 +40,8 @@ def appartenance_segment(point , A,B):
 
 def interception (A,B,C,D) :
     I = point_intersection(A,B,C,D)
-    if appartenance_segment(I,A,B) and appartenance_segment(I, C,D):
-        return True
-    return False
+    if I:
+        return appartenance_segment(I, A, B) and appartenance_segment(I, C, D)
 
 def conflit(m1,m2):
     ''' si les drones arrivent au point d'intersection avec un temps de différence inférieur à 3min , on considère qu'ils sont en conflit'''
@@ -72,7 +66,7 @@ def detect(missions,t):
                 I = conflit(mi,mj)[1]
                 mi.changer_altitude(mi,I)
 
-def cal_distance(p1,p2):
+def cal_distance(p1,p2): # la meme fonction existe dans le module trajet 
     '''Calcule la distance entre p1 et p2'''
     return math.sqrt((p1.x-p2.x)**2+(p1.y-p2.y)**2)
 
@@ -92,6 +86,23 @@ def heure_conflit(m1,m2):
     t1,t2 = arrivee_en_I ( m1 , m2)
     maxt , mint = max(t1,t2) , min(t1,t2)
     return mint , maxt
+    
+    
+def liste_conflits(l_mission):
+    '''donnne la liste des missions en conflits'''
+    n_missions = len(l_mission)
+    conflits = []
+    for i in range(n_missions):
+        m1 = l_mission[i]
+        for j in range(i+1, n_missions):
+            m2 = l_mission[j]
+            pbl = conflit(m1, m2)
+            if pbl:
+                conflits.append((m1,m2))
+    return conflits
+                
+                    
+
 
 def thales(A,I)
 

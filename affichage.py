@@ -4,6 +4,7 @@ import conflits
 Missions = 'missions.txt'
 
 def convertisseur_temps(temps):
+    '''donne le temps en jour, heure, minute, seconde'''
     min = temps // 60
     s = temps % 60
     heures = min // 60
@@ -12,13 +13,8 @@ def convertisseur_temps(temps):
     h = heures % 24
     return j, h, m, s
     
-    
-    
-    
-    
-    
-    
 def ecriture_missions(Missions, l_mission):
+    '''écrit dans un fichier Missions les caracteristiques de chaque mission, ainsi que les conflits détectés.'''
     with open(Missions, 'w') as f:
         f.write('{:~^50}\n\n'.format('Missions'))
         for m in l_mission:
@@ -30,18 +26,20 @@ def ecriture_missions(Missions, l_mission):
             temps = '{}:{}:{}'.format(h, min, s)
             f.write('heure de la demande = {0}\n'.format(temps))
             f.write('drone utilisé : {0.drone}\n'.format(m))
+            f.write('points du trajet:\n')
+            f.write('{:^20}'.format('longitude: '))
+            f.write('{:^20}\n'.format('latitude: '))
             for p in m.trajet :
                 # attention les points de trajet de chaque mission ont déjà été convertis en coordonnées sphériques par CZML
-                p_real = mappy.conversion_m_deg(p)
-                f.write('points du trajet : long : {0}, lat : {1}\n'.format(p_real.long, p_real.lat))
+                #p_real = mappy.conversion_m_deg(p)
+                f.write('{:^20}'.format(p.long))
+                f.write('{:^20}\n'.format(p.lat))
             f.write('\nconflits :')
-            for i,m in enumerate(l_mission):
-                for j in range(i,len(l_mission)):
-                    I = conflits.conflit(i,j)
-                    if I :
-                        f.write('les missions {} et {} sont en conflit\n'.format(i,j))
-                        f.write('le conflit se passera entre {} et {} secondes\n'.format(conflits.heure_conflit(i,j)))
-                        f.write('lieu du conflit : {}'.format(I))
+            l_conflits = conflits.liste_conflits(l_mission)
+            for c in l_conflits:
+                f.write('les missions {} et {} sont en conflit\n'.format(c[0], c[1]))
+                f.write('le conflit se passera entre {} et {} secondes\n'.format(conflits.heure_conflit(c[0], c[1])))
+                f.write('lieu du conflit : {}'.format(conflits.conflit(c[0],c[1])))
 
 
                 
