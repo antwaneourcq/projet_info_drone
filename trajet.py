@@ -130,10 +130,8 @@ def capacite_drone(client):
                 if dro.v_speed_max > vit:
                     drone_correct = dro
                     vit = dro.v_speed_max
-    try:
-        return drone_correct  # drone est un objet de la classe Drone du module lecture_drone
-    except UnboundLocalError:
-        return None
+     return drone_correct  # drone est un objet de la classe Drone du module lecture_drone
+
 
 
 
