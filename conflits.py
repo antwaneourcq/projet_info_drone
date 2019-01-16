@@ -58,7 +58,7 @@ def conflit(m1,m2):
         I = point_intersection(A, B, C, D)
         d1 , d2 = trajet.calcule_distance(A,I) , trajet.calcule_distance(B,I)
         t1_I , t2_I = t1_dep + d1/v1 , t2_dep + d2/v2
-        if abs(t1_I - t2_I) <= 180 :
+        if abs(t1_I - t2_I) <= 3 :
             print ('!!conflit!!')
             return I
 
@@ -92,6 +92,22 @@ def heure_conflit(m1,m2):
     t1,t2 = arrivee_en_I ( m1 , m2)
     maxt , mint = max(t1,t2) , min(t1,t2)
     return mint , maxt
+
+def thales(A,I)
+
+
+def changer_altitude(m1,m2) :
+    '''Permet de changer l'altitude du drone (passe 10 mètres au dessus du palier actuel) en cas de conflits au cours de la mission'''
+    m1.alti.append(m1.alti[-1]+10)
+    p2_1, p3_1 = m1.trajet[1] , m1.trajet[2]
+    p2_2, p3_2 = m2.trajet[1], m2.trajet[2]
+    a1,b1 = a(p2_1,p3_1) , b(p2_1,p3_1)
+    a2,b2 = a(p2_2,p3_2) , b(p2_2, p3_2)
+    I = conflit(m1,m2)
+    t1,t2 = arrivee_en_I(m1,m2)
+    d1, d2 = cal_distance(p2_1,I) , cal_distance(p2_2, I)
+    p5 =
+
 
 def test():
     client1 = geo.Timed_Point(2,2,0,0)

@@ -53,16 +53,8 @@ class Mission:
 
 
 
-    def changer_altitude(self) :
-        '''Permet de changer l'altitude du drone affilié en cas de conflits au cours de la mission'''
-        a = tas.alt_random()
-        while a == self.alti[0]:
-            a = tas.alt_random()
-        self.alti.append(a)
-        p2, p3 = self.trajet[1] , self.trajet[2]
-        a,b = conflits.a(p2,p3) , conflits.b(p2,p3)
-        angle = math.tan(p3.x/p3.y)
-        de1 , de2 = geo.Point()
+
+
 
     def calcul_duree_mission(self):
         '''Calcule le temps que met le drone affilié pour effectuer entièrement la mission'''
