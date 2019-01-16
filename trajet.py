@@ -126,7 +126,7 @@ def capacite_drone(client):
     for drone in entrepot.models:
         if entrepot.models[drone]>0:
             dro = ldr.Drone(drone, geo.Point(entrepot.x, entrepot.y, entrepot.z))
-            if dro.range >= distance:
+            if dro.range*1000 >= distance:
                 if dro.v_speed_max > vit:
                     drone_correct = dro
                     vit = dro.v_speed_max
