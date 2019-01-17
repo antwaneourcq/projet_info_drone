@@ -48,8 +48,8 @@ def conflit(m1,m2):
     A,B,C,D = m1.entrepot , m1.client , m2.entrepot , m2.client
     if m1.trajet and m2.trajet and m1.trajet[1].z == m2.trajet[1].z:
         if interception(A,B,C,D):
-            t1_dep, t2_dep = m1.heure_dmde, m2.heure_dmde
-            v1 , v2 = m1.drone.v_speed_max , m2.drone.v_speed_max
+            t1_dep, t2_dep = m1.trajet[1].t, m2.trajet[1].t
+            v1 , v2 = m1.drone.h_speed_max , m2.drone.h_speed_max
             I = point_intersection(A, B, C, D)
             d1 , d2 = trajet.calcule_distance(A,I) , trajet.calcule_distance(B,I)
             t1_I , t2_I = t1_dep + d1/v1 , t2_dep + d2/v2
@@ -107,7 +107,7 @@ def liste_conflits(l_mission):
 
 def thales(A,I,m, dIA):
     '''retourne les coordonnées du point entre A et I pour lequel le drone monte ou descends en utlisant le theoreme de thales et pythagore'''
-    v = m.drone.v_speed_max
+    v = m.drone.h_speed_max
     xIA = abs(I.x - A.x)
     x = abs(xIA - 5*v*xIA/dIA)
     y = math.sqrt(((5*v)**2)*(1-(xIA/dIA)**2))
@@ -130,7 +130,7 @@ def changer_altitude(m1,m2) :
     p5 = geo.Timed_Point(x,y,z,t)
     p6 = geo.Timed_Point(u,v,w,tt)
     m1.trajet = [m1.trajet[:2], p5, p6 , m1.trajet[3:]]
-    m1.duree += m1.drone.h_speed_max*2*10
+    m1.duree += m1.drone.v_speed_max*2*10
 
 
 def test():

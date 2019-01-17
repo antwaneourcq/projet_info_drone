@@ -53,15 +53,12 @@ class Mission:
 
 
 
-
-
-
     def calcul_duree_mission(self):
         '''Calcule le temps que met le drone affilié pour effectuer entièrement la mission'''
-        dep = self.heure_dmde
+        dep = self.trajet[0].t
         drone = self.drone
         distance = calcule_distance(self.client)
-        arr = distance / drone.v_speed_max + 2 * drone.current_position.z / drone.h_speed_max
+        arr = distance / drone.h_speed_max + 2 * self.alti[0] / drone.v_speed_max
         return arr - dep
 
 
@@ -108,7 +105,7 @@ def attribuer_entrepot(clients, entrepots):
 
 def ordre_priorite_drones(drones): 
     '''Prend en argument une liste de drones à trier selon leur vitesse maximale'''
-    drones.sort(key = lambda drone : drone.v_speed_max, reverse = True) #on trie les drones de l'entrepot le plus proche par ordre décroissant de vitesse maximale en route (tri en place)
+    drones.sort(key = lambda drone : drone.h_speed_max, reverse = True) #on trie les drones de l'entrepot le plus proche par ordre décroissant de vitesse maximale en route (tri en place)
     return drones
 
 
@@ -129,7 +126,7 @@ def capacite_drone(client):
             if dro.range*1000 >= distance:
                 if dro.v_speed_max > vit:
                     drone_correct = dro
-                    vit = dro.v_speed_max
+                    vit = dro.h_speed_max
     try:
         return drone_correct  # drone est un objet de la classe Drone du module lecture_drone
     except UnboundLocalError:
@@ -208,8 +205,3 @@ def retour(mission, t): #drone est un objet de la classe Drone et mission un obj
     else:
         pass
 
-
-
-
-def drone_optimal(drone, mission): #prend en parametre un objet mission de la classe Mission et un objet drone de la classe Drone7
-    pass
