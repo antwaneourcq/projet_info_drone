@@ -26,7 +26,8 @@ def main():
     print(clients)
     tas.drones_utiles(entrepots)
     trajet.attribuer_entrepot(clients, entrepots)
-    l1 , l2 = trajet.attribuer_missions(clients)
+    id_mission = 0
+    l1 , l2 = trajet.attribuer_missions(clients, id_mission)
     missions = tri(l1, heure_demande)
     file_attente = tri(l2 , heure_demande2)
     mission_vide = 0
@@ -41,7 +42,7 @@ def main():
                 mission_traite += 1
             else:
                 mission_vide += 1
-        l1,l2 = trajet.attribuer_missions(file_attente)
+        l1,l2 = trajet.attribuer_missions(file_attente, id_mission)
         missions_ajoutees, file_attente = tri(l1 , heure_demande), tri(l2, heure_demande2)
         for m in missions_ajoutees:
             missions.append(m)
@@ -58,3 +59,33 @@ def main():
     czmlc.writeczml(missions)
     affichage.ecriture_missions(Missions, missions, l_conflits)
 main()
+
+def test():
+    import geometry as geo
+    x1,x2,x3,x4=0,0,1000,1000
+    y1,y2,y3,y4=0,1000,0,1000
+    client1 = trajet.Client(x4,y4,0,0)
+    m1  = trajet.Mission(client1, 0)
+    client2 = trajet.Client(x3,y3,0,0)
+    m2  = trajet.Mission(client2, 1)
+    entrepot1 , entrepot2 = geo.Point(x1,y1,0) , geo.Point(x2,y2,0)
+    client1.entrepot = entrepot1
+    client2.entrepot = entrepot2
+    m1.entrepot = entrepot1
+    m2.entrepot = entrepot2
+    m1.alti = [300]
+    m2.alti = [300]
+    m1.trajet = [geo.Timed_Point(x1,y1,0,0),geo.Timed_Point(x1,y1,300,20), geo.Timed_Point(x4,y4,300,60), geo.Timed_Point(x4,y4,0,80)]
+    m2.trajet = [geo.Timed_Point(x2,y2,0,0),geo.Timed_Point(x2,y2,300,20), geo.Timed_Point(x3,y3,300,60), geo.Timed_Point(x3,y3,0,80)]
+    print('m2', m2.trajet)
+    print('m1', m1.trajet)
+    I, t1, t2 = conflits.conflit(m1,m2)
+    print('conflit : ',I, t1, t2)
+    print('m2', m2.trajet)
+    print('m1', m1.trajet)
+    mappy.conversion_mission(m1)
+    mappy.conversion_mission(m2)
+    print('trajet')
+    print(m1.trajet)
+    print(m2.trajet)
+#test()

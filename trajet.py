@@ -8,7 +8,7 @@ import math
 
 class Mission:
 
-    def __init__(self, client): #client est un objet de la classe Client
+    def __init__(self, client, id): #client est un objet de la classe Client
         self.client = client
         self.entrepot = client.entrepot
         self.heure_dmde = client.t
@@ -16,9 +16,10 @@ class Mission:
         self.alti = [tas.alt_random()]
         self.trajet = []
         self.duree = 0
+        self.id = id
         
     def __repr__(self):
-        return 'mission :  entrepot : ' + str(self.entrepot) +'\nMission retour ligne\n'
+        return 'mission : '+ str(self.id) + ' (entrepot : ' + str(self.entrepot) +')'
         #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone)
 
 
@@ -64,12 +65,12 @@ class Mission:
 
 class Entrepot(geo.Point):
 
-    def __init__(self, x, y, z, models):  # models: dico de modèle de drones
+    def __init__(self, x, y, z, models, id):  # models: dico de modèle de drones
         super().__init__(x, y, z)
         self.models = {}
         for mod in models:
             self.models[str(mod)] = 1
-        self.id = random.randint(0, 100)
+        self.id = id
 
     def __repr__(self):
         return str(self.id) 
@@ -127,15 +128,10 @@ def capacite_drone(client):
                 if dro.v_speed_max > vit:
                     drone_correct = dro
                     vit = dro.h_speed_max
-    try:
-        return drone_correct  # drone est un objet de la classe Drone du module lecture_drone
-    except UnboundLocalError:
-        return None
+    return drone_correct  # drone est un objet de la classe Drone du module lecture_drone
+# supprimer le try except
 
-
-
-
-def attribuer_missions(clients): #clients est une liste d'objets de la classe Client
+def attribuer_missions(clients, id_mission): #clients est une liste d'objets de la classe Client
     '''renvoie une liste de missions , determinées en fonction des clients et entrepots tirés au sort'''
     file_attente = []
     missions = []
@@ -144,13 +140,15 @@ def attribuer_missions(clients): #clients est une liste d'objets de la classe Cl
     for cli in clients:
         e = cli.entrepot
         drone = capacite_drone(cli)
-        m = Mission(cli)
+        m = Mission(cli, id_mission)
+        id_mission += 1
         if drone != None:
             correctness += 1 
             m.entrepot = e
             m.drone = drone
             e.models[str(drone.model)] -= 1
             m.decoupe_trajet()
+
         else :
             #traite le cas où le drone == None
             drones_non_traites += 1

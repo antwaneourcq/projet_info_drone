@@ -39,10 +39,10 @@ def points_utiles(carte): #changer le nom de la fonction
     zone_inf = [A_int.x, C_ext.x, A_ext.y, A_int.y]          #3
     zones = [ zone_droite, zone_sup, zone_gauche, zone_inf ]
     
-    for _ in range(nbr_entrepots):
+    for id in range(1, nbr_entrepots):
         p = random.randint(0, 3)   #p est assimilé à l'une des zones alétoirement
         x, y = random.uniform(zones[p][0], zones[p][1]), random.uniform(zones[p][2], zones[p][3])
-        l_entrepots.append(trajet.Entrepot(x, y, 0, MODELS))
+        l_entrepots.append(trajet.Entrepot(x, y, 0, MODELS, id))
     
     for _ in range(nbr_clients):
         x, y, z, t = random.uniform(A_int.x,C_int.x), random.uniform(A_int.y,C_int.y), 0, random.randint(0, 86400)

@@ -36,12 +36,16 @@ def ecriture_missions(Missions, l_mission, l_conflits):
                 f.write('{:^20}\n'.format(p.lat))
             f.write('\nconflits :')
 
-            for c in l_conflits:
+        #    for c in l_conflits:
+        #        f.write('les missions {} et {} sont en conflit\n'.format(c[0], c[1]))
+        #        f.write('le conflit se passera entre {} et {} secondes\n'.format(conflits.heure_conflit(c[0], c[1])))
+        #        f.write('lieu du conflit : {}'.format(conflits.conflit(c[0],c[1])))
+        #baisse la complexité mais inadéquat pour l'instant...
+        for c in l_conflits:
                 f.write('les missions {} et {} sont en conflit\n'.format(c[0], c[1]))
-                f.write('le conflit se passera entre {} et {} secondes\n'.format(conflits.heure_conflit(c[0], c[1])))
-                f.write('lieu du conflit : {}'.format(conflits.conflit(c[0],c[1])))
-
-
+                f.write('le conflit se passera entre {} et {} secondes\n'.format(c[3], c[4]))#conflits.heure_conflit(c[0], c[1])))
+                f.write('lieu du conflit : {}\n'.format(c[2]))#conflits.conflit(c[0],c[1])))
+        ##trouver un moyen pour avoir le temps du conflits et le points d'intersection
                 
 
 
