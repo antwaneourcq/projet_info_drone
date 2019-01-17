@@ -114,12 +114,14 @@ def changer_altitude(m1,m2, I, t1, t2, aller1, aller2) :
     try :
         print('essai')
         print(p2_1, dp2I)
-        x, y = thales(p2_1, I, m1, dp2I)
+        x, y = abs ((I.x - p2_1.x)/2), abs((I.y - p2_1.y)/2)
         print('xy atteint')
-        z, t = alti_sup, t1 - 5
+        z = alti_sup
+        t = cal_distance(I,geo.Point(x,y,z))/m1.drone.h_speed_max
         print('zt atteint')
-        u, v = thales(p3_1, I, m1, dp3I)
-        w, tt = alti_sup, t1 + 5
+        u, v = abs ((I.x - p3_1.x)/2), abs((I.y - p3_1.y)/2)
+        w = alti_sup
+        tt = cal_distance(I,geo.Point(u,v,w))/m1.drone.h_speed_max
         print('wt')
         p5 = geo.Timed_Point(x, y, z, t)
         p6 = geo.Timed_Point(u, v, w, tt)
