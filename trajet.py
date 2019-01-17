@@ -134,6 +134,7 @@ def capacite_drone(client):
 
 
 
+
 def attribuer_missions(clients): #clients est une liste d'objets de la classe Client
     '''renvoie une liste de missions , determinées en fonction des clients et entrepots tirés au sort'''
     file_attente = []
