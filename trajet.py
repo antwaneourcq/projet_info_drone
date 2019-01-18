@@ -176,7 +176,3 @@ def retour(mission, t): #drone est un objet de la classe Drone et mission un obj
     if t > mission.trajet[-1].t:
         print(m)
         mission.entrepot.models[str(mission.drone.model)] += 1
-
-    else:
-        pass
-
