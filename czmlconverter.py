@@ -86,7 +86,7 @@ def color_maker():
 
 def writeczml(missions):
     document = Document("document", 0, 86400) #trouver la derniere mission
-    with open('Test1.czml', 'w') as f: #, encoding ='utf-8'
+    with open('Mission_CesiumJs.czml', 'w') as f: #, encoding ='utf-8'
         f.write('[\n')
         json.dump(document, f, indent=4, default = document.serialiseur)
         f.write(',\n')
