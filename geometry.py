@@ -1,7 +1,7 @@
 import math
 
 class Point():
-    '''point dont les coordonées ( en mètres ) sont exprimées dans un repère (définit dans mappy)'''
+    '''Point dont les coordonées (en mètres) sont exprimées dans un repère (défini dans mappy)'''
     def __init__(self,x,y,z):
         self.x = x
         self.y = y
@@ -43,5 +43,3 @@ class Real_Point():
         
     def __add__(self , other):
         return Real_Point(self.lat + other.lat , self.long + other.long , self.z - other.z)
-            
-

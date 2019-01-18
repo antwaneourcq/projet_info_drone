@@ -22,7 +22,7 @@ dico = ldr.read(FILE)
 MODELS = ldr.listmodels(dico)
 
 
-def points_utiles(carte): #changer le nom de la fonction
+def points_utiles(carte):
     '''renvoie la liste des entrepôts et des clients et carte est une liste de 2 tuples de coordonnées, donnant le coin supérieur gauche et le coin inférieur droit'''
 
     nbr_entrepots = random.randint(5, NMAX_EN)
@@ -34,7 +34,7 @@ def points_utiles(carte): #changer le nom de la fonction
     zone_sup = [A_ext.x, C_int.x, C_int.y, C_ext.y]          #1
     zone_gauche = [C_int.x, C_ext.x, A_int.y, C_ext.y]       #2
     zone_inf = [A_int.x, C_ext.x, A_ext.y, A_int.y]          #3
-    zones = [ zone_droite, zone_sup, zone_gauche, zone_inf ]
+    zones = [zone_droite, zone_sup, zone_gauche, zone_inf]
     
     for id in range(1, nbr_entrepots):
         p = random.randint(0, 3)   #p est assimilé à l'une des zones alétoirement
@@ -52,7 +52,7 @@ def points_utiles(carte): #changer le nom de la fonction
 
 def drones_utiles(entrepots):
     '''renvoie un dictionnaire assimilant entre 1 et 10 drones à un entrepot'''
-    for entr in entrepots:   #entr: objet de la classe Entrepot
+    for entr in entrepots:   #entr est un objet de la classe Entrepot
         p = random.randint(1, NMAX_DR)
         for _ in range(p):
             drone = random.choice(MODELS) 
@@ -63,14 +63,3 @@ def drones_utiles(entrepots):
 def alt_random():
     '''donne aleatoirement un palier d'altitude'''
     return random.randrange(Z_ALT_MIN, Z_ALT_MAX, STEP)
-
-
-
-
-
-
-
-
-
-
-
