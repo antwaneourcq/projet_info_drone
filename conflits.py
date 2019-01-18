@@ -30,7 +30,7 @@ def cal_distance(p1,p2): # la meme fonction existe dans le module trajet
     '''Calcule la distance entre p1 et p2'''
     return math.sqrt((p1.x-p2.x)**2+(p1.y-p2.y)**2)
 
-def appartenance_segment(point, A,B): ###s'assurer que A, B et point sont de classe point avec attribut x, y et non long et lat
+def appartenance_segment(point, A,B): #s'assurer que A, B et point sont de classe point avec attribut x, y et non long et lat
     if a(A,B)*point.x + b(A,B) == point.y :
         if A.x < B.x :
             if A.y<B.y:
@@ -52,28 +52,21 @@ def conflit(m1,m2):
     if m1.trajet == [] or m2.trajet == []:
         print('mission vide')
     elif m1.trajet and m2.trajet and m1.trajet[1].z == m2.trajet[1].z:
-        print('premiere condition ok')
         I = point_intersection(A, B, C, D)
-        print('intersection : ', I)
         if interception(A,B,C,D, I):
-            print('deuxieme condtion ok')
             I = point_intersection(A, B, C, D)
             t1, t2, t3, t4 = arrivee_en_I(m1, m2, I)
             TCRI = 10 #modif
             if abs(t1-t2) <= TCRI : #sur les 2 allers
-                print ('!!conflit!!')
                 changer_altitude(m1, m2, I, t1, t2, True, True)
                 return I, t1,t2
             if abs(t3-t4)<TCRI: #sur les 2 retours
-                print ('!!conflit!!')
                 changer_altitude(m1, m2, I, t3, t4, False, False)
                 return I, t3,t4
             if abs(t3-t2)<TCRI: #sur retour m1 aller m2
-                print ('!!conflit!!')
                 changer_altitude(m1, m2, I, t3, t2, False, True)
                 return I, t3,t4
             if abs(t1-t4)<TCRI: #sur aller m1 retour m2
-                print ('!!conflit!!')
                 changer_altitude(m1, m2, I, t1, t4, True, False)
                 return I, t3, t4
     else:
@@ -108,23 +101,18 @@ def changer_altitude(m1,m2, I, t1, t2, aller1, aller2) :
     p2_1, p3_1 = m1.trajet[i], m1.trajet[j]
     dp2I, dp3I = cal_distance(p2_1, I), cal_distance(p3_1, I)
     try:
-        print('essai')
         print(p2_1, dp2I)
         x, y = abs ((I.x - p2_1.x)/2), abs((I.y - p2_1.y)/2)
-        print('xy atteint')
         z = alti_sup
         t = cal_distance(I,geo.Point(x,y,z))/m1.drone.h_speed_max
-        print('zt atteint')
         u, v = abs ((I.x - p3_1.x)/2), abs((I.y - p3_1.y)/2)
         w = alti_sup
         tt = cal_distance(I,geo.Point(u,v,w))/m1.drone.h_speed_max
-        print('wt')
         p5 = geo.Timed_Point(x, y, z, t)
         p6 = geo.Timed_Point(u, v, w, tt)
         m1.trajet = m1.trajet[:j]+ [p5, p6] + m1.trajet[j:]
         m1.duree += 2*10 / m1.drone.v_speed_max
     except:
-        print('erreur')
         raise Exception
     finally: return i, j
 
