@@ -77,7 +77,7 @@ def conflit(m1,m2):
             if abs(t1-t4)<TCRI: #sur aller m1 retour m2
                 print ('!!conflit!!')
                 changer_altitude(m1, m2, I, t1, t4, True, False)
-                return I, t3,t4
+                return I, t3, t4
     else:
         print("aucun conflit", m1.trajet, m2.trajet)
 
@@ -107,11 +107,9 @@ def changer_altitude(m1,m2, I, t1, t2, aller1, aller2) :
         j=-2
     alti_sup = m1.alti[0] + 10
     m1.alti.append(alti_sup)
-    p2_1, p3_1 = m1.trajet[i], m1.trajet[j] ####
-    # I = conflit(m1,m2)
-    # t1,t2 = arrivee_en_I(m1,m2, I)
+    p2_1, p3_1 = m1.trajet[i], m1.trajet[j]
     dp2I, dp3I = cal_distance(p2_1, I), cal_distance(p3_1, I)
-    try :
+    try:
         print('essai')
         print(p2_1, dp2I)
         x, y = abs ((I.x - p2_1.x)/2), abs((I.y - p2_1.y)/2)
@@ -125,13 +123,12 @@ def changer_altitude(m1,m2, I, t1, t2, aller1, aller2) :
         print('wt')
         p5 = geo.Timed_Point(x, y, z, t)
         p6 = geo.Timed_Point(u, v, w, tt)
-        m1.trajet = m1.trajet[:j]+ [p5, p6] + m1.trajet[j:] ###
-        m1.duree += 2*10 / m1.drone.v_speed_max #modif
-        #return i,j
+        m1.trajet = m1.trajet[:j]+ [p5, p6] + m1.trajet[j:]
+        m1.duree += 2*10 / m1.drone.v_speed_max
     except:
         print('erreur')
         raise Exception
-    finally : return i,j
+    finally: return i, j
 
 
 def thales(A,I,m, dIA):
@@ -142,9 +139,9 @@ def thales(A,I,m, dIA):
         x = abs(xIA - 5*v*xIA/dIA)
         y = math.sqrt(((5*v)**2)*(1-(xIA/dIA)**2))
         return x,y
-###fonction inutile
+
+
 def heure_conflit(m1, m2):
-    I = conflit(m1, m2)
     t1, t2, t3, t4 = arrivee_en_I(m1, m2)
     maxt_all, mint_all = max(t1, t2), min(t1, t2)
     maxt_re, mint_re = max(t3, t4), min(t3, t4)
@@ -155,25 +152,10 @@ def liste_conflits(l_mission):#nouvelle version non fonctionnelle problème avec
     '''donnne la liste des missions en conflits avec le lieu et les temps estimés''' #modif
     n_missions = len(l_mission)
     conflits = []
-    print('l_mission :::: ', l_mission)
     for i in range(n_missions):
         m1 = l_mission[i]
         for j in range(i+1, n_missions):
             m2 = l_mission[j]
-            print(m1,m2)
-            I, t1, t2= conflit(m1, m2) #modif
-            if I:
-                conflits.append((m1,m2, I,t1,t2))
-    return conflits
-def liste_conflits(l_mission):#ancienne version fonctionelle
-    '''donnne la liste des missions en conflits'''
-    n_missions = len(l_mission)
-    conflits = []
-    for i in range(n_missions):
-        m1 = l_mission[i]
-        for j in range(i+1, n_missions):
-            m2 = l_mission[j]
-            pbl = conflit(m1, m2)
-            if pbl:
-                conflits.append((m1,m2))
+            if conflit(m1, m2):
+                conflits.append((m1, m2))
     return conflits

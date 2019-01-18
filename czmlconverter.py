@@ -1,7 +1,6 @@
-#import datetime
 import json
 import random
-import geometry as geo
+import geometrie as geo
 import mappy
 import affichage
 from collections import OrderedDict
