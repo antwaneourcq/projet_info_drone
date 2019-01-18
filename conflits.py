@@ -16,7 +16,6 @@ def point_intersection(A,B,C,D):# a l'instant t AB et CD
     b1 = b(A,B)
     a2 = a(C,D)
     b2 = b(C,D)
-    print('1 :', a1 ,'x + ', b1 ,'2 :  ',a2, 'x + ',b2)
     #traiter avant le cas des droites identiques i.e.    a1 == a2 and b1 == b2 (nombre de pts d'intersection infini)
     if a1 != a2:
         Ix = (b1 - b2)/(a2 - a1)
@@ -48,10 +47,8 @@ def interception (A,B,C,D, I) :
 
 def conflit(m1,m2):
     ''' si les drones arrivent au point d'intersection avec un temps de différence inférieur à 3min , on considère qu'ils sont en conflit'''
-    A,B,C,D = m1.entrepot , m1.client , m2.entrepot , m2.client
-    if m1.trajet == [] or m2.trajet == []:
-        print('mission vide')
-    elif m1.trajet and m2.trajet and m1.trajet[1].z == m2.trajet[1].z:
+    A, B, C, D = m1.entrepot, m1.client, m2.entrepot, m2.client
+    if m1.trajet and m2.trajet and m1.trajet[1].z == m2.trajet[1].z:
         I = point_intersection(A, B, C, D)
         if interception(A,B,C,D, I):
             I = point_intersection(A, B, C, D)
@@ -69,8 +66,6 @@ def conflit(m1,m2):
             if abs(t1-t4)<TCRI: #sur aller m1 retour m2
                 changer_altitude(m1, m2, I, t1, t4, True, False)
                 return I, t3, t4
-    else:
-        print("aucun conflit", m1.trajet, m2.trajet)
 
 def arrivee_en_I (m1, m2, I):
     #I = conflit(m1,m2)
@@ -89,19 +84,18 @@ def changer_altitude(m1,m2, I, t1, t2, aller1, aller2) :
     '''Permet de changer l'altitude du drone (passe 10 mètres au dessus du palier actuel) en cas de conflits au cours de la mission ,
     le drone passera au palier au-dessus 5 secondes avant le conflits et redescendra 5 secondes après'''
     if aller1:
-        i=1
-        j=2
+        i = 1
+        j = 2
     elif aller2:
-        i,j = changer_altitude(m2, m1, I, t2, t1, aller2, aller1)
+        i, j = changer_altitude(m2, m1, I, t2, t1, aller2, aller1)
     else:
-        i=-3
-        j=-2
+        i = -3
+        j = -2
     alti_sup = m1.alti[0] + 10
     m1.alti.append(alti_sup)
     p2_1, p3_1 = m1.trajet[i], m1.trajet[j]
     dp2I, dp3I = cal_distance(p2_1, I), cal_distance(p3_1, I)
     try:
-        print(p2_1, dp2I)
         x, y = abs ((I.x - p2_1.x)/2), abs((I.y - p2_1.y)/2)
         z = alti_sup
         t = cal_distance(I,geo.Point(x,y,z))/m1.drone.h_speed_max
@@ -114,7 +108,8 @@ def changer_altitude(m1,m2, I, t1, t2, aller1, aller2) :
         m1.duree += 2*10 / m1.drone.v_speed_max
     except:
         raise Exception
-    finally: return i, j
+    finally:
+        return i, j
 
 
 def heure_conflit(m1, m2):

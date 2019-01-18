@@ -28,10 +28,8 @@ class Document():
 def conversionTimeCzml(time_start, time_end):
     if not time_start:
         time_start = 0
-        print('time start non défini')
     if not time_end:
         time_end = 0
-        print('time_end non défini')
     d0, h, m, s = affichages.convertisseur_temps(time_start)
     d = d0 + 1
     date = '2019-01'
@@ -92,25 +90,12 @@ def writeczml(missions):
         f.write('[\n')
         json.dump(document, f, indent=4, default = document.serialiseur)
         f.write(',\n')
-        j, k = 0, 0
-        print('\n MIssion : \n', missions, type(missions), 'type :', type(missions[0]), 'mission 00 : ', missions[0], 'fin de mission')
         n = len(missions)
-        print('nombre de mission : ', n)
-        s = [missions[0].trajet]
         for i, m in enumerate(missions):
             if m.drone:
-                k += 1
-                print('mission énumérée : ', i, m.trajet, '\n  entrepot attribué : ', m.drone)
                 mappy.conversion_mission(m)
-                print('mission convertie : ', m.trajet)
-                print(str(i), 'name'+str(i), str(m.drone))
-                print('\ntrajet :', m.trajet)
                 drone = Aircraft(str(i), 'name'+str(i), str(m.drone), m.trajet)
                 json.dump(drone, f, indent=4, default=drone.serialiseur)
                 if i <= n-2:
                     f.write(',\n')
-            else:
-                j += 1
-        print('nombre de mission non gérées :', j, 'derniere mission : ', i, 'par rapport à :', n)
         f.write('\n]')
-        print('s = ', s)

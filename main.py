@@ -3,15 +3,13 @@ import trajet
 import tirage_au_sort as tas
 import czmlconverter as czmlc
 import affichages
-import conflits
+
 FILE = "aircraft.json"
 
 
 def main():
     carte = (mappy.A, mappy.C)
-    entrepots, clients = tas.points_utiles(carte)  #, carre_ext
-    print(entrepots)
-    print(clients)
+    entrepots, clients = tas.points_utiles(carte)
     tas.drones_utiles(entrepots)
     trajet.attribuer_entrepot(clients, entrepots)
     id_mission = 0
@@ -22,8 +20,6 @@ def main():
     mission_traite = 0
     for t in range (0, 86400, 1800):
         '''a chaque pas de temps: actualisation des missions actives + ajout des drones revenus dans l'entrepot qui seront a nouveau disponibles + attribution de missions aux clients qui netait pas servis '''
-        missions_actives = trajet.missions_actives(missions,t)
-        print(missions_actives)
         for m in missions:
             if m.trajet != []:
                 trajet.retour(m,t)
@@ -34,13 +30,9 @@ def main():
         missions_ajoutees, file_attente = tri(l1 , heure_demande), tri(l2, heure_demande2)
         for m in missions_ajoutees:
             missions.append(m)
-    l_conflits = [] #conflits.liste_conflits(missions)
+    l_conflits = [] #conflits.liste_conflits(missions) si le module conflits fonctionnait
     czmlc.writeczml(missions)
     affichages.ecriture_txt("Missions.txt", missions, l_conflits, mission_vide, mission_traite)
-
-    l_conflits = conflits.liste_conflits(missions)
-    affichages.ecriture_xml(affichages.Livraison_par_drones, missions, l_conflits,"Missions.xml" )
-   
 
 def heure_demande(mission):
     return mission.heure_dmde
