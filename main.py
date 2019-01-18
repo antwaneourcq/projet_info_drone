@@ -47,15 +47,9 @@ def main():
         for m in missions_ajoutees:
             missions.append(m)
 
-    #missions.sort(key = lambda m: m.trajet[0].t)
-    '''AFFICHAGE'''
-    #missions, file = trajet.attribuer_missions(clients)   #entrepots, cça ne sert à rien à part détruire le travail précédent...
-    print('MISSION')
     print('mission vide :', mission_vide, 'mission traitées :', mission_traite)
+    #l_conflits = []
     l_conflits = conflits.liste_conflits(missions)
-    for m1,m2 in l_conflits :
-        conflits.changer_altitude(m1,m2)
-
     czmlc.writeczml(missions)
     affichage.ecriture_missions(Missions, missions, l_conflits)
 
@@ -97,5 +91,6 @@ def test():
     print(m1.trajet)
     print(m2.trajet)
 #test()
+
 
 

@@ -1,5 +1,5 @@
 
-import geometry as geo
+import geometrie as geo
 import math
 import matplotlib.pyplot as plt
 
@@ -13,7 +13,7 @@ D = geo.Real_Point(1.52, 43.53, 0)
 
 '''on definit un carré ABCD dans lequel les points évoluent: le coin A est le point en bas à gauche'''
 
-#carte est une liste de 2 points, donnant le coin supérieur gauche et le coin inférieur droit A_map , C_map et définit par leur longitude et latitude
+#carte est une liste de 2 points, donnant le coin supérieur gauche et le coin inférieur droit A_map , C_map définis par leur longitude et latitude
 
 
 def carre_int(carte):
@@ -60,5 +60,6 @@ def conversion_deg_m(P):
     return geo.Point(x_m, y_m, P.z)
 
 def conversion_mission(mission):
+    '''les points du trajet sont convertis en degrés'''
     for i in range(len(mission.trajet)):
         mission.trajet[i] = conversion_m_deg(mission.trajet[i])

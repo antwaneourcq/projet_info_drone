@@ -1,6 +1,6 @@
 import random
 import lecture_drones as ldr
-import geometry as geo
+import geometrie as geo
 import tirage_au_sort as tas
 import conflits
 import math
@@ -24,7 +24,7 @@ class Mission:
 
 
     def decoupe_trajet(self):
-        '''Découpe la trajectoire de la mission en 7 points stockés dans l'attribut trajet'''
+        '''Découpe la trajectoire de la mission en 7 points timés stockés dans l'attribut trajet'''
         # print('Client : ::: ', mission.client, '\nEntrepot : ', mission.entrepot, '\nDrone : ', mission.drone)
         arr, dep, drone = self.client, self.entrepot, self.drone
         alt = tas.alt_random()
@@ -96,7 +96,7 @@ class Client(geo.Timed_Point):
 
 
 def attribuer_entrepot(clients, entrepots):
-    '''entrepots est une LISTE d'entrepôts'''
+    '''entrepots est une liste d'entrepôts: attirbue un entrepot à un client'''
     l = len(entrepots)
     for cli in clients:
         if cli.entrepot == None:
@@ -159,25 +159,8 @@ def attribuer_missions(clients, id_mission): #clients est une liste d'objets de 
     #print('\ndrone correct', correctness, 'drones non traités ', drones_non_traites)
 
 
-
-
-
-
-def calcul_duree_mission(drone, p1, p4):
-    # drone est on objet de la classe Drone du module lecture_drones
-    # calcul le temps que met le drone pour faire un aller-retour de p1 à p4
-    
-    '''fonction obsolète?'''
-    #vit_vert = drone.h_speed_max
-    #vit_hori = drone.v_speed_max
-    #distance = calcule_distance(p1,p4)
-    #return 2 * (drone.current_position.z / vit_vert) + 2 * (distance / vit_hori)
-    dep = p1
-    arr = p4
-    return arr.t - dep.t
-
-
 def missions_actives(missions,t):
+    '''liste des missions en action à l'instant t'''
     missions_actives = []
     for m in missions:
         if m.heure_dmde + m.duree >= t >= m.heure_dmde :
@@ -185,22 +168,10 @@ def missions_actives(missions,t):
     return(missions_actives)
 
 
-e = Entrepot(100, 110, 120, ldr.listmodels(ldr.read("aircraft.json")))
-c = Client(0, 1, 2, 500)
-c.entrepot = e
-m = Mission(c)
-m.drone = ldr.Drone('EC35', geo.Point(100, 110, 120))
-m.decoupe_trajet()
-print('mission :', m, '\n', m.trajet)
-
 def retour(mission, t): #drone est un objet de la classe Drone et mission un objet de la classe Mission
+    '''lorsque le drone a fini sa mission il revient dans l'entrepot et peut repartir pour une prochaine mission'''
     print('retour: ', mission)
     print('trajet :', mission.trajet)
     print('\ndernier point', mission.trajet[-1], 'temps : ', mission.trajet[-1].t)
     if t > mission.trajet[-1].t:
-        print(m)
         mission.entrepot.models[str(mission.drone.model)] += 1
-
-    else:
-        pass
-
