@@ -1,6 +1,4 @@
 import geometrie as geo
-import trajet
-import Timer
 import math
 
 TCRI = 10 #temps critique de détection de conflit
@@ -53,23 +51,31 @@ def conflit(m1,m2):
     A,B,C,D = m1.entrepot , m1.client , m2.entrepot , m2.client
     if m1.trajet == [] or m2.trajet == []:
         print('mission vide')
-    elif m1.trajet != [] and m2.trajet !=[] and m1.trajet[1].z == m2.trajet[1].z:
+    elif m1.trajet and m2.trajet and m1.trajet[1].z == m2.trajet[1].z:
+        print('premiere condition ok')
         I = point_intersection(A, B, C, D)
+        print('intersection : ', I)
         if interception(A,B,C,D, I):
+            print('deuxieme condtion ok')
             I = point_intersection(A, B, C, D)
             t1, t2, t3, t4 = arrivee_en_I(m1, m2, I)
+            TCRI = 10 #modif
             if abs(t1-t2) <= TCRI : #sur les 2 allers
+                print ('!!conflit!!')
                 changer_altitude(m1, m2, I, t1, t2, True, True)
                 return I, t1,t2
             if abs(t3-t4)<TCRI: #sur les 2 retours
+                print ('!!conflit!!')
                 changer_altitude(m1, m2, I, t3, t4, False, False)
                 return I, t3,t4
             if abs(t3-t2)<TCRI: #sur retour m1 aller m2
+                print ('!!conflit!!')
                 changer_altitude(m1, m2, I, t3, t2, False, True)
                 return I, t3,t4
             if abs(t1-t4)<TCRI: #sur aller m1 retour m2
+                print ('!!conflit!!')
                 changer_altitude(m1, m2, I, t1, t4, True, False)
-                return I, t3,t4
+                return I, t3, t4
     else:
         print("aucun conflit", m1.trajet, m2.trajet)
 
@@ -100,57 +106,44 @@ def changer_altitude(m1,m2, I, t1, t2, aller1, aller2) :
     alti_sup = m1.alti[0] + 10
     m1.alti.append(alti_sup)
     p2_1, p3_1 = m1.trajet[i], m1.trajet[j]
-    #dp2I, dp3I = cal_distance(p2_1, I), cal_distance(p3_1, I)
-    try :
-        t = m1.trajet[i].t
+    dp2I, dp3I = cal_distance(p2_1, I), cal_distance(p3_1, I)
+    try:
+        print('essai')
+        print(p2_1, dp2I)
         x, y = abs ((I.x - p2_1.x)/2), abs((I.y - p2_1.y)/2)
+        print('xy atteint')
         z = alti_sup
-        t += cal_distance(I,geo.Point(x,y,z))/m1.drone.h_speed_max
+        t = cal_distance(I,geo.Point(x,y,z))/m1.drone.h_speed_max
+        print('zt atteint')
         u, v = abs ((I.x - p3_1.x)/2), abs((I.y - p3_1.y)/2)
         w = alti_sup
         tt = cal_distance(I,geo.Point(u,v,w))/m1.drone.h_speed_max
-        z_bas = m1.trajet[i].z
-        p4 = geo.Timed_Point(x, y, t)
-        t_montee = (z-z_bas)/m1.drone.v_speed_max
-        t += t_montee
+        print('wt')
         p5 = geo.Timed_Point(x, y, z, t)
-        t += cal_distance(I, geo.Point(u, v, w)) / m1.drone.h_speed_max
-        p6 = geo.Timed_Point(u, v, w, t)
-        p7 = geo.Timed_Point(u, v, w, t+t_montee)
-        m1.trajet = m1.trajet[:j]+ [p4, p5, p6, p7] + m1.trajet[j:]
+        p6 = geo.Timed_Point(u, v, w, tt)
+        m1.trajet = m1.trajet[:j]+ [p5, p6] + m1.trajet[j:]
         m1.duree += 2*10 / m1.drone.v_speed_max
-        for k in range(j, len(m1.trajet)):
-            m1.trajet[k].t += m1.duree
     except:
+        print('erreur')
         raise Exception
-    finally : return i,j
+    finally: return i, j
 
-def thales(A,I,m, dIA):
-    '''retourne les coordonnées du point entre A et I pour lequel le drone monte ou descends en utlisant le theoreme de thales et pythagore'''
-    v = 10 #modif m.drone.h_speed_max
-    xIA = abs(I.x - A.x)
-    if I.x != A.x:
-        x = abs(xIA - 5*v*xIA/dIA)
-        y = math.sqrt(((5*v)**2)*(1-(xIA/dIA)**2))
-        return x,y
-    
-###fonction inutile
+
 def heure_conflit(m1, m2):
-    I = conflit(m1, m2)
     t1, t2, t3, t4 = arrivee_en_I(m1, m2)
     maxt_all, mint_all = max(t1, t2), min(t1, t2)
     maxt_re, mint_re = max(t3, t4), min(t3, t4)
     return mint_all, maxt_all, maxt_re, mint_re
 
-def liste_conflits(l_mission):#ancienne version fonctionelle
-    '''donne la liste des missions en conflits'''
+
+def liste_conflits(l_mission):#nouvelle version non fonctionnelle problème avec le I t1 t2 conflit m1 m2 Nonetype objet non iterable
+    '''donnne la liste des missions en conflits avec le lieu et les temps estimés''' #modif
     n_missions = len(l_mission)
     conflits = []
     for i in range(n_missions):
         m1 = l_mission[i]
         for j in range(i+1, n_missions):
             m2 = l_mission[j]
-            pbl = conflit(m1, m2)
-            if pbl:
-                conflits.append((m1,m2))
+            if conflit(m1, m2):
+                conflits.append((m1, m2))
     return conflits

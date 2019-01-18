@@ -1,5 +1,4 @@
 import mappy
-import conflits
 
 Missions = 'missions.txt'
 
@@ -13,10 +12,11 @@ def convertisseur_temps(temps):
     h = heures % 24
     return j, h, m, s
     
-def ecriture_missions(Missions, l_mission, l_conflits):
+def ecriture_missions(Missions, l_mission, l_conflits, mission_vide, mission_traite):
     '''écrit dans un fichier Missions les caracteristiques de chaque mission, ainsi que les conflits détectés.'''
     with open(Missions, 'w') as f:
         f.write('{:~^50}\n\n'.format('Missions'))
+        f.write('missions vides: {}, missions traités: {}\n'.format(mission_vide, mission_traite))
         for m in l_mission:
             f.write('\nmission : {}'.format(m.id))
             f.write('\nclient : ')
@@ -32,15 +32,14 @@ def ecriture_missions(Missions, l_mission, l_conflits):
             f.write('{:^20}'.format('latitude: '))
             f.write('{:^20}\n'.format('altitude: '))
             for p in m.trajet :
-                # attention les points de trajet de chaque mission ont déjà été convertis en coordonnées sphériques par CZML
-                #p_real = mappy.conversion_m_deg(p)
+                # Attention les points de trajet de chaque mission ont déjà été convertis en coordonnées sphériques par CZML
                 f.write('{:^20}'.format(p.long))
                 f.write('{:^20}'.format(p.lat))
                 f.write('{:^20}\n'.format(p.z))
             f.write('\nconflits :')
-
         for c in l_conflits:
             f.write('\n')
+
                 #modif
             try :
                 f.write('les missions {} et {} sont en conflit\n'.format(c[0], c[1]))
@@ -51,3 +50,9 @@ def ecriture_missions(Missions, l_mission, l_conflits):
                 #conflits.conflit(c[0],c[1])))
         ##trouver un moyen pour avoir le temps du conflits et le points d'intersection
                 
+
+            try:
+                f.write('les missions {} et {} sont en conflit\n'.format(c[0], c[1]))
+            except:
+                f.write('erreur du conflit ' + str(c) + '\n')
+

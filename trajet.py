@@ -2,7 +2,6 @@ import random
 import lecture_drones as ldr
 import geometrie as geo
 import tirage_au_sort as tas
-import conflits
 import math
 
 
@@ -159,7 +158,7 @@ def attribuer_missions(clients, id_mission): #clients est une liste d'objets de 
     #print('\ndrone correct', correctness, 'drones non traités ', drones_non_traites)
 
 
-def missions_actives(missions,t):
+def missions_actives(missions, t):
     '''liste des missions en action à l'instant t'''
     missions_actives = []
     for m in missions:
@@ -175,3 +174,7 @@ def retour(mission, t): #drone est un objet de la classe Drone et mission un obj
     print('\ndernier point', mission.trajet[-1], 'temps : ', mission.trajet[-1].t)
     if t > mission.trajet[-1].t:
         mission.entrepot.models[str(mission.drone.model)] += 1
+
+    else:
+        pass
+
