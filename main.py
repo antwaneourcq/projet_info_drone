@@ -46,7 +46,7 @@ def main():
         missions_ajoutees, file_attente = tri(l1 , heure_demande), tri(l2, heure_demande2)
         for m in missions_ajoutees:
             missions.append(m)
-    l_conflits = conflits.liste_conflits(missions)
+    l_conflits = [] #conflits.liste_conflits(missions)
     czmlc.writeczml(missions)
     affichage.ecriture_missions(Missions, missions, l_conflits, mission_vide, mission_traite)
     import xmlconverter

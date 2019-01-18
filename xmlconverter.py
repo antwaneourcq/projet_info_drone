@@ -17,10 +17,12 @@ def ecriture_mission( Livraison_par_drones , l_mission , l_conflits,file):
         entrepot.text = '{0.entrepot}\n\n'.format(m)
 
         drone = ET.SubElement(mission , 'drone:')
-        drone.text = 'model : {0.model}\n vitesse_horizontale : {1.h_speed_max}\n\n'.format(m.drone, m.drone, m.drone )
-
-        altitude = ET.SubElement(mission, 'altitude')
-        altitude.text = '{0.alti}\n\n'.format(m)
+        try :
+            drone.text = 'model : {0.model}\n vitesse_horizontale : {1.h_speed_max}\n\n'.format(m.drone, m.drone, m.drone )
+            altitude = ET.SubElement(mission, 'altitude')
+            altitude.text = '{0.alti}\n\n'.format(m)
+        except:
+            drone.text = 'None'
 
     for c in l_conflits:
         conflit = ET.SubElement(Livraison_par_drones, "conflit")
