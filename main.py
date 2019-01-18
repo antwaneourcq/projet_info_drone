@@ -58,6 +58,14 @@ def main():
 
     czmlc.writeczml(missions)
     affichage.ecriture_missions(Missions, missions, l_conflits)
+
+    import xmlconverter
+    l_conflits = conflits.liste_conflits(missions)
+
+    xmlconverter.ecriture_mission(xmlconverter.Livraison_par_drones, missions, l_conflits,"Missions.xml" )
+   
+
+
 main()
 
 def test():
@@ -89,3 +97,5 @@ def test():
     print(m1.trajet)
     print(m2.trajet)
 #test()
+
+
