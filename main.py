@@ -49,9 +49,8 @@ def main():
     l_conflits = [] #conflits.liste_conflits(missions)
     czmlc.writeczml(missions)
     affichages.ecriture_txt(Missions, missions, l_conflits, mission_vide, mission_traite)
-    import xmlconverter
     l_conflits = conflits.liste_conflits(missions)
-    affichages.ecriture_xml(xmlconverter.Livraison_par_drones, missions, l_conflits,"Missions.xml" )
+    affichages.ecriture_xml(affichages.Livraison_par_drones, missions, l_conflits,"Missions.xml" )
    
 
 main()
