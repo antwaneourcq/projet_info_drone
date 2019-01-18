@@ -13,10 +13,11 @@ def convertisseur_temps(temps):
     h = heures % 24
     return j, h, m, s
     
-def ecriture_missions(Missions, l_mission, l_conflits):
+def ecriture_missions(Missions, l_mission, l_conflits, mission_vide, mission_traite):
     '''écrit dans un fichier Missions les caracteristiques de chaque mission, ainsi que les conflits détectés.'''
     with open(Missions, 'w') as f:
         f.write('{:~^50}\n\n'.format('Missions'))
+        f.write('missions vides: {}, missions traités: {}\n'.format(mission_vide, mission_traite))
         for m in l_mission:
             f.write('\nclient : ')
             cli_real = mappy.conversion_m_deg(m.client)

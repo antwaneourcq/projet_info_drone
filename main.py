@@ -47,9 +47,8 @@ def main():
         for m in missions_ajoutees:
             missions.append(m)
 
-    print('mission vide :', mission_vide, 'mission traitées :', mission_traite)
     #l_conflits = []
     l_conflits = conflits.liste_conflits(missions)
     czmlc.writeczml(missions)
-    affichage.ecriture_missions(Missions, missions, l_conflits)
+    affichage.ecriture_missions(Missions, missions, l_conflits, mission_vide, mission_traite)
 main()
