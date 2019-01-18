@@ -2,7 +2,7 @@ import mappy
 import trajet 
 import tirage_au_sort as tas
 import czmlconverter as czmlc
-import affichage
+import affichages
 import conflits
 FILE = "aircraft.json"
 Missions = 'missions.txt'
@@ -48,10 +48,10 @@ def main():
             missions.append(m)
     l_conflits = [] #conflits.liste_conflits(missions)
     czmlc.writeczml(missions)
-    affichage.ecriture_missions(Missions, missions, l_conflits, mission_vide, mission_traite)
+    affichages.ecriture_txt(Missions, missions, l_conflits, mission_vide, mission_traite)
     import xmlconverter
     l_conflits = conflits.liste_conflits(missions)
-    xmlconverter.ecriture_mission(xmlconverter.Livraison_par_drones, missions, l_conflits,"Missions.xml" )
+    affichages.ecriture_xml(xmlconverter.Livraison_par_drones, missions, l_conflits,"Missions.xml" )
    
 
 main()

@@ -5,7 +5,8 @@ Livraison_par_drones = ET.Element('Livraison_par_drones')
 Missions = 'missions.txt'
 
 
-def ecriture_mission( Livraison_par_drones , l_mission , l_conflits,file):
+def ecriture_xml( Livraison_par_drones , l_mission , l_conflits,file):
+    '''ecrit dans un fichier xml, les missions et leurs caractéristiques'''
     for m in l_mission :
         mission = ET.SubElement(Livraison_par_drones, "mission")
         mission.text = '\nid : {0}'.format(m.id)
@@ -41,7 +42,7 @@ def convertisseur_temps(temps):
     return j, h, m, s
 
 
-def ecriture_missions(Missions, l_mission, l_conflits, mission_vide, mission_traite):
+def ecriture_txt(Missions, l_mission, l_conflits, mission_vide, mission_traite):
     '''écrit dans un fichier Missions les caracteristiques de chaque mission, ainsi que les conflits détectés.'''
     with open(Missions, 'w') as f:
         f.write('{:~^50}\n\n'.format('Missions'))
