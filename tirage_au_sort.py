@@ -24,13 +24,10 @@ MODELS = ldr.listmodels(dico)
 
 def points_utiles(carte): #changer le nom de la fonction
     '''renvoie la liste des entrepôts et des clients et carte est une liste de 2 tuples de coordonnées, donnant le coin supérieur gauche et le coin inférieur droit'''
-    
-    
-    #l_clients est une liste d'objets de la classe client 
 
     nbr_entrepots = random.randint(5, NMAX_EN)
     nbr_clients = random.randint(nbr_entrepots, NMAX_CL)
-    l_entrepots, l_clients = [], []
+    l_entrepots, l_clients = [], []    #l_clients: liste d'objets de la classe client, l_entrepots: liste d'objets de la classe entrepots
     A_int, C_int, A_ext, C_ext = mappy.carre_int(carte)
     
     zone_droite = [A_ext.x, A_int.x, A_ext.y, C_int.y]       #0

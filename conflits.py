@@ -1,4 +1,4 @@
-import geometry as geo
+import geometrie as geo
 import trajet
 import Timer
 import math

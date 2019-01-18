@@ -1,21 +1,21 @@
 import json
-import geometry as geo
+import geometrie as geo
 
 FILE = "aircraft.json"
 
 
 def read(file):
-    '''reading the file by using json method'''
+    '''lit le fichier .json en utilisant la méthode json'''
     with open(file) as f:
         dico = json.load(f)
-    del dico["__comment"] ##1er dictionnaire __comment explicatif inutile pour la suite
+    del dico["__comment"] #1er dictionnaire __comment explicatif inutile pour la suite
     return dico
 
 
 class Drone():
     
     def __init__(self, key, coord, serial_number='serial_number'):
-        '''"key" of the main dictionary, "coord" : Point from geometry, "available" if in a warehouse, "serial number" defined as str ex "_00"'''
+        '''"key" clé pour le dictionnaire issu de aircraft.json, "coord" : Point du module geometry, "available" si le drone est dans l'entrepot,'''
         self.model =  key
         dico = read(FILE)
         self.h_speed_max = dico[key]['envelop']['v_max']
@@ -41,15 +41,3 @@ def listmodels(dico):
         
     return models
 
-def test():
-    dico = read("aircraft.json")
-    drones_model = dico.keys()
-    print(drones_model) #probleme avec dict_keys([...])
-    drones_model0 = []
-    for key in dico.keys():
-        drones_model0.append(key)
-    print(drones_model0)
-    first_drone = Drone(drones_model0[0], (5, 2, 0, 0), '_01')
-    print(first_drone)
-    #for i in range(len(drones_model)):
-        
