@@ -40,14 +40,14 @@ def ecriture_missions(Missions, l_mission, l_conflits):
             f.write('\nconflits :')
 
         for c in l_conflits:
-               f.write('\n')
+            f.write('\n')
                 #modif
-                try :
-                    f.write('les missions {} et {} sont en conflit\n'.format(c[0], c[1]))
+            try :
+                f.write('les missions {} et {} sont en conflit\n'.format(c[0], c[1]))
                     #f.write('le conflit se passera entre {} et {} secondes\n'.format(c[3], c[4]))#conflits.heure_conflit(c[0], c[1])))
                     #f.write('lieu du conflit : {}\n'.format(c[2]))
-                except:
-                    f.write('erreur du conflit ' + str(c) + '\n')
+            except:
+                f.write('erreur du conflit ' + str(c) + '\n')
                 #conflits.conflit(c[0],c[1])))
         ##trouver un moyen pour avoir le temps du conflits et le points d'intersection
                 
