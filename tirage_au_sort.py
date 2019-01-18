@@ -4,11 +4,11 @@ import mappy
 import trajet
 
 
-NMAX_CL = 150#nombre maximal de clients autorisés
-NMAX_EN = 10 #nombre maximal d'entrepôts autorisés
-NMAX_DR = 10 #nombre maximal de drones autorisés
+NMAX_CL = 150   #nombre maximal de clients autorisés
+NMAX_EN = 10    #nombre maximal d'entrepôts autorisés
+NMAX_DR = 10    #nombre maximal de drones autorisés
 
-#plage d'altitude de mouvement des drones
+#Plage d'altitude de mouvement des drones
 Z_ALT_MIN = 300
 Z_ALT_MAX = 600
 STEP = 25

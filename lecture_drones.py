@@ -36,5 +36,5 @@ class Drone():
 def listmodels(dico):
     models = []
     for key in dico.keys():
-        models.append(Drone(key, geo.Point(float('inf'),float('inf'),0)))
+        models.append(Drone(key, geo.Point(float('inf'), float('inf'), 0)))
     return models
