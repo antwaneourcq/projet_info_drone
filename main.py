@@ -7,18 +7,6 @@ import conflits
 FILE = "aircraft.json"
 
 
-def heure_demande(mission):
-    return mission.heure_dmde
-
-def heure_demande2(client):
-    return client.t
-
-def tri(liste , f):
-    return sorted(liste,key=f)
-
-
-
-
 def main():
     carte = (mappy.A, mappy.C)
     entrepots, clients = tas.points_utiles(carte)  #, carre_ext
@@ -53,5 +41,15 @@ def main():
     l_conflits = conflits.liste_conflits(missions)
     affichages.ecriture_xml(affichages.Livraison_par_drones, missions, l_conflits,"Missions.xml" )
    
+
+def heure_demande(mission):
+    return mission.heure_dmde
+
+def heure_demande2(client):
+    return client.t
+
+def tri(liste , f):
+    return sorted(liste,key=f)
+
 
 main()
