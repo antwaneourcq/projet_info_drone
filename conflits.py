@@ -71,7 +71,7 @@ def conflit(m1,m2):
                 changer_altitude(m1, m2, I, t1, t4, True, False)
                 return I, t3,t4
     else:
-        print("aucun conflit", m1.trajet, m2.trajet, test)
+        print("aucun conflit", m1.trajet, m2.trajet)
 
 def arrivee_en_I (m1, m2, I):
     #I = conflit(m1,m2)

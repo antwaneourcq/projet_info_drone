@@ -24,7 +24,7 @@ class Mission:
 
 
     def decoupe_trajet(self):
-        '''Découpe la trajectoire de la mission en 7 points stockés dans l'attribut trajet'''
+        '''Découpe la trajectoire de la mission en 7 points timés stockés dans l'attribut trajet'''
         # print('Client : ::: ', mission.client, '\nEntrepot : ', mission.entrepot, '\nDrone : ', mission.drone)
         arr, dep, drone = self.client, self.entrepot, self.drone
         alt = tas.alt_random()
@@ -174,5 +174,4 @@ def retour(mission, t): #drone est un objet de la classe Drone et mission un obj
     print('trajet :', mission.trajet)
     print('\ndernier point', mission.trajet[-1], 'temps : ', mission.trajet[-1].t)
     if t > mission.trajet[-1].t:
-        print(m)
         mission.entrepot.models[str(mission.drone.model)] += 1
