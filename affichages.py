@@ -2,7 +2,6 @@ import xml.etree.cElementTree as ET
 import mappy
 
 Livraison_par_drones = ET.Element('Livraison_par_drones')
-Missions = 'missions.txt'
 
 
 def ecriture_xml( Livraison_par_drones , l_mission , l_conflits,file):
