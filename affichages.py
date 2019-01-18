@@ -67,7 +67,6 @@ def ecriture_txt(Missions, l_mission, l_conflits, mission_vide, mission_traite):
                 f.write('{:^20}'.format(p.long))
                 f.write('{:^20}'.format(p.lat))
                 f.write('{:^20}\n'.format(p.z))
-            f.write('\nconflits :')
         for c in l_conflits:
             f.write('\n')
             try:
