@@ -1,6 +1,4 @@
 import geometrie as geo
-import trajet
-import Timer
 import math
 
 TCRI = 10 #temps critique de détection de conflit
@@ -129,16 +127,6 @@ def changer_altitude(m1,m2, I, t1, t2, aller1, aller2) :
         print('erreur')
         raise Exception
     finally: return i, j
-
-
-def thales(A,I,m, dIA):
-    '''retourne les coordonnées du point entre A et I pour lequel le drone monte ou descends en utlisant le theoreme de thales et pythagore'''
-    v = 10 #modif m.drone.h_speed_max
-    xIA = abs(I.x - A.x)
-    if I.x != A.x:
-        x = abs(xIA - 5*v*xIA/dIA)
-        y = math.sqrt(((5*v)**2)*(1-(xIA/dIA)**2))
-        return x,y
 
 
 def heure_conflit(m1, m2):

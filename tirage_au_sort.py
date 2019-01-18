@@ -4,10 +4,6 @@ import mappy
 import trajet
 
 
-
-
-
-
 NMAX_CL = 150#nombre maximal de clients autorisés
 NMAX_EN = 10 #nombre maximal d'entrepôts autorisés
 NMAX_DR = 10 #nombre maximal de drones autorisés
