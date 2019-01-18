@@ -19,12 +19,10 @@ class Mission:
         
     def __repr__(self):
         return 'mission : '+ str(self.id) + ' (entrepot : ' + str(self.entrepot) +')'
-        #+ ', client : ' + str(self.client) + ', temps : ' + str(self.heure_dmde) + ', drone : ' + str(self.drone)
 
 
     def decoupe_trajet(self):
         '''Découpe la trajectoire de la mission en 7 points timés stockés dans l'attribut trajet'''
-        # print('Client : ::: ', mission.client, '\nEntrepot : ', mission.entrepot, '\nDrone : ', mission.drone)
         arr, dep, drone = self.client, self.entrepot, self.drone
         alt = tas.alt_random()
         distance = calcule_distance(self.client)
@@ -72,8 +70,7 @@ class Entrepot(geo.Point):
         self.id = id
 
     def __repr__(self):
-        return str(self.id) 
-        #+ '(' + str(self.x) + ',' + str(self.y) + ',' + str(self.z) + ')' + ' drones : ' + str(self.models)
+        return str(self.id)
 
     def add_drone(self, drone):
         self.models[str(drone.model)] += 1
@@ -128,7 +125,7 @@ def capacite_drone(client):
                     drone_correct = dro
                     vit = dro.h_speed_max
     return drone_correct  # drone est un objet de la classe Drone du module lecture_drone
-# supprimer le try except
+
 
 def attribuer_missions(clients, id_mission): #clients est une liste d'objets de la classe Client
     '''renvoie une liste de missions , determinées en fonction des clients et entrepots tirés au sort'''
@@ -149,13 +146,10 @@ def attribuer_missions(clients, id_mission): #clients est une liste d'objets de 
             m.decoupe_trajet()
 
         else :
-            #traite le cas où le drone == None
             drones_non_traites += 1
             file_attente.append(cli)
         missions.append(m)
-        # print('MISSSIONSSSS : ', missions, '\n\nla mission : ', m)
     return missions, file_attente
-    #print('\ndrone correct', correctness, 'drones non traités ', drones_non_traites)
 
 
 def missions_actives(missions, t):
@@ -169,12 +163,5 @@ def missions_actives(missions, t):
 
 def retour(mission, t): #drone est un objet de la classe Drone et mission un objet de la classe Mission
     '''lorsque le drone a fini sa mission il revient dans l'entrepot et peut repartir pour une prochaine mission'''
-    print('retour: ', mission)
-    print('trajet :', mission.trajet)
-    print('\ndernier point', mission.trajet[-1], 'temps : ', mission.trajet[-1].t)
     if t > mission.trajet[-1].t:
         mission.entrepot.models[str(mission.drone.model)] += 1
-
-    else:
-        pass
-
